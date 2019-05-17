@@ -9,7 +9,7 @@ class GameManager extends Component {
     }
 
     generateRoomId() {
-        return Math.floor(10000000 + Math.random() * 90000000);
+        return 10000000 + Math.floor(Math.random() * 90000000);
     }
 
     createRoom(organizer, category, settings) {
