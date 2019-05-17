@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import GameManager from './GameManager';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 function App() {
     let Home = () => {
@@ -20,6 +20,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" render={Home} />
                     <Route path="/gameManager" component={GameManager} />
+                    <Redirect to='/' />
                 </Switch>
             </header>
         </div>
