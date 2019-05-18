@@ -1,36 +1,42 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
+let uniqid = require('uniqid');
 
 class GameManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false
         }
     }
 
     generateRoomId() {
-        return 10000000 + Math.floor(Math.random() * 90000000);
+        return uniqid();
     }
 
-    createRoom(organizer, category, settings) {
-        let roomId = this.generateRoomId();
-        let roomRef = firebase.database().ref('Rooms').child('Room' + roomId);
-        
+    handleCreateRoom(organizer, category, settings) {
+        let uid = this.generateRoomId()
+        let roomRef = firebase.database().ref('Rooms').push();
         roomRef.set({
-            roomId: roomId,
-            room_name: "Room" + roomId,
+            roomId: uid,
+            room_name: "Room" + uid,
             organizer: organizer,
             category: category,
             settings: settings
         });
     }
+
+    handleJoin(player, id) {
+
+    }
+
     render() {
         // Dummy test
-        this.createRoom("Marie", "sports", {Analysis:true , Timer: 60});
+        this.handleCreateRoom("Marie", "sports", { Analysis: true, Timer: 60 });
 
-        return(
-            <div>
-                Coming Soon!
+        return (
+             <div>
+        Coming Soon!
             </div>
         );
     }

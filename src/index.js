@@ -9,15 +9,17 @@ import 'firebase/database';
 import App from './App';
 
 // Your web app's Firebase configuration
-var firebaseConfig = {
-    apiKey: "AIzaSyDx8jSTW3BxC-QMHbRSgyEcC59p0Br4yfE",
+const api_key = process.env.REACT_APP_FIREBASE_API_KEY;
+
+let firebaseConfig = {
+    apiKey: api_key,
     authDomain: "ice-breakers-af61f.firebaseapp.com",
     databaseURL: "https://ice-breakers-af61f.firebaseio.com",
     projectId: "ice-breakers-af61f",
     storageBucket: "ice-breakers-af61f.appspot.com",
     messagingSenderId: "399650517987",
-    appId: "1:399650517987:web:7fbade3616eabbe3"
-};
+    appId: "1:399650517987:web:2b16ba20914b7fbb"
+  };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
