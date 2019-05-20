@@ -17,6 +17,7 @@ class GameManager extends Component {
     handleCreateRoom(organizer, category, settings) {
         let uid = this.generateRoomId()
         let roomRef = firebase.database().ref('Rooms').push();
+
         roomRef.set({
             roomId: uid,
             room_name: "Room" + uid,
@@ -24,6 +25,8 @@ class GameManager extends Component {
             category: category,
             settings: settings
         });
+
+        return uid;
     }
 
     handleJoin(player, id) {
@@ -31,9 +34,6 @@ class GameManager extends Component {
     }
 
     render() {
-        // Dummy test
-        this.handleCreateRoom("Marie", "sports", { Analysis: true, Timer: 60 });
-
         return (
              <div>
         Coming Soon!
