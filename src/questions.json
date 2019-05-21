@@ -1,0 +1,167 @@
+[
+    {
+        "category":"travel",
+        "questions": [
+            {
+                "Do you prefer to traven alone or in a group?": ["Solo", "Group"],
+                "Do you send post cards?": ["Yes", "No"],
+                "Window or aisle seat": ["Window", "Aisle"],
+                "Have you traveled abroad?": ["Yes", "No"],
+                "Have you ever had any bad travel experiences?": ["Yes", "No"],
+                "Airbnb or hotels": ["Airbnb", "Hotels"],
+                "How often have you gone camping?": ["Less than 5 times", "More than 5 times"],
+                "Have you ever been on a cruise?": ["Yes", "No"],
+                "Could you live in another country for the rest of your life?": ["Yes", "No"],
+                "Have you ever been on an airplane?": ["Yes", "No"],
+                "Have you ever gotten lost while travelling?": ["Yes", "No"],
+                "Do you prefer active or relaxing holidays?": ["Active", "Relaxing"],
+                "Do you travel with a lot of baggage or do you like to travel light": ["Baggage", "Light"],
+                "Do you prefer hot countries or cool countries when you go on a holiday?": ["Hot", "Cool"],
+                "Has the airline ever lost your luggage?": ["Yes", "No"],
+                "How many languages can you speak fluently?": ["One", "More than one"],
+                "Have you ever been skydiving?": ["Yes", "No"],
+                "Have you ever been scuba diving?": ["Yes", "No"],
+                "Have you ever been skiing?": ["Yes", "No"],
+                "Have you ever been mountain climbing?": ["Yes", "No"],
+                "Are you a spontaneous traveller or a planner?": ["Spontaneous", "Planner"],
+            }
+        ]
+    },
+    {
+        "category":"food",
+        "questions": [
+            {
+                "Are you allergic to anything?": ["Yes", "No"],
+                "Do you like spicy food?": ["Yes", "No"],
+                "Are you a good cook?": ["Yes", "No"],
+                "Do you drink coffee?": ["Yes", "No"],
+                "Milk chocolate or dark chocolate?": ["Milk", "Dark"],
+                "Tea or coffee": ["Tea", "Coffee"],
+                "Do you follow cookbooks or online recipes?": ["Cookbooks", "Online"],
+                "Do you prefer gum or mints?": ["Gum", "Mints"],
+                "Have you ever eaten spam?": ["Yes", "No"],
+                "Do you watch cooking or food shows?": ["Yes", "No"],
+                "Do you prefer to eat unhealthy or healthy food?": ["Unhealthy", "Healthy"],
+                "Do you eat different foods depending on the season or weather?": ["Yes", "No"],
+                "Do you eat a lot of small portions or a few large portions of food each day?": ["Small", "Large"],
+                "Do you think that organic food is much better than normal food or are they about the same?": ["Better", "Same"],
+                "Do you follow any food taboos?": ["Yes", "No"],
+                "Do you have a go-to comfort food?": ["Yes", "No"]
+            }
+        ]
+    },
+    {
+        "category":"sports",
+        "questions": [
+            {
+                "Do atheletes deserve the high salaries they receive?": ["Yes", "No"],
+                "Do you play sports video games?": ["Yes", "No"],
+                "Do you play any sports?": ["Yes", "No"],
+                "Are you a member of any sports team?": ["Yes", "No"],
+                "Do you like to exercise?": ["Yes", "No"],
+                "Do you like playing tennis?": ["Yes", "No"],
+                "Do you like to snowboard?": ["Yes", "No"],
+                "Do you watch sports on TV?": ["Yes", "No"],
+                "Have you ever been to watch a professional sporting event?": ["Yes", "No"],
+                "Have you ever been to a football game?": ["Yes", "No"],
+                "Do you like to ski?": ["Yes", "No"],
+                "Do you know how to swim?": ["Yes", "No"],
+                "Have you watched any sports live at a sports ground or stadium?": ["Yes", "No"],
+                "Do you have a favorite athelete?": ["Yes", "No"],
+                "Do you have a favorite sport?": ["Yes", "No"],
+                "Is there a sport you never done but always wanted to try?": ["Yes", "No"],
+                "Do you prefer to watch sports or play them?": ["Watch", "Play"],
+                "How often do you play sports?": ["Less than twice a week", "More"],
+                "Have you ever met a sports celebrity?": ["Yes", "No"],
+                "Do you have a favorite sports team?": ["Yes", "No"],
+                "Are there any extreme sports you would like to try?": ["Yes", "No"]
+            }
+        ]
+    },
+    {
+        "category":"music",
+        "questions": [
+            {
+                "Do you like going to concerts?": ["Yes", "No"],
+                "Do you like classical music?": ["Yes", "No"],
+                "Do you like country music?": ["Yes", "No"],
+                "Have you ever seen a broadway musical?": ["Yes", "No"],
+                "Are you a good singer?": ["Yes", "No"],
+                "Do you enjoy music videos?": ["Yes", "No"],
+                "Do you still download MP3 files?": ["Yes", "No"],
+                "Apple music or Spotify": ["Apple", "Spotify"],
+                "Do you like jazz?": ["Yes", "No"],
+                "Do you like singing karaoke?": ["Yes", "No"],
+                "Do you like to dance?": ["Yes", "No"],
+                "Do you sing in the shower?": ["Yes", "No"],
+                "Do you see buskers in your area?": ["Yes", "No"],
+                "Do you listen to music when you exercise?": ["Yes", "No"],
+                "Do you listen to music when you commute to work or school?": ["Yes", "No"],
+                "Do you like EDM?": ["Yes", "No"],
+                "Do you listen to the radio?": ["Yes", "No"],
+                "Do you think music changes how you dress or act?": ["Yes", "No"]
+            }
+        ]
+    },
+    {
+        "category":"movies",
+        "questions": [
+            {
+                "Do you prefer to watch movies in the theater or at home?": ["Theater", "Home"],
+                "Do you like documentaries?": ["Yes", "No"],
+                "Do movies have the same power as books to change the world?": ["Yes", "No"],
+                "Do you like horror movies?": ["Yes", "No"],
+                "Do you prefer books or movies?": ["Books", "Movies"],
+                "How often do you go to the movies?": ["Once a month", "More"],
+                "If a book has been made into a movie, which do you see first?": ["Book", "Movie"],
+                "Do you think films can be educational?": ["Yes", "No"],
+                "Do you like to see a movie many times?": ["Yes", "No"],
+                "Do you like foreign films?": ["Yes", "No"],
+                "Do you think a movie has to be expensive to become a blockbuster?": ["Yes", "No"],
+                "Do you usually eat something while you are watching a film at the cinema?": ["Yes", "No"],
+                "Do you like animated films?": ["Yes", "No"],
+                "Have you ever thought about what super powers you'd like to have?": ["Yes", "No"],
+                "Do you cry during movies?": ["Yes", "No"],
+                "Netflix or Hulu?": ["Netflix", "Hulu"],
+                "Do you like old black and white movies?": ["Yes", "No"],
+                "Have you ever walked out of a movie?": ["Yes", "No"],
+                "Do you have a favorite actor or actress?": ["Yes", "No"]
+            }
+        ]
+    },
+    {
+        "category":"books",
+        "questions": [
+            {
+                "Do you prefer physical books or ebooks?": ["Physical", "Ebooks"],
+                "Do you prefer fiction or nonfiction books?": ["Fiction", "Nonfiction"],
+                "Do you think people read more or less books now than 50 years ago?": ["More", "Less"],
+                "Have you ever belonged to a book club?": ["Yes", "No"],
+                "Do you read many books?": ["Yes", "No"],
+                
+            }
+        ]
+    },
+    {
+        "category":"animals",
+        "questions": [
+            {
+                "Do you have a pet?": ["Yes", "No"],
+                "Did you grow up with pets in your home?": ["Yes", "No"],
+                "Are you afraid of snakes?": ["Yes", "No"],
+                "Are you frightened of spiders?": ["Yes", "No"],
+                "Do you know someone who owns an unusual pet?": ["Yes", "No"],
+                "Have you ever ridden a horse?": ["Yes", "No"],
+                "Do you think it is acceptable to test cosmetics on animals?": ["Yes", "No"],
+                "Do you think animals dream?": ["Yes", "No"],
+                "Have you ever been to a farm?": ["Yes", "No"],
+                "Do you prefer dogs or cats?": ["Dogs", "Cats"],
+                "Do you enjoy going to the zoo?": ["Yes", "No"],
+                "Are you vegetarian or vegan?": ["Yes", "No"],
+                "Who would win a fight between a tiger and a lion?": ["Tiger", "Lion"],
+                "If we can bring an extinct animal from the past back with genetic engineering, should we do it?": ["Yes", "No"],
+
+            }
+        ]
+    }
+]

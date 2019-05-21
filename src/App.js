@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import GameManager from './GameManager';
 import { Route, Switch, Redirect } from 'react-router-dom';
+
+// To do later: loading spin
+
 class App extends Component{
     constructor(props) {
         super(props)
@@ -15,6 +18,7 @@ class App extends Component{
         this.setState({user: type});
     }
     render() {
+    {/*Home page*/}
     let Home = () => {
         return  (
             <div>
@@ -30,7 +34,7 @@ class App extends Component{
             </div>
         );
     }
-
+    {/*To switch components*/}
     return ( 
         <div className="App" >
             <header className="App-header" >

@@ -17,15 +17,13 @@ class GameManager extends Component {
     handleCreateRoom(organizer, category, settings) {
         let uid = this.generateRoomId()
         let roomRef = firebase.database().ref('Rooms').push();
-
         roomRef.set({
             roomId: uid,
-            room_name: "Room" + uid,
+            room_name: "Room-" + uid,
             organizer: organizer,
             category: category,
             settings: settings
         });
-
         return uid;
     }
 
