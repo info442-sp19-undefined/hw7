@@ -138,7 +138,20 @@
                 "Do you think people read more or less books now than 50 years ago?": ["More", "Less"],
                 "Have you ever belonged to a book club?": ["Yes", "No"],
                 "Do you read many books?": ["Yes", "No"],
-                
+                "Do you like to read?": ["Yes", "No"],
+                "Are you reading a book rigth now?": ["Yes", "No"],
+                "Have you ever re-read a book?": ["Yes", "No"],
+                "Do you think books make a good gift?": ["Yes", "No"],
+                "Do you have a personal list of top ten books": ["Yes", "No"],
+                "Do you usually read books for enjoyment of information?": ["Yes", "No"],
+                "Do you usually buy paperback books or hardbacks?": ["Yes", "No"],
+                "Do you prefer to get books from the library, from bookshops or from on-line sellers?": ["Yes", "No"],
+                "Do you read book reviews?": ["Yes", "No"],
+                "Do you think ebooks will ever fully replace paper books?": ["Yes", "No"],
+                "Do you like to read poems, essays, or short stories?": ["Yes", "No"],
+                "Do you ever read comic books (or did you use to)?": ["Yes", "No"],
+                "Did you have a favourite book character as a child?": ["Yes", "No"],
+                "What language did you first learn to read in?": ["English", "Other"]
             }
         ]
     },
@@ -146,7 +159,7 @@
         "category":"animals",
         "questions": [
             {
-                "Do you have a pet?": ["Yes", "No"],
+                "Do you have any pets?": ["Yes", "No"],
                 "Did you grow up with pets in your home?": ["Yes", "No"],
                 "Are you afraid of snakes?": ["Yes", "No"],
                 "Are you frightened of spiders?": ["Yes", "No"],
@@ -160,7 +173,10 @@
                 "Are you vegetarian or vegan?": ["Yes", "No"],
                 "Who would win a fight between a tiger and a lion?": ["Tiger", "Lion"],
                 "If we can bring an extinct animal from the past back with genetic engineering, should we do it?": ["Yes", "No"],
-
+                "Would you like to go on an African safari?": ["Yes", "No"],
+                "Would you get a pet reptile?": ["Yes", "No"],
+                "Would you allow your pet to sleep on your bed?": ["Yes", "No"],
+                "Do you wonder what animals are thinking?": ["Yes", "No"]
             }
         ]
     }
