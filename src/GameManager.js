@@ -16,10 +16,9 @@ class GameManager extends Component {
             fname: "",
             uid: "",
             roomName: "",
-            numQuestions: 0,
+            numQuestions: 5,
             toggleAnalysis: false,
-            toggleRanking: false,
-            timer: 0
+            toggleRanking: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -39,11 +38,11 @@ class GameManager extends Component {
             room_name: this.state.roomName,
             settings: {
                 Number_Questions: this.state.numQuestions,
-                timer: this.state.timer,
                 showAnalysis: this.state.toggleAnalysis,
                 showRanking: this.state.toggleRanking
             }
         });
+    }
 
     isValid(val, name) {
         if (name === "numQuestions") {
@@ -93,6 +92,7 @@ class GameManager extends Component {
                             max={15}
                             type="number"
                             step="1"
+                            defaultValue={5}
                             onChange={this.handleChange}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
@@ -101,26 +101,13 @@ class GameManager extends Component {
                 <FormGroup>
                     <Label check>
                         <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Show Analysis
-          </Label>
+                    </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label check>
                         <Input type="checkbox" name="toggleRanking" onClick={this.onClick} /> Show Ranking
-          </Label>
+                    </Label>
                 </FormGroup>
-                <Label>Discussion Time (optional)</Label>
-                <InputGroup>
-                    <Input
-                        placeholder="Time"
-                        min={0}
-                        max={60}
-                        name="timer"
-                        type="number"
-                        step="1"
-                        onChange={this.handleChange}
-                    />
-                    <InputGroupAddon addonType="append">seconds</InputGroupAddon>
-                </InputGroup>
                 <button onClick={this.handleCreateRoom} disabled={!isEnabled}>Next</button>
             </div>
         );
