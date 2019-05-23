@@ -29,6 +29,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" render={Home} />
                     <Route path="/NewRoom" component={GameManager} />
+                    <Route path="/JoinRoom" />
                     <Redirect to='/' />
                 </Switch>
             </header>
