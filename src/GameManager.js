@@ -44,7 +44,6 @@ class GameManager extends Component {
                 showRanking: this.state.toggleRanking
             }
         });
-    }
 
     isValid(val, name) {
         if (name === "numQuestions") {
