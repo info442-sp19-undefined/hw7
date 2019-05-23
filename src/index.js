@@ -7,6 +7,7 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Your web app's Firebase configuration
 const api_key = process.env.REACT_APP_FIREBASE_API_KEY;

@@ -2,28 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 import GameManager from './GameManager';
 import { Route, Switch, Redirect } from 'react-router-dom';
-class App extends Component{
-    constructor(props) {
-        super(props)
-        this.state = {
-            user: ""
-        }
-        this.updateUserType = this.updateUserType.bind(this);
-    }
 
-    updateUserType(type) {
-        this.setState({user: type});
-    }
+class App extends Component{
     render() {
     let Home = () => {
         return  (
             <div>
                 <h1>Dive-In!</h1>
                 <div className="buttonContainer">
-                    <a href="/">
+                    <a href="/JoinRoom">
                         <button onClick={() => this.updateUserType("Player")}> Join a Room </button>
                     </a>
-                    <a href="/gameManager">
+                    <a href="/NewRoom">
                         <button onClick={() => this.updateUserType("Organizer")}> New Room </button>
                     </a>
                 </div>
@@ -36,7 +26,7 @@ class App extends Component{
             <header className="App-header" >
                 <Switch>
                     <Route exact path="/" render={Home} />
-                    <Route path="/gameManager" component={(props) => <GameManager/>} />
+                    <Route path="/NewRoom" component={GameManager} />
                     <Redirect to='/' />
                 </Switch>
             </header>
