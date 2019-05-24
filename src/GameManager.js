@@ -71,7 +71,7 @@ class GameManager extends Component {
         });
     }
     render() {
-        const isEnabled = (this.state.fname !== "" || this.state.numQuestions !== 0);
+        let isEnabled = (this.state.fname !== "" || this.state.numQuestions !== 0);
         return (
             <div className="Settings">
                 <h1 className="header">Settings</h1>
