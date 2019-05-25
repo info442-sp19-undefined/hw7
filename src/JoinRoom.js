@@ -8,7 +8,8 @@ class JoinRoom extends Component {
     this.state = {
       fname: "",
       uid: "",
-      icon: "profile1.png"
+      icon: "profile1.png",
+      joined:false
     };
     this.handleChange = this.handleChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -29,6 +30,7 @@ class JoinRoom extends Component {
           name: this.state.fname,
           icon: this.state.icon
         })
+        this.setState({joined:true});
       } else {
         alert("Oh no! Seems that room doesn't exist!");
         document.getElementById('join-form').reset();
@@ -43,6 +45,22 @@ class JoinRoom extends Component {
   }
   render() {
     let isEnabled = this.state.uid !== "" && this.state.fname !== "";
+
+    // Render different buttons whether the user has successfully been added to the room or not
+    let button = null;
+    if (!this.state.joined) {
+        button = (
+          <Button onClick={this.handleJoin} disabled={!isEnabled}>
+            Add New Player
+          </Button>
+        )
+      } else {
+        button = ( 
+          <Button href="/Categories">
+            Join Room
+          </Button>
+        )
+    }
     return (
       <div>
         <Form id="join-form">
@@ -104,11 +122,7 @@ class JoinRoom extends Component {
               </div>
             </Col>
           </Row>
-          <a href="/Categories">
-            <Button onClick={this.handleJoin} disabled={!isEnabled}>
-              Join
-            </Button>
-          </a>
+          {button}
         </Form>
       </div>
     );
