@@ -104,9 +104,11 @@ class JoinRoom extends Component {
               </div>
             </Col>
           </Row>
-          <Button onClick={this.handleJoin} disabled={!isEnabled}>
-            Join
-          </Button>
+          <a href="/Categories">
+            <Button onClick={this.handleJoin} disabled={!isEnabled}>
+              Join
+            </Button>
+          </a>
         </Form>
       </div>
     );

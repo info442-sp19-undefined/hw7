@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/App.css';
-import GameManager from './GameManager';
+import { GameManager, Categories } from './GameManager';
 import JoinRoom from './JoinRoom';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -31,6 +31,7 @@ class App extends Component {
                     <Route exact path="/" render={Home} />
                     <Route path="/NewRoom" component={GameManager} />
                     <Route path="/JoinRoom" component={JoinRoom}/>
+                    <Route path="/Categories" component={Categories}/>
                     <Redirect to='/' />
                 </Switch>
             </header>
