@@ -17,8 +17,7 @@ class GameManager extends Component {
             uid: "",
             roomName: "",
             numQuestions: 5,
-            toggleAnalysis: false,
-            toggleRanking: false
+            toggleAnalysis: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -38,8 +37,7 @@ class GameManager extends Component {
             room_name: this.state.roomName,
             settings: {
                 Number_Questions: this.state.numQuestions,
-                showAnalysis: this.state.toggleAnalysis,
-                showRanking: this.state.toggleRanking
+                showAnalysis: this.state.toggleAnalysis
             }
         });
     }
@@ -101,11 +99,6 @@ class GameManager extends Component {
                 <FormGroup>
                     <Label check>
                         <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Show Analysis
-                    </Label>
-                </FormGroup>
-                <FormGroup>
-                    <Label check>
-                        <Input type="checkbox" name="toggleRanking" onClick={this.onClick} /> Show Ranking
                     </Label>
                 </FormGroup>
                 <button onClick={this.handleCreateRoom} disabled={!isEnabled}>Next</button>
