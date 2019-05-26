@@ -1,0 +1,42 @@
+#join-form .image:hover {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+#join-form .image {
+    background: inherit;
+}
+
+.col div {
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(31, 87, 207);
+}
+
+.col div img {
+    position: absolute;
+    left: 2.6rem;
+    top: 1.5rem;
+    width: 3rem;
+}
+
+.col div:hover {
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+#customized {
+    position: absolute;
+    top: 2.8rem;
+}
+
+#random {
+    position: absolute;
+    top: 2.2rem;
+    left: 2.7rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2rem;
+}

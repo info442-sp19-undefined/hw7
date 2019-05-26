@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-import GameManager from './GameManager';
+import './css/App.css';
+import { GameManager, Categories } from './GameManager';
+import JoinRoom from './JoinRoom';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 // To do later: loading spin
@@ -29,7 +30,8 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" render={Home} />
                     <Route path="/NewRoom" component={GameManager} />
-                    <Route path="/JoinRoom" />
+                    <Route path="/JoinRoom" component={JoinRoom}/>
+                    <Route path="/Categories" component={Categories}/>
                     <Redirect to='/' />
                 </Switch>
             </header>

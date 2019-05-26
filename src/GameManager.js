@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import firebase from "firebase/app";
+import './css/room.css';
 import {
     FormGroup,
     InputGroup,
     InputGroupAddon,
     Input,
-    Label
+    Label,
+    Button,
+    Col,
+    Row
 } from "reactstrap";
-let uniqid = require("uniqid");
+const uniqid = require("uniqid");
 
-class GameManager extends Component {
+export class GameManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,8 +21,7 @@ class GameManager extends Component {
             uid: "",
             roomName: "",
             numQuestions: 5,
-            toggleAnalysis: false,
-            toggleRanking: false
+            toggleAnalysis: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -38,8 +41,7 @@ class GameManager extends Component {
             room_name: this.state.roomName,
             settings: {
                 Number_Questions: this.state.numQuestions,
-                showAnalysis: this.state.toggleAnalysis,
-                showRanking: this.state.toggleRanking
+                showAnalysis: this.state.toggleAnalysis
             }
         });
     }
@@ -71,9 +73,10 @@ class GameManager extends Component {
         });
     }
     render() {
-        const isEnabled = (this.state.fname !== "" && this.state.numQuestions !== 0);
+        let isEnabled = (this.state.fname !== "" || this.state.numQuestions !== 0);
         return (
             <div className="Settings">
+                <h1 className="header">Settings</h1>
                 <FormGroup className="userName">
                     <Label>Organizer Name </Label>
                     <Input placeholder="First Name" name="fname" onChange={this.handleChange} id="fname" />
@@ -103,15 +106,84 @@ class GameManager extends Component {
                         <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Show Analysis
                     </Label>
                 </FormGroup>
-                <FormGroup>
-                    <Label check>
-                        <Input type="checkbox" name="toggleRanking" onClick={this.onClick} /> Show Ranking
-                    </Label>
-                </FormGroup>
-                <button onClick={this.handleCreateRoom} disabled={!isEnabled}>Next</button>
+                <a href="/Categories">
+                    <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Next</Button>
+                </a>
             </div>
         );
     }
 }
 
-export default GameManager;
+export class Categories extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            category: ""
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange = e => {
+        this.setState({
+            category: e.target.name
+        });
+    }
+    render() {
+        return (
+            <div>
+                <h1>Categories</h1>
+                <Row>
+                    <Col>
+                        <div>
+                            <img onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel"/>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <img onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food"/>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <img onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports"/>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>
+                            <img onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music"/>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <img onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie"/>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <img onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book"/>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>
+                            <img onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal"/>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <img id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random"/>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <img id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized"/>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
+}
