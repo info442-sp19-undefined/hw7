@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import firebase from "firebase/app";
+import './css/room.css';
 import {
     FormGroup,
     InputGroup,
     InputGroupAddon,
     Input,
-    Label
+    Label,
+    Button,
+    Col,
+    Row
 } from "reactstrap";
-let uniqid = require("uniqid");
+const uniqid = require("uniqid");
 
-class GameManager extends Component {
+export class GameManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -69,9 +73,10 @@ class GameManager extends Component {
         });
     }
     render() {
-        const isEnabled = (this.state.fname !== "" && this.state.numQuestions !== 0);
+        let isEnabled = (this.state.fname !== "" || this.state.numQuestions !== 0);
         return (
             <div className="Settings">
+                <h1 className="header">Settings</h1>
                 <FormGroup className="userName">
                     <Label>Organizer Name </Label>
                     <Input placeholder="First Name" name="fname" onChange={this.handleChange} id="fname" />
@@ -101,10 +106,113 @@ class GameManager extends Component {
                         <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Show Analysis
                     </Label>
                 </FormGroup>
-                <button onClick={this.handleCreateRoom} disabled={!isEnabled}>Next</button>
+                <a href="/Categories">
+                    <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Next</Button>
+                </a>
             </div>
         );
     }
 }
 
-export default GameManager;
+export class Categories extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            category: "",
+            questions:[]
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange = e => {
+        this.setState({
+            category: e.target.name,
+            questions: []
+        });
+        this.getQuestions();
+    }
+
+    getQuestions() {
+        fetch('../src/questions.json').then(function (response) {
+            console.log("does it go in the first bit");
+            return response.text();
+        }).then(function(data) {
+            console.log("does it go in the second bit");
+            console.log(data);
+            this.setState({questions:data});
+            return data;
+        }).catch(function(error) {
+            //function to catch the error if the questions is not loaded
+            alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+            console.log(error);
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Categories</h1>
+                <Row>
+                    <Col>
+                        <div>
+                            <p>Travel</p>
+                            <img onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <p>Food</p>
+                            <img onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <p>Sports</p>
+                            <img onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports" />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>
+                            <p>Music</p>
+                            <img onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <p>Movies</p>
+                            <img onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <p>Books</p>
+                            <img onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>
+                            <p>Animals</p>
+                            <img onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <p>Random</p>
+                            <img id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <p>Customize</p>
+                            <img id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized" />
+                        </div>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
+}
