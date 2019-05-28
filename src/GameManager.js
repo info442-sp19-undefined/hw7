@@ -107,7 +107,7 @@ export class GameManager extends Component {
                     </Label>
                 </FormGroup>
                 <a href="/Categories">
-                    <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Next</Button>
+                    <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Create Room</Button>
                 </a>
             </div>
         );
