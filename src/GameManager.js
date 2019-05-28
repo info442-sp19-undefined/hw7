@@ -118,7 +118,6 @@ export class Categories extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            category: "",
             questions:[]
         }
         this.handleChange = this.handleChange.bind(this);
@@ -126,20 +125,29 @@ export class Categories extends Component {
 
     componentDidMount() {
         // Check file whether file is empty
-        if (questionFile.length !== 0) {
+        if (questionFile.length === 0) {
+            alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+        }
+    }
+
+    handleChange = (e) => {
+        let deck = this.getQuestions(e.target.name);
+        if (deck !== undefined) {
             this.setState({
-                questions: questionFile
+                questions: deck
             });
         } else {
             alert("An error occured while finding the questions, please try again later or contact the owner of the website");
         }
     }
 
-    handleChange = e => {
-        this.setState({
-            category: e.target.name
-        });
-        //console.log(this.state.questions) // check questions
+    getQuestions(category) {
+        for (let questionSet of questionFile) {
+            if (questionSet.category === category) {
+                return questionSet.questions;
+            }
+        }
+        return undefined;
     }
 
     render() {
