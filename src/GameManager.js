@@ -12,7 +12,7 @@ import {
     Row
 } from "reactstrap";
 const uniqid = require("uniqid");
-
+const questionFile = require("./questions.json");
 export class GameManager extends Component {
     constructor(props) {
         super(props);
@@ -118,16 +118,30 @@ export class Categories extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            category: ""
+            category: "",
+            questions:[]
         }
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount() {
+        // Check file whether file is empty
+        if (questionFile.length !== 0) {
+            this.setState({
+                questions: questionFile
+            });
+        } else {
+            alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+        }
     }
 
     handleChange = e => {
         this.setState({
             category: e.target.name
         });
+        //console.log(this.state.questions) // check questions
     }
+
     render() {
         return (
             <div>
@@ -136,16 +150,20 @@ export class Categories extends Component {
                     <Col>
                         <div>
                             <img onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel"/>
+                            <p>Travel</p>
+                            <img onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel" />
                         </div>
                     </Col>
                     <Col>
                         <div>
-                            <img onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food"/>
+                            <p>Food</p>
+                            <img onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food" />
                         </div>
                     </Col>
                     <Col>
                         <div>
-                            <img onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports"/>
+                            <p>Sports</p>
+                            <img onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports" />
                         </div>
                     </Col>
                 </Row>
@@ -153,33 +171,39 @@ export class Categories extends Component {
                     <Col>
                         <div>
                             <img onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music"/>
+                            <p>Music</p>
                         </div>
                     </Col>
                     <Col>
                         <div>
-                            <img onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie"/>
+                            <p>Movies</p>
+                            <img onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie" />
                         </div>
                     </Col>
                     <Col>
                         <div>
-                            <img onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book"/>
+                            <p>Books</p>
+                            <img onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <div>
-                            <img onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal"/>
+                            <p>Animals</p>
+                            <img onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal" />
                         </div>
                     </Col>
                     <Col>
                         <div>
-                            <img id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random"/>
+                            <p>Random</p>
+                            <img id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random" />
                         </div>
                     </Col>
                     <Col>
                         <div>
-                            <img id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized"/>
+                            <p>Customize</p>
+                            <img id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized" />
                         </div>
                     </Col>
                 </Row>
