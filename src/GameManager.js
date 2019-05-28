@@ -55,7 +55,7 @@ export class GameManager extends Component {
         return true;
     }
 
-    handleChange = (e) => {
+    handleChange(e) {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
             this.setState({
@@ -67,13 +67,13 @@ export class GameManager extends Component {
         }
     }
 
-    onClick = (e) => {
+    onClick(e) {
         this.setState({
             [e.target.name]: e.target.checked
         });
     }
     render() {
-        let isEnabled = (this.state.fname !== "" || this.state.numQuestions !== 0);
+        let isEnabled = (this.state.fname === "");
         return (
             <div className="Settings">
                 <h1 className="header">Settings</h1>
@@ -106,9 +106,8 @@ export class GameManager extends Component {
                         <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Show Analysis
                     </Label>
                 </FormGroup>
-                <a href="/Categories">
-                    <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Next</Button>
-                </a>
+                <Button onClick={this.handleCreateRoom}>Add player</Button>
+                <Button href="/Categories">Set Categories</Button>
             </div>
         );
     }
@@ -120,7 +119,7 @@ export class Categories extends Component {
         this.state = {
             questions:[]
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.setQuestionDeck = this.setQuestionDeck.bind(this);
     }
 
     componentDidMount() {
@@ -130,7 +129,7 @@ export class Categories extends Component {
         }
     }
 
-    handleChange = (e) => {
+    setQuestionDeck(e) {
         let deck = this.getQuestions(e.target.name);
         if (deck !== undefined) {
             this.setState({
@@ -151,70 +150,89 @@ export class Categories extends Component {
     }
 
     render() {
+        let isEnabled = (this.state.questions !== []);
         return (
             <div>
                 <h1>Categories</h1>
                 <Row>
                     <Col>
                         <div>
-                            <img onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel"/>
+                            <div>
+                                <img onClick={this.setQuestionDeck} src={require("./icons/travel.png")} name="travel" alt="travel"/>
+                            </div>
                             <p>Travel</p>
-                            <img onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel" />
                         </div>
                     </Col>
                     <Col>
                         <div>
+                            <div>
+                                <img onClick={this.setQuestionDeck} src={require("./icons/food.png")} name="food" alt="food" />
+                            </div>
                             <p>Food</p>
-                            <img onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food" />
                         </div>
                     </Col>
                     <Col>
                         <div>
+                            <div>
+                                <img onClick={this.setQuestionDeck} src={require("./icons/sports.png")} name="sports" alt="sports" />
+                            </div>
                             <p>Sports</p>
-                            <img onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports" />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <div>
-                            <img onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music"/>
+                            <div>
+                                <img onClick={this.setQuestionDeck} src={require("./icons/music.png")} name="music" alt="music"/>
+                            </div>
                             <p>Music</p>
                         </div>
                     </Col>
                     <Col>
                         <div>
+                            <div>
+                                <img onClick={this.setQuestionDeck} src={require("./icons/movie.png")} name="movie" alt="movie" />
+                            </div>
                             <p>Movies</p>
-                            <img onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie" />
                         </div>
                     </Col>
                     <Col>
                         <div>
+                            <div>
+                                <img onClick={this.setQuestionDeck} src={require("./icons/book.png")} name="book" alt="book" />
+                            </div>
                             <p>Books</p>
-                            <img onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <div>
+                            <div>
+                                <img onClick={this.setQuestionDeck} src={require("./icons/animal.png")} name="animal" alt="animal" />
+                            </div>
                             <p>Animals</p>
-                            <img onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal" />
                         </div>
                     </Col>
                     <Col>
                         <div>
+                            <div>
+                                <img id="random" onClick={this.setQuestionDeck} src={require("./icons/random.png")} name="random" alt="random" />
+                            </div>
                             <p>Random</p>
-                            <img id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random" />
                         </div>
                     </Col>
                     <Col>
                         <div>
+                            <div>
+                                <img id="customized" onClick={this.setQuestionDeck} src={require("./icons/customized.png")} name="customized" alt="customized" />
+                            </div>
                             <p>Customize</p>
-                            <img id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized" />
                         </div>
                     </Col>
                 </Row>
+                <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
             </div>
         );
     }
