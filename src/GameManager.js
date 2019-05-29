@@ -57,7 +57,7 @@ export class GameManager extends Component {
         return true;
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
             this.setState({
@@ -69,7 +69,7 @@ export class GameManager extends Component {
         }
     }
 
-    onClick(e) {
+    onClick = (e) => {
         this.setState({
             [e.target.name]: e.target.checked
         });
@@ -140,7 +140,7 @@ export class Categories extends Component {
         }
     }
 
-    setQuestionDeck(e) {
+    setQuestionDeck = (e) => {
         let deck = this.getQuestions(e.target.name);
         if (deck !== undefined) {
             this.setState({
