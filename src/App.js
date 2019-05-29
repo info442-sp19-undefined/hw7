@@ -10,8 +10,9 @@ class App extends Component {
     //Home 
     let Home = () => {
         return  (
-            <div>
+            <div className="main">
                 <h1>Dive-In!</h1>
+                <img src={require("./icons/logo.png")} name="logo" alt="logo"/>
                 <div className="buttonContainer">
                     <a href="/JoinRoom">
                         <button onClick={() => this.updateUserType("Player")}> Join a Room </button>
