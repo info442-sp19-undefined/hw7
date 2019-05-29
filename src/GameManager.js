@@ -161,7 +161,7 @@ export class Categories extends Component {
     }
 
     render() {
-        let isEnabled = (this.state.questions !== []);
+        let isEnabled = (this.state.questions.length !== 0);
         return (
             <div>
                 <h1>Categories</h1>
@@ -203,7 +203,7 @@ export class Categories extends Component {
                     <Col>
                         <div>
                             <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/movie.png")} name="movie" alt="movie" />
+                                <img onClick={this.setQuestionDeck} src={require("./icons/movie.png")} name="movies" alt="movie" />
                             </div>
                             <p>Movies</p>
                         </div>
@@ -211,7 +211,7 @@ export class Categories extends Component {
                     <Col>
                         <div>
                             <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/book.png")} name="book" alt="book" />
+                                <img onClick={this.setQuestionDeck} src={require("./icons/book.png")} name="books" alt="book" />
                             </div>
                             <p>Books</p>
                         </div>
@@ -221,7 +221,7 @@ export class Categories extends Component {
                     <Col>
                         <div>
                             <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/animal.png")} name="animal" alt="animal" />
+                                <img onClick={this.setQuestionDeck} src={require("./icons/animal.png")} name="animals" alt="animal" />
                             </div>
                             <p>Animals</p>
                         </div>
