@@ -21,7 +21,8 @@ export class GameManager extends Component {
             uid: "",
             roomName: "",
             numQuestions: 5,
-            toggleAnalysis: false
+            toggleAnalysis: false,
+            created: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -44,6 +45,7 @@ export class GameManager extends Component {
                 showAnalysis: this.state.toggleAnalysis
             }
         });
+        this.setState({ created: true });
     }
 
     isValid(val, name) {
@@ -73,7 +75,17 @@ export class GameManager extends Component {
         });
     }
     render() {
-        let isEnabled = (this.state.fname === "");
+        let isEnabled = (this.state.fname !== "");
+        let button = null;
+        if (this.state.created) {
+            button = (
+                <Button href="/Categories">Set Categories</Button>
+            )
+        } else {
+            button = (
+                <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Add player</Button>
+            )
+        }
         return (
             <div className="Settings">
                 <h1 className="header">Settings</h1>
@@ -106,8 +118,7 @@ export class GameManager extends Component {
                         <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Show Analysis
                     </Label>
                 </FormGroup>
-                <Button onClick={this.handleCreateRoom}>Add player</Button>
-                <Button href="/Categories">Set Categories</Button>
+                {button}
             </div>
         );
     }
