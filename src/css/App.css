@@ -9,7 +9,7 @@
   color: white;
 }
 
-h1.header {
+h1 {
   color: white;
   font-size: 28px;
   text-align: center;
@@ -57,5 +57,3 @@ img {
   align-items: center;
   padding-top: 0px;
 }
-
-

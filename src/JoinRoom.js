@@ -10,7 +10,7 @@ class JoinRoom extends Component {
       fname: "",
       uid: "",
       icon: "profile1.png",
-      roomName: "room",
+      roomName: "",
       joined:false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -60,54 +60,38 @@ class JoinRoom extends Component {
 
     // Render different buttons whether the user has successfully been added to the room or not
     let button = null;
-<<<<<<< HEAD
-    if (!this.state.joined) {
-        button = (
-          <Button onClick={this.handleJoin} disabled={!isEnabled}
-          style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
-          background: "#226597", color: "white", display: "flex",
-          justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} >
-            Add New Player
-          </Button>
-        )
-      } else {
-        button = ( 
-          <Button href="/Categories">
-            Join Room
-          </Button>
-        )
-=======
     if (this.state.joined) {
       return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
     } else {
       button = (
-        <Button onClick={this.handleJoin} disabled={!isEnabled}>
-          Add player
+        <Button onClick={this.handleJoin} disabled={!isEnabled}
+        style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
+        background: "#226597", color: "white", display: "flex",
+        justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} >
+          Add New Player
         </Button>
-      );
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
+      )
     }
+    
     return (
       <div>
         <Form id="join-form">
           <h1 className="header"> Create Profile </h1>
-          <Label style={{marginTop: "40px"}}>Name</Label>
+          <Label>Name</Label>
           <Input
             placeholder="First Name"
             name="fname"
             onChange={this.handleChange}
             id="fname"
-            style={{width: "320px", borderRadius: "20px", paddingLeft: "24px"}}
           />
-          <Label style={{marginTop: "8%"}}>Room #</Label>
+          <label style={{marginTop: "8%"}}>Room #</label>
           <Input
             placeholder="Room Number"
             name="uid"
             onChange={this.handleChange}
             id="uid"
-            style={{width: "100%", borderRadius: "20px", paddingLeft: "24px"}}
           />
-          <Label style={{marginTop: "20px"}}>Select Profile Image</Label>
+          <Label style={{marginTop: "2em"}}>Select Profile Image</Label>
           <Row className="profileimgs">
             <Col>
               <div>
@@ -117,7 +101,6 @@ class JoinRoom extends Component {
                   alt="big penguin"
                   src={require("./icons/profile1.png")}
                   onClick={this.onClick}
-                  
                 />
               </div>
             </Col>

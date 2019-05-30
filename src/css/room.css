@@ -8,14 +8,18 @@
     margin-right: 0;
 }
 
+#join-form input {
+    width: 400px;
+    font-size: 24px;
+    border-radius: 20px;
+    padding-left: 24px;
+}
 
-
-div.profileimgs.row{
+div .profileimgs .row{
     padding: 0px;
     margin-bottom: 60px;
     margin-top: 20px;
 }
-
 
 .cata {
     border-radius: 50px;
@@ -40,24 +44,6 @@ div.profileimgs.row{
     
 }
 
-
-/* .col div img {
-    position: absolute;
-    left: 2.6rem;
-    top: 1.5rem;
-    width: 3rem;
-} */
-
-
-<<<<<<< HEAD
-=======
-.col div:hover {
-    color: darkblue;
-    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
-
 #customized {
     position: absolute;
     top: 2.8rem;
@@ -75,8 +61,6 @@ div.profileimgs.row{
     padding: 2rem;
 }
 
-
-
 .profileimg {
     width: 60px;
     height: 60px;
@@ -90,15 +74,15 @@ div.profileimgs.row{
 .profileimg:hover {
     filter: grey;
     -webkit-filter: grayscale(80%);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
-h1 {
+h1 .header{
     position: absolute;
     top: 100px;
     margin-left: auto;
     margin-right: auto;
-    width: 320px;
-    
+    width: 320px;  
 }
 
 /* button {

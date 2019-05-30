@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import firebase from "firebase/app";
 import './css/room.css';
 import {
-    FormGroup,
+    Input,
     InputGroup,
     InputGroupAddon,
-    Input,
     Label,
     Button,
     Col,
@@ -83,14 +82,31 @@ export class GameManager extends Component {
             return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
         } else {
             button = (
-                <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Add player</Button>
+                <Button
+                    onClick={this.handleCreateRoom}
+                    disabled={!isEnabled}
+                    style={{
+                        fontSize: "18px",
+                        borderRadius: "20px",
+                        width: "200px",
+                        height: "2em",
+                        background: "#226597",
+                        color: "white",
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "0px",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        marginTop: "50px"
+                    }} >
+                    Create Room
+                </ Button>
             )
         }
         return (
             <div>
-                <Form id="join-form">
+                <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
-                    
                     <Label style={{marginTop: "40px"}}> Organizer Name </Label>
                     <Input 
                         placeholder="First Name" 
@@ -99,8 +115,6 @@ export class GameManager extends Component {
                         id="fname" 
                         style={{ width: "320px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
-                    
-                    
                     <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
                     <Input 
                         placeholder={this.state.roomName} 
@@ -109,8 +123,6 @@ export class GameManager extends Component {
                         id="roomName" 
                         style={{ width: "100%", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
-                    
-                    
                     <Label style={{marginTop: "20px"}}>Number of Icebreaker Questions</Label>
                     <InputGroup>
                         <Input
@@ -124,42 +136,15 @@ export class GameManager extends Component {
                             onChange={this.handleChange}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
-<<<<<<< HEAD
                      </InputGroup>
-                   
-                    
                     <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
-                            <Input type="checkbox" 
+                            <input type="checkbox" 
                             name="toggleAnalysis" 
                             onClick={this.onClick} 
                             /> Show Analysis
                     </Label>
-
-                    <div>
-                    <a href="/Categories"> 
-                        <Button 
-                            onClick={this.handleCreateRoom} 
-                            disabled={!isEnabled}
-                            style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
-                            background: "#226597", color: "white", display: "flex",
-                            justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} 
-
-                        >
-                            Create Room
-                        </Button>
-                    </a>
-                    </div> 
+                    {button}
                 </Form>
-=======
-                    </InputGroup>
-                </div>
-                <FormGroup>
-                    <Label check>
-                        <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Analysis
-                    </Label>
-                </FormGroup>
-                {button}
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
             </div>
         );
     }
@@ -204,11 +189,10 @@ export class Categories extends Component {
     render() {
         let isEnabled = (this.state.questions.length !== 0);
         return (
-            <div>
+            <div id="category">
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-<<<<<<< HEAD
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel" />
                         </div>
@@ -221,35 +205,11 @@ export class Categories extends Component {
                     <Col>
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports" />
-=======
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/travel.png")} name="travel" alt="travel"/>
-                            </div>
-                            <p>Travel</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/food.png")} name="food" alt="food" />
-                            </div>
-                            <p>Food</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/sports.png")} name="sports" alt="sports" />
-                            </div>
-                            <p>Sports</p>
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-<<<<<<< HEAD
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music" />
                         </div>
@@ -262,35 +222,11 @@ export class Categories extends Component {
                     <Col>
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
-=======
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/music.png")} name="music" alt="music"/>
-                            </div>
-                            <p>Music</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/movie.png")} name="movies" alt="movie" />
-                            </div>
-                            <p>Movies</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/book.png")} name="books" alt="book" />
-                            </div>
-                            <p>Books</p>
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-<<<<<<< HEAD
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal" />
                         </div>
@@ -303,29 +239,6 @@ export class Categories extends Component {
                     <Col>
                         <div className="cata" >
                             <img className="cataimg" id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized" />
-=======
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/animal.png")} name="animals" alt="animal" />
-                            </div>
-                            <p>Animals</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img id="random" onClick={this.setQuestionDeck} src={require("./icons/random.png")} name="random" alt="random" />
-                            </div>
-                            <p>Random</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img id="customized" onClick={this.setQuestionDeck} src={require("./icons/customized.png")} name="customized" alt="customized" />
-                            </div>
-                            <p>Customize</p>
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
                         </div>
                     </Col>
                 </Row>
