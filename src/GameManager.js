@@ -79,11 +79,7 @@ export class GameManager extends Component {
         let isEnabled = (this.state.fname !== "");
         let button = null;
         if (this.state.created) {
-            button = (
-                <Redirect push to={"/"+ this.state.fname + "/Categories/"}>
-                    <Button>Set Categories</Button>
-                </Redirect>
-            )
+            return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
         } else {
             button = (
                 <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Add player</Button>
