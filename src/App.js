@@ -15,17 +15,10 @@ class App extends Component {
                 <img src={require("./icons/logo.png")} name="logo" alt="logo"/>
                 <div className="buttonContainer">
                     <a href="/JoinRoom">
-<<<<<<< HEAD
-                        <button onClick={() => this.updateUserType("Player")} style={{width: "200px"}}> Join a Room </button>
-                    </a>
-                    <a href="/NewRoom">
-                        <button onClick={() => this.updateUserType("Organizer")} style={{width: "200px"}}> New Room </button>
-=======
                         <button> Join a Room </button>
                     </a>
                     <a href="/NewRoom">
                         <button> New Room </button>
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
                     </a>
                 </div>
             </div>

@@ -60,23 +60,6 @@ class JoinRoom extends Component {
 
     // Render different buttons whether the user has successfully been added to the room or not
     let button = null;
-<<<<<<< HEAD
-    if (!this.state.joined) {
-        button = (
-          <Button onClick={this.handleJoin} disabled={!isEnabled}
-          style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
-          background: "#226597", color: "white", display: "flex",
-          justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} >
-            Add New Player
-          </Button>
-        )
-      } else {
-        button = ( 
-          <Button href="/Categories">
-            Join Room
-          </Button>
-        )
-=======
     if (this.state.joined) {
       return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
     } else {
@@ -85,7 +68,6 @@ class JoinRoom extends Component {
           Add player
         </Button>
       );
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
     }
     return (
       <div>

@@ -124,7 +124,6 @@ export class GameManager extends Component {
                             onChange={this.handleChange}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
-<<<<<<< HEAD
                      </InputGroup>
                    
                     
@@ -150,16 +149,6 @@ export class GameManager extends Component {
                     </a>
                     </div> 
                 </Form>
-=======
-                    </InputGroup>
-                </div>
-                <FormGroup>
-                    <Label check>
-                        <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Analysis
-                    </Label>
-                </FormGroup>
-                {button}
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
             </div>
         );
     }
@@ -208,7 +197,6 @@ export class Categories extends Component {
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-<<<<<<< HEAD
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel" />
                         </div>
@@ -221,35 +209,11 @@ export class Categories extends Component {
                     <Col>
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports" />
-=======
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/travel.png")} name="travel" alt="travel"/>
-                            </div>
-                            <p>Travel</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/food.png")} name="food" alt="food" />
-                            </div>
-                            <p>Food</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/sports.png")} name="sports" alt="sports" />
-                            </div>
-                            <p>Sports</p>
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-<<<<<<< HEAD
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music" />
                         </div>
@@ -262,35 +226,11 @@ export class Categories extends Component {
                     <Col>
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
-=======
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/music.png")} name="music" alt="music"/>
-                            </div>
-                            <p>Music</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/movie.png")} name="movies" alt="movie" />
-                            </div>
-                            <p>Movies</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/book.png")} name="books" alt="book" />
-                            </div>
-                            <p>Books</p>
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-<<<<<<< HEAD
                         <div className="cata" >
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal" />
                         </div>
@@ -303,29 +243,6 @@ export class Categories extends Component {
                     <Col>
                         <div className="cata" >
                             <img className="cataimg" id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized" />
-=======
-                        <div>
-                            <div>
-                                <img onClick={this.setQuestionDeck} src={require("./icons/animal.png")} name="animals" alt="animal" />
-                            </div>
-                            <p>Animals</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img id="random" onClick={this.setQuestionDeck} src={require("./icons/random.png")} name="random" alt="random" />
-                            </div>
-                            <p>Random</p>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <div>
-                                <img id="customized" onClick={this.setQuestionDeck} src={require("./icons/customized.png")} name="customized" alt="customized" />
-                            </div>
-                            <p>Customize</p>
->>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
                         </div>
                     </Col>
                 </Row>
