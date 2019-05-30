@@ -65,6 +65,7 @@ div.profileimgs.row{
     display: flex;
     justify-content: space-evenly;
     padding: 2rem;
+
 }
 
 
@@ -77,6 +78,8 @@ div.profileimgs.row{
     margin-bottom: 0px;
     filter: grey;
     -webkit-filter: grayscale(0%);
+    margin-left: 0px;
+    margin-right: 0px
 }
 
 .profileimg:hover {
@@ -86,24 +89,13 @@ div.profileimgs.row{
 
 h1 {
     position: absolute;
-    top: 100px;
+    top: 80px;
     margin-left: auto;
     margin-right: auto;
     width: 320px;
-    
+
 }
 
-/* button {
-    font-size: 18px;
-    border-radius: 20px;
-    width: 200px;
-    height: 2em;
-    background: #226597;
-    color: #ffff;
-    display: flex;
-    justify-content: center; 
-    padding: 0px; 
-    margin-left: auto; 
-    margin-right: auto;
-    margin-top: 50px;
-} */
+div.col {
+    width: 60px;
+}

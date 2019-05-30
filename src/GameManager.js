@@ -97,7 +97,7 @@ export class GameManager extends Component {
                         name="fname" 
                         onChange={this.handleChange} 
                         id="fname" 
-                        style={{ width: "320px", borderRadius: "20px", paddingLeft: "24px" }} 
+                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     
                     
@@ -107,7 +107,7 @@ export class GameManager extends Component {
                         name="roomName" 
                         onChange={this.handleChange} 
                         id="roomName" 
-                        style={{ width: "100%", borderRadius: "20px", paddingLeft: "24px" }} 
+                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     
                     
@@ -122,6 +122,7 @@ export class GameManager extends Component {
                             step="1"
                             defaultValue={5}
                             onChange={this.handleChange}
+                            // style={{width: "20px"}}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
                      </InputGroup>

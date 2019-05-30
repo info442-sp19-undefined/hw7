@@ -79,7 +79,7 @@ class JoinRoom extends Component {
             name="fname"
             onChange={this.handleChange}
             id="fname"
-            style={{width: "320px", borderRadius: "20px", paddingLeft: "24px"}}
+            style={{width: "300px", borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto"}}
           />
           <Label style={{marginTop: "8%"}}>Room #</Label>
           <Input
@@ -87,12 +87,12 @@ class JoinRoom extends Component {
             name="uid"
             onChange={this.handleChange}
             id="uid"
-            style={{width: "100%", borderRadius: "20px", paddingLeft: "24px"}}
+            style={{width: "300px", borderRadius: "20px", paddingLeft: "24px",  marginLeft: "auto", marginRight: "auto"}}
           />
           <Label style={{marginTop: "20px"}}>Select Profile Image</Label>
           <Row className="profileimgs">
-            <Col>
-              <div>
+            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+              <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
                   name="profile1.png"
@@ -103,8 +103,8 @@ class JoinRoom extends Component {
                 />
               </div>
             </Col>
-            <Col>
-              <div>
+            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+              <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
                   name="profile2.png"
@@ -114,8 +114,8 @@ class JoinRoom extends Component {
                 />
               </div>
             </Col>
-            <Col>
-             <div>
+            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+             <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
                   name="profile3.png"
@@ -125,8 +125,8 @@ class JoinRoom extends Component {
                />
               </div>
             </Col>
-            <Col>
-              <div>
+            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+              <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
                   name="profile4.png"
