@@ -9,7 +9,8 @@ import {
     Label,
     Button,
     Col,
-    Row
+    Row,
+    Form
 } from "reactstrap";
 const uniqid = require("uniqid");
 
@@ -75,18 +76,31 @@ export class GameManager extends Component {
     render() {
         let isEnabled = (this.state.fname !== "" || this.state.numQuestions !== 0);
         return (
-            <div className="Settings">
-                <h1 className="header">Settings</h1>
-                <FormGroup className="userName">
-                    <Label>Organizer Name </Label>
-                    <Input placeholder="First Name" name="fname" onChange={this.handleChange} id="fname" />
-                </FormGroup>
-                <FormGroup className="roomName">
-                    <Label>Custom Room Name</Label>
-                    <Input placeholder={this.state.roomName} name="roomName" onChange={this.handleChange} id="roomName" />
-                </FormGroup>
-                <div className="qNumber">
-                    <Label>Number of Icebreaker Questions</Label>
+            <div>
+                <Form id="join-form">
+                    <h1 className="header">Settings</h1>
+                    
+                    <Label style={{marginTop: "40px"}}> Organizer Name </Label>
+                    <Input 
+                        placeholder="First Name" 
+                        name="fname" 
+                        onChange={this.handleChange} 
+                        id="fname" 
+                        style={{ width: "320px", borderRadius: "20px", paddingLeft: "24px" }} 
+                    />
+                    
+                    
+                    <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
+                    <Input 
+                        placeholder={this.state.roomName} 
+                        name="roomName" 
+                        onChange={this.handleChange} 
+                        id="roomName" 
+                        style={{ width: "100%", borderRadius: "20px", paddingLeft: "24px" }} 
+                    />
+                    
+                    
+                    <Label style={{marginTop: "20px"}}>Number of Icebreaker Questions</Label>
                     <InputGroup>
                         <Input
                             placeholder="Maximum is 15"
@@ -99,16 +113,31 @@ export class GameManager extends Component {
                             onChange={this.handleChange}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
-                    </InputGroup>
-                </div>
-                <FormGroup>
-                    <Label check>
-                        <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Show Analysis
+                     </InputGroup>
+                   
+                    
+                    <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
+                            <Input type="checkbox" 
+                            name="toggleAnalysis" 
+                            onClick={this.onClick} 
+                            /> Show Analysis
                     </Label>
-                </FormGroup>
-                <a href="/Categories">
-                    <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Create Room</Button>
-                </a>
+
+                    <div>
+                    <a href="/Categories"> 
+                        <Button 
+                            onClick={this.handleCreateRoom} 
+                            disabled={!isEnabled}
+                            style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
+                            background: "#226597", color: "white", display: "flex",
+                            justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} 
+
+                        >
+                            Create Room
+                        </Button>
+                    </a>
+                    </div> 
+                </Form>
             </div>
         );
     }
@@ -134,52 +163,52 @@ export class Categories extends Component {
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div>
-                            <img onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel"/>
+                        <div className="cata" >
+                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel" />
                         </div>
                     </Col>
                     <Col>
-                        <div>
-                            <img onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food"/>
+                        <div className="cata" >
+                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food" />
                         </div>
                     </Col>
                     <Col>
-                        <div>
-                            <img onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports"/>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div>
-                            <img onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music"/>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <img onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie"/>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div>
-                            <img onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book"/>
+                        <div className="cata" >
+                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports" />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div>
-                            <img onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal"/>
+                        <div className="cata" >
+                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music" />
                         </div>
                     </Col>
                     <Col>
-                        <div>
-                            <img id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random"/>
+                        <div className="cata" >
+                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie" />
                         </div>
                     </Col>
                     <Col>
-                        <div>
-                            <img id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized"/>
+                        <div className="cata" >
+                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div className="cata" >
+                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="cata" >
+                            <img className="cataimg" id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="cata" >
+                            <img className="cataimg" id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized" />
                         </div>
                     </Col>
                 </Row>

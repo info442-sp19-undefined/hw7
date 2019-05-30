@@ -50,7 +50,10 @@ class JoinRoom extends Component {
     let button = null;
     if (!this.state.joined) {
         button = (
-          <Button onClick={this.handleJoin} disabled={!isEnabled}>
+          <Button onClick={this.handleJoin} disabled={!isEnabled}
+          style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
+          background: "#226597", color: "white", display: "flex",
+          justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} >
             Add New Player
           </Button>
         )
@@ -65,35 +68,40 @@ class JoinRoom extends Component {
       <div>
         <Form id="join-form">
           <h1 className="header"> Create Profile </h1>
-          <Label>Name</Label>
+          <Label style={{marginTop: "40px"}}>Name</Label>
           <Input
             placeholder="First Name"
             name="fname"
             onChange={this.handleChange}
             id="fname"
+            style={{width: "320px", borderRadius: "20px", paddingLeft: "24px"}}
           />
-          <Label>Room #</Label>
+          <Label style={{marginTop: "8%"}}>Room #</Label>
           <Input
             placeholder="Room Number"
             name="uid"
             onChange={this.handleChange}
             id="uid"
+            style={{width: "100%", borderRadius: "20px", paddingLeft: "24px"}}
           />
-          <Label>Select Profile Image</Label>
-          <Row>
+          <Label style={{marginTop: "20px"}}>Select Profile Image</Label>
+          <Row className="profileimgs">
             <Col>
-              <div className="image">
+              <div>
                 <img
+                  className="profileimg"
                   name="profile1.png"
                   alt="big penguin"
                   src={require("./icons/profile1.png")}
                   onClick={this.onClick}
+                  
                 />
               </div>
             </Col>
             <Col>
-              <div className="image">
+              <div>
                 <img
+                  className="profileimg"
                   name="profile2.png"
                   alt="otter"
                   src={require("./icons/profile2.png")}
@@ -102,8 +110,9 @@ class JoinRoom extends Component {
               </div>
             </Col>
             <Col>
-             <div className="image">
+             <div>
                 <img
+                  className="profileimg"
                   name="profile3.png"
                   alt="polar bear"
                   src={require("./icons/profile3.png")}
@@ -112,8 +121,9 @@ class JoinRoom extends Component {
               </div>
             </Col>
             <Col>
-              <div className="image">
+              <div>
                 <img
+                  className="profileimg"
                   name="profile4.png"
                   alt="fat baby penguin"
                   src={require("./icons/profile4.png")}

@@ -4,28 +4,51 @@
 
 #join-form .image {
     background: inherit;
+    margin-left: 0;
+    margin-right: 0;
 }
 
-.col div {
+
+
+div.profileimgs.row{
+    padding: 0px;
+    margin-bottom: 60px;
+    margin-top: 20px;
+}
+
+
+.cata {
     border-radius: 50px;
     width: 100px;
     height: 100px;
-    background-color: #226597;;
-    border-color: white;
-    border-width: 5px;
-    /* box-shadow: 0; */
+    background-color: #226597;
+    /* border-width: 2px; */
+    border-color: none;
+    border-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 
-.col div img {
+.cataimg {
+    /* vertical-align: middle; */
+    /* display: inline-flex; */
+    width: 40px;
+    height: auto;
+    margin: 0;
+    
+}
+
+
+/* .col div img {
     position: absolute;
     left: 2.6rem;
     top: 1.5rem;
     width: 3rem;
-}
+} */
 
-.col div:hover {
-    /* box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
-}
+
 
 #customized {
     position: absolute;
@@ -44,10 +67,43 @@
     padding: 2rem;
 }
 
-label {
-    font-size: 16px;
+
+
+.profileimg {
+    width: 60px;
+    height: 60px;
+    margin-top: 0px;
+    border-radius: 30px;
+    margin-bottom: 0px;
+    filter: grey;
+    -webkit-filter: grayscale(0%);
 }
 
-/* .form-control {
-    width: 200%;
+.profileimg:hover {
+    filter: grey;
+    -webkit-filter: grayscale(80%);
+}
+
+h1 {
+    position: absolute;
+    top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 320px;
+    
+}
+
+/* button {
+    font-size: 18px;
+    border-radius: 20px;
+    width: 200px;
+    height: 2em;
+    background: #226597;
+    color: #ffff;
+    display: flex;
+    justify-content: center; 
+    padding: 0px; 
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: 50px;
 } */
