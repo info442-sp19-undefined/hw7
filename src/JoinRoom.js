@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import firebase from "firebase/app";
 import "./css/room.css";
 import { Form, Input, Label, Button, Row, Col } from "reactstrap";
+import { Redirect } from 'react-router-dom';
 class JoinRoom extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +10,7 @@ class JoinRoom extends Component {
       fname: "",
       uid: "",
       icon: "profile1.png",
+      roomName: "room",
       joined:false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -25,12 +27,22 @@ class JoinRoom extends Component {
   handleJoin() {
     let roomRef = firebase.database().ref('Rooms');
     roomRef.orderByChild('uid').equalTo(this.state.uid).limitToFirst(1).once("value", snapshot => {
-      if(snapshot.exists()) {
+      if (snapshot.exists()) {
+        // Adds player information to correct room in firebase
         roomRef.child(this.state.uid).child('players').set({
           name: this.state.fname,
           icon: this.state.icon
-        })
-        this.setState({joined:true});
+        });
+
+        // Sets the state so that the it redirects to the correct room and displays the correct path
+        roomRef.child(this.state.uid).child('room_name').once("value").then(data => {
+          if (data.val() !== null) {
+            this.setState({
+              roomName: data.val(),
+              joined: true
+            });
+          }
+        });
       } else {
         alert("Oh no! Seems that room doesn't exist!");
         document.getElementById('join-form').reset();
@@ -48,6 +60,7 @@ class JoinRoom extends Component {
 
     // Render different buttons whether the user has successfully been added to the room or not
     let button = null;
+<<<<<<< HEAD
     if (!this.state.joined) {
         button = (
           <Button onClick={this.handleJoin} disabled={!isEnabled}
@@ -63,6 +76,16 @@ class JoinRoom extends Component {
             Join Room
           </Button>
         )
+=======
+    if (this.state.joined) {
+      return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
+    } else {
+      button = (
+        <Button onClick={this.handleJoin} disabled={!isEnabled}>
+          Add player
+        </Button>
+      );
+>>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
     }
     return (
       <div>

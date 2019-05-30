@@ -49,6 +49,14 @@ div.profileimgs.row{
 } */
 
 
+<<<<<<< HEAD
+=======
+.col div:hover {
+    color: darkblue;
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+>>>>>>> 8a617a8c93b1493a512d24ccc641aa4a3d5f9676
 
 #customized {
     position: absolute;
