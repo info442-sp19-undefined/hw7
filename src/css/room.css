@@ -1,21 +1,15 @@
-#join-form .image:hover {
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+#join-form input {
+    width: 400px;
+    font-size: 24px;
+    border-radius: 20px;
+    padding-left: 24px;
 }
 
-#join-form .image {
-    background: inherit;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-
-
-div.profileimgs.row{
+div .profileimgs .row{
     padding: 0px;
     margin-bottom: 60px;
     margin-top: 20px;
 }
-
 
 .cata {
     border-radius: 50px;
@@ -40,16 +34,6 @@ div.profileimgs.row{
     
 }
 
-
-/* .col div img {
-    position: absolute;
-    left: 2.6rem;
-    top: 1.5rem;
-    width: 3rem;
-} */
-
-
-
 #customized {
     position: absolute;
     top: 2.8rem;
@@ -68,8 +52,6 @@ div.profileimgs.row{
 
 }
 
-
-
 .profileimg {
     width: 60px;
     height: 60px;
@@ -85,9 +67,10 @@ div.profileimgs.row{
 .profileimg:hover {
     filter: grey;
     -webkit-filter: grayscale(80%);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
-h1 {
+h1 .header{
     position: absolute;
     top: 80px;
     margin-left: auto;

@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import firebase from "firebase/app";
 import './css/room.css';
 import {
-    FormGroup,
+    Input,
     InputGroup,
     InputGroupAddon,
-    Input,
     Label,
     Button,
     Col,
@@ -83,14 +82,31 @@ export class GameManager extends Component {
             return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
         } else {
             button = (
-                <Button onClick={this.handleCreateRoom} disabled={!isEnabled}>Add player</Button>
+                <Button
+                    onClick={this.handleCreateRoom}
+                    disabled={!isEnabled}
+                    style={{
+                        fontSize: "18px",
+                        borderRadius: "20px",
+                        width: "200px",
+                        height: "2em",
+                        background: "#226597",
+                        color: "white",
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "0px",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        marginTop: "50px"
+                    }} >
+                    Create Room
+                </ Button>
             )
         }
         return (
             <div>
-                <Form id="join-form">
+                <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
-                    
                     <Label style={{marginTop: "40px"}}> Organizer Name </Label>
                     <Input 
                         placeholder="First Name" 
@@ -99,8 +115,6 @@ export class GameManager extends Component {
                         id="fname" 
                         style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
-                    
-                    
                     <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
                     <Input 
                         placeholder={this.state.roomName} 
@@ -109,8 +123,6 @@ export class GameManager extends Component {
                         id="roomName" 
                         style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
-                    
-                    
                     <Label style={{marginTop: "20px"}}>Number of Icebreaker Questions</Label>
                     <InputGroup>
                         <Input
@@ -126,29 +138,13 @@ export class GameManager extends Component {
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
                      </InputGroup>
-                   
-                    
                     <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
-                            <Input type="checkbox" 
+                            <input type="checkbox" 
                             name="toggleAnalysis" 
                             onClick={this.onClick} 
                             /> Show Analysis
                     </Label>
-
-                    <div>
-                    <a href="/Categories"> 
-                        <Button 
-                            onClick={this.handleCreateRoom} 
-                            disabled={!isEnabled}
-                            style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
-                            background: "#226597", color: "white", display: "flex",
-                            justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} 
-
-                        >
-                            Create Room
-                        </Button>
-                    </a>
-                    </div> 
+                    {button}
                 </Form>
             </div>
         );
@@ -194,56 +190,56 @@ export class Categories extends Component {
     render() {
         let isEnabled = (this.state.questions.length !== 0);
         return (
-            <div>
+            <div id="category">
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/food.png")} name="food" alt="food" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/sports.png")} name="sports" alt="sports" />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/music.png")} name="music" alt="music" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/movie.png")} name="movie" alt="movie" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
+                        <div className="cata" onClick={this.setQuestionDeck}>
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/animal.png")} name="animal" alt="animal" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" id="random" src={require("./icons/random.png")} name="random" alt="random" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" id="customized" src={require("./icons/customized.png")} name="customized" alt="customized" />
                         </div>
                     </Col>
                 </Row>

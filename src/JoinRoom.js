@@ -10,7 +10,7 @@ class JoinRoom extends Component {
       fname: "",
       uid: "",
       icon: "profile1.png",
-      roomName: "room",
+      roomName: "",
       joined:false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -64,16 +64,20 @@ class JoinRoom extends Component {
       return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
     } else {
       button = (
-        <Button onClick={this.handleJoin} disabled={!isEnabled}>
-          Add player
+        <Button onClick={this.handleJoin} disabled={!isEnabled}
+        style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
+        background: "#226597", color: "white", display: "flex",
+        justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} >
+          Add New Player
         </Button>
       );
     }
+    
     return (
       <div>
         <Form id="join-form">
           <h1 className="header"> Create Profile </h1>
-          <Label style={{marginTop: "40px"}}>Name</Label>
+          <Label>Name</Label>
           <Input
             placeholder="First Name"
             name="fname"
@@ -81,7 +85,7 @@ class JoinRoom extends Component {
             id="fname"
             style={{width: "300px", borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto"}}
           />
-          <Label style={{marginTop: "8%"}}>Room #</Label>
+          <label style={{marginTop: "8%"}}>Room #</label>
           <Input
             placeholder="Room Number"
             name="uid"
@@ -89,7 +93,7 @@ class JoinRoom extends Component {
             id="uid"
             style={{width: "300px", borderRadius: "20px", paddingLeft: "24px",  marginLeft: "auto", marginRight: "auto"}}
           />
-          <Label style={{marginTop: "20px"}}>Select Profile Image</Label>
+          <Label style={{marginTop: "2em"}}>Select Profile Image</Label>
           <Row className="profileimgs">
             <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
               <div style={{width: "60px"}}>
@@ -99,7 +103,6 @@ class JoinRoom extends Component {
                   alt="big penguin"
                   src={require("./icons/profile1.png")}
                   onClick={this.onClick}
-                  
                 />
               </div>
             </Col>
