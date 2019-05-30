@@ -79,7 +79,7 @@ export class GameManager extends Component {
         let isEnabled = (this.state.fname !== "");
         let button = null;
         if (this.state.created) {
-            return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
+            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state:{uid:this.state.uid}}}/>;
         } else {
             button = (
                 <Button
@@ -108,23 +108,23 @@ export class GameManager extends Component {
                 <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
                     <Label style={{marginTop: "40px"}}> Organizer Name </Label>
-                    <Input 
+                    <Input   
                         placeholder="First Name" 
                         name="fname" 
-                        onChange={this.handleChange} 
+                        onChange={th is.handleChange} 
                         id="fname" 
-                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
+                        style={{ w idth: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
-                    <Input 
+                    <Input   
                         placeholder={this.state.roomName} 
                         name="roomName" 
-                        onChange={this.handleChange} 
+                        onChange={this. handleChange} 
                         id="roomName" 
-                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
+                        style={{ widt h: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     <Label style={{marginTop: "20px"}}>Number of Icebreaker Questions</Label>
-                    <InputGroup>
+                    <InputGroup>  
                         <Input
                             placeholder="Maximum is 15"
                             name="numQuestions"
@@ -137,11 +137,11 @@ export class GameManager extends Component {
                             // style={{width: "20px"}}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
-                     </InputGroup>
-                    <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
-                            <input type="checkbox" 
-                            name="toggleAnalysis" 
-                            onClick={this.onClick} 
+                    </InputGroup>
+                    <Label check style={{ marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600" }}>
+                            <input type="check box" 
+                            name="toggleAnalysis"
+                            onClick={this.onClick}
                             /> Show Analysis
                     </Label>
                     {button}
@@ -152,10 +152,9 @@ export class GameManager extends Component {
 }
 
 export class Categories extends Component {
-    constructor(props) {
-        super(props)
+    constructor() {
         this.state = {
-            questions:[]
+            questions: []
         }
         this.setQuestionDeck = this.setQuestionDeck.bind(this);
     }
@@ -185,66 +184,96 @@ export class Categories extends Component {
             }
         }
         return undefined;
+
+
+            render() {
+                let isEnabled = (this.state.questions.length !== 0);
+                return (
+                    <div id="category">
+                        <h1>Categories</h1>
+                        <Row>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" src={require("./icons/food.png")} name="food" alt="food" />
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" src={require("./icons/sports.png")} name="sports" alt="sports" />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" src={require("./icons/music.png")} name="music" alt="music" />
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" src={require("./icons/movie.png")} name="movie" alt="movie" />
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" src={require("./icons/animal.png")} name="animal" alt="animal" />
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" id="random" src={require("./icons/random.png")} name="random" alt="random" />
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="cata" onClick={this.setQuestionDeck}>
+                                    <img className="cataimg" id="customized" src={require("./icons/customized.png")} name="customized" alt="customized" />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Questions questionList={this.state.questions}/>
+                        <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
+                    </div>
+                );
+            }
+        } 
+    }
+}
+
+export class Questions extends Component {
+    constructor(props) {
+        super(props)
     }
 
+
+
+    displayQuestion() {
+
+    }
+
+
+    numberOfQuestions() {
+        let roomRef = firebase.database().ref("Rooms").child(this.state.uid);
+
+    }
+
+
     render() {
-        let isEnabled = (this.state.questions.length !== 0);
-        return (
-            <div id="category">
-                <h1>Categories</h1>
-                <Row>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/food.png")} name="food" alt="food" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/sports.png")} name="sports" alt="sports" />
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/music.png")} name="music" alt="music" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/movie.png")} name="movie" alt="movie" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/animal.png")} name="animal" alt="animal" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" id="random" src={require("./icons/random.png")} name="random" alt="random" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" id="customized" src={require("./icons/customized.png")} name="customized" alt="customized" />
-                        </div>
-                    </Col>
-                </Row>
-                <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
-            </div>
+        console.log(this.props.questionList);
+        
+        return(
+            <Button onClick={this.displayQuestion}>Display Question</Button>
         );
     }
 }
