@@ -48,7 +48,7 @@ class App extends Component {
             <header className="App-header" >
                 <Switch>
                     <Route exact path="/" render={Home} />
-                    <Route  path="/NewRoom" render={(props) => <GameManager {...props} state={this.state.uid} />} />
+                    <Route  path="/NewRoom" render={() => <GameManager {...this.state} data={this.state.uid} />} />
                     <Route path="/JoinRoom" component={JoinRoom}/>
                     <Route path="/:name/Categories/" component={Categories}/>
                     <Redirect to='/' />
