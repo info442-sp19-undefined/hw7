@@ -95,7 +95,7 @@ class JoinRoom extends Component {
           />
           <Label style={{marginTop: "2em"}}>Select Profile Image</Label>
           <Row className="profileimgs">
-            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+            <Col style={{width: "60px"}}>
               <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
@@ -106,7 +106,7 @@ class JoinRoom extends Component {
                 />
               </div>
             </Col>
-            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+            <Col style={{ width: "60px"}}>
               <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
@@ -117,7 +117,7 @@ class JoinRoom extends Component {
                 />
               </div>
             </Col>
-            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+            <Col style={{width: "60px"}}>
              <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
@@ -128,7 +128,7 @@ class JoinRoom extends Component {
                />
               </div>
             </Col>
-            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+            <Col style={{width: "60px"}}>
               <div style={{width: "60px"}}>
                 <img
                   className="profileimg"

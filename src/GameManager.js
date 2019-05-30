@@ -18,7 +18,7 @@ export class GameManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fname: "",
+            fname: "First Name",
             uid: "",
             roomName: "",
             numQuestions: 5,
@@ -103,13 +103,14 @@ export class GameManager extends Component {
                 </ Button>
             )
         }
+
         return (
             <div>
                 <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
                     <Label style={{marginTop: "40px"}}> Organizer Name </Label>
                     <Input 
-                        placeholder="First Name" 
+                        placeholder={this.state.fname} 
                         name="fname" 
                         onChange={this.handleChange} 
                         id="fname" 
@@ -126,7 +127,7 @@ export class GameManager extends Component {
                     <Label style={{marginTop: "20px"}}>Number of Icebreaker Questions</Label>
                     <InputGroup>
                         <Input
-                            placeholder="Maximum is 15"
+                            placeholder={this.state.numQuestions}
                             name="numQuestions"
                             min={0}
                             max={15}
@@ -134,15 +135,14 @@ export class GameManager extends Component {
                             step="1"
                             defaultValue={5}
                             onChange={this.handleChange}
-                            // style={{width: "20px"}}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
                      </InputGroup>
                     <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
-                            <input type="checkbox" 
+                        <input type="checkbox" 
                             name="toggleAnalysis" 
                             onClick={this.onClick} 
-                            /> Show Analysis
+                        /> Show Analysis
                     </Label>
                     {button}
                 </Form>
