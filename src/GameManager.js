@@ -193,52 +193,52 @@ export class Categories extends Component {
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/travel.png")} name="travel" alt="travel" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/food.png")} name="food" alt="food" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/food.png")} name="food" alt="food" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/sports.png")} name="sports" alt="sports" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/sports.png")} name="sports" alt="sports" />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/music.png")} name="music" alt="music" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/music.png")} name="music" alt="music" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/movie.png")} name="movie" alt="movie" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/movie.png")} name="movie" alt="movie" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
+                        <div className="cata" onClick={this.setQuestionDeck}>
                             <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/animal.png")} name="animal" alt="animal" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/animal.png")} name="animal" alt="animal" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" id="random" onClick={this.handleChange} src={require("./icons/random.png")} name="random" alt="random" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" id="random" src={require("./icons/random.png")} name="random" alt="random" />
                         </div>
                     </Col>
                     <Col>
-                        <div className="cata" >
-                            <img className="cataimg" id="customized" onClick={this.handleChange} src={require("./icons/customized.png")} name="customized" alt="customized" />
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" id="customized" src={require("./icons/customized.png")} name="customized" alt="customized" />
                         </div>
                     </Col>
                 </Row>
