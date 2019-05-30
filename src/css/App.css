@@ -16,7 +16,7 @@ h1 {
   padding-bottom: 30px;
 }
 
-.buttonContainer button {
+.buttonContainer div button {
   font-size: 18px;
   border-radius: 20px;
   width: 8em;
@@ -35,22 +35,22 @@ h1 {
   font-weight: 400;
 }
 
-.buttonContainer a {
-  padding: 2em;
+.buttonContainer div {
+  padding: 1em 0 1em 0;
 }
 
-.buttonContainer {
-  padding-top: 1em;
-}
-
-img {
+#main img {
   text-align: center;
   margin-top: 30px;
   margin-bottom: 30px;
+  padding-bottom: 2em;
   width: 40%;
   height: auto;
 }
 
+.logoContainer {
+  padding: 2em;
+}
 .main {
   display: flex;
   flex-direction: column;

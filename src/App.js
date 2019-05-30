@@ -12,14 +12,20 @@ class App extends Component {
         return  (
             <div className="main">
                 <h1>Dive-In!</h1>
-                <img src={require("./icons/logo.png")} name="logo" alt="logo"/>
+                <div className="logoContainer">
+                    <img src={require("./icons/logo.png")} name="logo" alt="logo"/>
+                </div>
                 <div className="buttonContainer">
-                    <a href="/JoinRoom">
-                        <button style={{width: "200px"}}> Join a Room </button>
-                    </a>
-                    <a href="/NewRoom">
-                        <button style={{width: "200px"}}> New Room </button>
-                    </a>
+                    <div>
+                        <a href="/JoinRoom">
+                            <button style={{width: "200px"}}> Join a Room </button>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/NewRoom">
+                            <button style={{width: "200px"}}> New Room </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         );
