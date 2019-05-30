@@ -16,7 +16,6 @@ div .profileimgs .row{
     width: 100px;
     height: 100px;
     background-color: #226597;
-    /* border-width: 2px; */
     border-color: none;
     border-style: none;
     display: flex;
@@ -26,8 +25,6 @@ div .profileimgs .row{
 }
 
 .cataimg {
-    /* vertical-align: middle; */
-    /* display: inline-flex; */
     width: 40px;
     height: auto;
     margin: 0;
@@ -76,6 +73,4 @@ h1 .header{
     margin-left: auto;
     margin-right: auto;
     width: 320px;
-
 }
-
