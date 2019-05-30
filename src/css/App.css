@@ -1,5 +1,5 @@
 .App-header {
-  background-color: #92b2f1;
+  background-color: #87c0cd;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,21 +10,26 @@
 }
 
 h1 {
-  color: black;
+  color: white;
   font-size: 5em;
   text-align: center;
+  padding-bottom: 30px;
 }
 
 .buttonContainer button {
-  font-size: 2vw;
+  font-size: 20px;
   border-radius: 20px;
   width: 8em;
   height: 2em;
+  background: #226597;
+  color: white;
+  border-width: 0;
 }
 
 .buttonContainer button:hover {
-  background: #82a5e9;
-  color: white;
+  background: white;
+  color: #226597;
+  font-weight: 400;
 }
 
 .buttonContainer a {
@@ -35,3 +40,17 @@ h1 {
   padding-top: 1em;
 }
 
+img {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  width: 20%;
+  height: auto;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0px;
+}

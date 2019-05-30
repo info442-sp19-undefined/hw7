@@ -11,6 +11,7 @@ import {
     Col,
     Row
 } from "reactstrap";
+import { Redirect } from 'react-router-dom';
 const uniqid = require("uniqid");
 const questionFile = require("./questions.json");
 export class GameManager extends Component {
@@ -79,7 +80,9 @@ export class GameManager extends Component {
         let button = null;
         if (this.state.created) {
             button = (
-                <Button href="/Categories">Set Categories</Button>
+                <Redirect push to={"/"+ this.state.fname + "/Categories/"}>
+                    <Button>Set Categories</Button>
+                </Redirect>
             )
         } else {
             button = (
@@ -115,7 +118,7 @@ export class GameManager extends Component {
                 </div>
                 <FormGroup>
                     <Label check>
-                        <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Show Analysis
+                        <Input type="checkbox" name="toggleAnalysis" onClick={this.onClick} /> Analysis
                     </Label>
                 </FormGroup>
                 {button}

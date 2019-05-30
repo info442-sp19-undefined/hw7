@@ -10,7 +10,10 @@
     border-radius: 50px;
     width: 100px;
     height: 100px;
-    background-color: rgb(31, 87, 207);
+    background-color: #226597;;
+    border-color: white;
+    border-width: 5px;
+    /* box-shadow: 0; */
 }
 
 .col div img {
@@ -22,6 +25,7 @@
 
 .col div:hover {
     color: darkblue;
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
@@ -41,3 +45,11 @@
     justify-content: space-evenly;
     padding: 2rem;
 }
+
+label {
+    font-size: 16px;
+}
+
+/* .form-control {
+    width: 200%;
+} */
