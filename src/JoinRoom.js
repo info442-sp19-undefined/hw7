@@ -18,10 +18,24 @@ class JoinRoom extends Component {
     this.handleJoin = this.handleJoin.bind(this);
   }
 
+  isValid(str, field) {
+    if ( field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
+      return true;
+    } else if ( field === 'uid') {
+      return true;
+    }
+    return false;
+  }
+
   handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    if (this.isValid(e.target.value, e.target.name)) {
+      this.setState({
+        [e.target.name]: e.target.value
+      }); 
+    } else {
+      alert("You can't use symbols in your name!")
+      document.getElementById('fname').value = "";
+    }
   }
 
   handleJoin() {
@@ -51,10 +65,12 @@ class JoinRoom extends Component {
   }
 
   onClick = e => {
+
     this.setState({
       icon: e.target.name
     });
   }
+
   render() {
     let isEnabled = this.state.uid !== "" && this.state.fname !== "";
 

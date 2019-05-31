@@ -47,24 +47,29 @@ export class GameManager extends Component {
         this.setState({ created: true });
     }
 
-    isValid(val, name) {
-        if (name === "numQuestions") {
-            return val <= 15 && val > 0
-        } else if (name === "timer") {
-            return val <= 60 && val > 0;
+    isValid(str, field) {
+        if ( field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
+          return true;
+        } else if (field === 'roomName') {
+            return true
         }
-        return true;
+        return false;
     }
-
+str
     handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
+            document.getElementById('fname').style.borderColor = "white";
+            let str = e.target.value.replace(/ /g, '_');
             this.setState({
-                [e.target.name]: e.target.value
+                [e.target.name]: str
             });
         } else {
-            // Resets the input field if the input is over the specified limits
+            this.setState({ fname: "" });
             e.target.value = "";
+            document.getElementById('error').innerHTML = "Please enter a correct name without symbols.";
+            document.getElementById('error').style.visibility = "visible";
+            document.getElementById('fname').style.borderColor = "red";
         }
     }
 
@@ -105,6 +110,11 @@ export class GameManager extends Component {
         return (
             <div>
                 <Form id="newRoom-form">
+                    <div id="error"
+                        class="alert alert-danger"
+                        role="alert"
+                        style={{ visibility: "hidden" }}>    
+                    </div>
                     <h1 className="header">Settings</h1>
                     <Label style={{marginTop: "40px"}}> Organizer Name </Label>
                     <Input 
@@ -127,7 +137,7 @@ export class GameManager extends Component {
                         <Input
                             placeholder={this.state.numQuestions}
                             name="numQuestions"
-                            min={0}
+                            min={1}
                             max={15}
                             type="number"
                             step="1"
@@ -196,16 +206,19 @@ export class Categories extends Component {
                         <div className="cata" onClick={this.setQuestionDeck} id="travel">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
                         </div>
+                        <h3>Travel</h3>
                     </Col>
                     <Col>
                         <div className="cata" onClick={this.setQuestionDeck} id="food">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
                         </div>
+                        <h3>Food</h3>
                     </Col>
                     <Col>
                         <div className="cata" onClick={this.setQuestionDeck} id="sports">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
                         </div>
+                        <h3>Sports</h3>
                     </Col>
                 </Row>
                 <Row>
@@ -213,16 +226,19 @@ export class Categories extends Component {
                         <div className="cata" onClick={this.setQuestionDeck} id="music">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
                         </div>
+                        <h3>Music</h3>
                     </Col>
                     <Col>
                         <div className="cata" onClick={this.setQuestionDeck} id="movies">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
                         </div>
+                        <h3>Movies</h3>
                     </Col>
                     <Col>
                         <div className="cata" onClick={this.setQuestionDeck} id="books">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
                         </div>
+                        <h3>Books</h3>
                     </Col>
                 </Row>
                 <Row>
@@ -230,16 +246,19 @@ export class Categories extends Component {
                         <div className="cata" onClick={this.setQuestionDeck} id="animals">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
                         </div>
+                        <h3>Animals</h3>
                     </Col>
                     <Col>
                         <div className="cata" onClick={this.setQuestionDeck} id="random">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/random.png")} id="random" alt="random" />
                         </div>
+                        <h3>Random</h3>
                     </Col>
                     <Col>
                         <div className="cata" onClick={this.setQuestionDeck} id="customized">
                             <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/customized.png")} id="customized" alt="customized" />
                         </div>
+                        <h3>Custom</h3>
                     </Col>
                 </Row>
                 <Button href="/Room" disabled={isEnabled}>Go to Room</Button>

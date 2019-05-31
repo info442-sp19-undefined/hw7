@@ -55,6 +55,11 @@ div .profileimgs .row{
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
+.col h3 {
+    padding-top: 2vh;
+    text-align: center;
+}
+
 h1 .header{
     position: absolute;
     top: 80px;
