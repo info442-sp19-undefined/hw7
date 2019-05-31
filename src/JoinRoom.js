@@ -29,7 +29,7 @@ class JoinRoom extends Component {
     roomRef.orderByChild('uid').equalTo(this.state.uid).limitToFirst(1).once("value", snapshot => {
       if (snapshot.exists()) {
         // Adds player information to correct room in firebase
-        roomRef.child(this.state.uid).child('players').set({
+        roomRef.child(this.state.uid).child('players').push({
           name: this.state.fname,
           icon: this.state.icon
         });

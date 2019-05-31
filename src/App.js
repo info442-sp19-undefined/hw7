@@ -9,15 +9,10 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uid:""
+            uid: uniqid()
         };
-        this.handleNewUid = this.handleNewUid.bind(this);
     }
 
-    handleNewUid() {
-        console.log('here');
-        this.setState({ uid: uniqid() });
-    }
     render() {
         //Home 
         let Home = () => {
@@ -34,8 +29,8 @@ class App extends Component {
                             </a>
                         </div>
                         <div>
-                            <a href="/NewRoom">
-                                <button style={{ width: "200px" }} onClick={this.handleNewUid}> New Room </button>
+                            <a href="/NewRoom" >
+                                <button style={{ width: "200px" }}> New Room </button>
                             </a>
                         </div>
                     </div>
@@ -48,7 +43,7 @@ class App extends Component {
             <header className="App-header" >
                 <Switch>
                     <Route exact path="/" render={Home} />
-                    <Route  path="/NewRoom" render={() => <GameManager {...this.state} data={this.state.uid} />} />
+                    <Route  path="/NewRoom" render={() => <GameManager data={this.state} />} />
                     <Route path="/JoinRoom" component={JoinRoom}/>
                     <Route path="/:name/Categories/" component={Categories}/>
                     <Redirect to='/' />

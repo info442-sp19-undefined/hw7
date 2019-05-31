@@ -12,7 +12,6 @@ import {
     Form
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
-const uniqid = require("uniqid");
 const questionFile = require("./questions.json");
 export class GameManager extends Component {
     constructor(props) {
@@ -31,8 +30,7 @@ export class GameManager extends Component {
     }
 
     componentDidMount() {
-        let uid = uniqid();
-        this.setState({ uid: uid, roomName: "Room-" + uid });
+        this.setState({ uid: this.props.data.uid, roomName: "Room-" + this.props.data.uid });
     }
 
     handleCreateRoom() {
@@ -79,7 +77,7 @@ export class GameManager extends Component {
         let isEnabled = (this.state.fname !== "");
         let button = null;
         if (this.state.created) {
-            return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
+            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state: this.state}} />;
         } else {
             button = (
                 <Button
@@ -117,7 +115,7 @@ export class GameManager extends Component {
                         style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
-                    <Input 
+                    <Input   
                         placeholder={this.state.roomName} 
                         name="roomName" 
                         onChange={this.handleChange} 
@@ -125,7 +123,7 @@ export class GameManager extends Component {
                         style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     <Label style={{marginTop: "20px"}}>Number of Icebreaker Questions</Label>
-                    <InputGroup>
+                    <InputGroup>  
                         <Input
                             placeholder={this.state.numQuestions}
                             name="numQuestions"
@@ -153,11 +151,12 @@ export class GameManager extends Component {
 
 export class Categories extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            questions:[]
+            questions: []
         }
         this.setQuestionDeck = this.setQuestionDeck.bind(this);
+        this.parentState = this.props.location.state;
     }
 
     componentDidMount() {
