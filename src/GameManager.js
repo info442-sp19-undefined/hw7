@@ -15,7 +15,7 @@ import { Redirect } from 'react-router-dom';
 import { Modal, ModalHeader, ModalFooter } from 'reactstrap';
 const uniqid = require("uniqid");
 const questionFile = require("./questions.json");
-export class GameManager extends Component {
+export default class GameManager extends Component {
     constructor(props) {
         super(props);
         this.state = {

@@ -3,7 +3,7 @@
         "category":"travel",
         "questions": [
             {
-                "Do you prefer to traven alone or in a group?": ["Solo", "Group"],
+                "Do you prefer to trave alone or in a group?": ["Solo", "Group"],
                 "Do you send post cards?": ["Yes", "No"],
                 "Window or aisle seat": ["Window", "Aisle"],
                 "Have you traveled abroad?": ["Yes", "No"],
