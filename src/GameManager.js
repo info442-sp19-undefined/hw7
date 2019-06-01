@@ -12,9 +12,10 @@ import {
     Form
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
+import { Modal, ModalHeader, ModalFooter } from 'reactstrap';
 const uniqid = require("uniqid");
 const questionFile = require("./questions.json");
-export class GameManager extends Component {
+export default class GameManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -79,7 +80,10 @@ export class GameManager extends Component {
         let isEnabled = (this.state.fname !== "");
         let button = null;
         if (this.state.created) {
-            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state:{uid:this.state.uid}}}/>;
+            return <Redirect to={{
+                pathname: "/" + this.state.roomName + "/Categories/",
+                state: { maxQuestions: this.state.numQuestions }
+            }} />
         } else {
             button = (
                 <Button
@@ -107,24 +111,24 @@ export class GameManager extends Component {
             <div>
                 <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
-                    <Label style={{marginTop: "40px"}}> Organizer Name </Label>
-                    <Input   
-                        placeholder="First Name" 
-                        name="fname" 
-                        onChange={th is.handleChange} 
-                        id="fname" 
-                        style={{ w idth: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
+                    <Label style={{ marginTop: "40px" }}> Organizer Name </Label>
+                    <Input
+                        placeholder="First Name"
+                        name="fname"
+                        onChange={this.handleChange}
+                    id="fname"
+                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }}
                     />
-                    <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
-                    <Input   
-                        placeholder={this.state.roomName} 
-                        name="roomName" 
-                        onChange={this. handleChange} 
-                        id="roomName" 
-                        style={{ widt h: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
+                    <Label style={{ marginTop: "20px" }}>Custom Room Name</Label>
+                    <Input
+                        placeholder={this.state.roomName}
+                        name="roomName"
+                        onChange={this.handleChange}
+                        id="roomName"
+                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }}
                     />
-                    <Label style={{marginTop: "20px"}}>Number of Icebreaker Questions</Label>
-                    <InputGroup>  
+                    <Label style={{ marginTop: "20px" }}>Number of Icebreaker Questions</Label>
+                    <InputGroup>
                         <Input
                             placeholder="Maximum is 15"
                             name="numQuestions"
@@ -134,15 +138,15 @@ export class GameManager extends Component {
                             step="1"
                             defaultValue={5}
                             onChange={this.handleChange}
-                            // style={{width: "20px"}}
+                        // style={{width: "20px"}}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
                     </InputGroup>
                     <Label check style={{ marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600" }}>
-                            <input type="check box" 
+                        <input type="check box"
                             name="toggleAnalysis"
                             onClick={this.onClick}
-                            /> Show Analysis
+                        /> Show Analysis
                     </Label>
                     {button}
                 </Form>
@@ -152,7 +156,8 @@ export class GameManager extends Component {
 }
 
 export class Categories extends Component {
-    constructor() {
+    constructor(props) {
+        super(props)
         this.state = {
             questions: []
         }
@@ -184,96 +189,115 @@ export class Categories extends Component {
             }
         }
         return undefined;
-
-
-            render() {
-                let isEnabled = (this.state.questions.length !== 0);
-                return (
-                    <div id="category">
-                        <h1>Categories</h1>
-                        <Row>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" src={require("./icons/food.png")} name="food" alt="food" />
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" src={require("./icons/sports.png")} name="sports" alt="sports" />
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" src={require("./icons/music.png")} name="music" alt="music" />
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" src={require("./icons/movie.png")} name="movie" alt="movie" />
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" src={require("./icons/animal.png")} name="animal" alt="animal" />
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" id="random" src={require("./icons/random.png")} name="random" alt="random" />
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="cata" onClick={this.setQuestionDeck}>
-                                    <img className="cataimg" id="customized" src={require("./icons/customized.png")} name="customized" alt="customized" />
-                                </div>
-                            </Col>
-                        </Row>
-                        <Questions questionList={this.state.questions}/>
-                        <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
-                    </div>
-                );
-            }
-        } 
     }
-}
-
-export class Questions extends Component {
-    constructor(props) {
-        super(props)
-    }
-
-
-
-    displayQuestion() {
-
-    }
-
-
-    numberOfQuestions() {
-        let roomRef = firebase.database().ref("Rooms").child(this.state.uid);
-
-    }
-
 
     render() {
-        console.log(this.props.questionList);
-        
-        return(
-            <Button onClick={this.displayQuestion}>Display Question</Button>
+        let isEnabled = (this.state.questions.length !== 0);
+        return (
+            <div id="category">
+                <h1>Categories</h1>
+                <Row>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/food.png")} name="food" alt="food" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/sports.png")} name="sports" alt="sports" />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/music.png")} name="music" alt="music" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/movie.png")} name="movie" alt="movie" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" src={require("./icons/animal.png")} name="animal" alt="animal" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" id="random" src={require("./icons/random.png")} name="random" alt="random" />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className="cata" onClick={this.setQuestionDeck}>
+                            <img className="cataimg" id="customized" src={require("./icons/customized.png")} name="customized" alt="customized" />
+                        </div>
+                    </Col>
+                </Row>
+                <ModalQuestions questionList={this.state.questions} max={this.props.location.state.maxQuestions}/>
+                <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
+            </div>
         );
     }
 }
+
+class ModalQuestions extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        modal: false
+      };
+      this.toggle = this.toggle.bind(this);
+    }
+  
+    toggle() {
+      this.setState(prevState => ({
+        modal: !prevState.modal
+      }));
+    }
+
+    render() {
+        if(this.props.questionList.length !== 0) {
+            const entries = Object.entries(this.props.questionList);
+            let displayQuestion = entries[0];
+            let displayQuestionModal = displayQuestion[0];
+            let values = Object.values(this.props.questionList);
+            let displayButton = values[0];
+            let displayButton1 = displayButton[0];
+            let displayButton2 = displayButton[1];
+            return (
+                <div>
+                  <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+                  <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
+                    <ModalFooter>
+                      <Button color="primary" onClick={this.toggle}>{displayButton1}</Button>{' '}
+                      <Button color="primary" onClick={this.toggle}>{displayButton2}</Button>{' '}
+                      <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                  </Modal>
+                </div>
+              );
+        }
+        return(
+            <div>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <p>Organizer has not posted question yet</p>
+                </Modal>
+            </div>
+        )
+    }
+  }
