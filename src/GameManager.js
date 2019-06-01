@@ -51,11 +51,11 @@ export class GameManager extends Component {
         if ( field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
           return true;
         } else if (field === 'roomName') {
-            return true
+            return true;
         }
         return false;
     }
-str
+    
     handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
@@ -111,7 +111,7 @@ str
             <div>
                 <Form id="newRoom-form">
                     <div id="error"
-                        class="alert alert-danger"
+                        className="alert alert-danger"
                         role="alert"
                         style={{ visibility: "hidden" }}>    
                     </div>
@@ -163,7 +163,8 @@ export class Categories extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            questions: []
+            questions: [],
+            custom: false
         }
         this.setQuestionDeck = this.setQuestionDeck.bind(this);
         this.parentState = this.props.location.state;
@@ -177,13 +178,18 @@ export class Categories extends Component {
     }
 
     setQuestionDeck = (e) => {
-        let deck = this.getQuestions(e.target.id);
-        if (deck !== undefined) {
-            this.setState({
-                questions: deck
-            });
+        let category = e.target.id;
+        if (category !== 'random' || category !== 'customized') {
+            let deck = this.getQuestions(category);
+            if (deck !== undefined) {
+                this.setState({
+                    questions: deck
+                });
+            } else {
+                alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+            }
         } else {
-            alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+            this.setState({ custom: true });
         }
     }
 
@@ -196,6 +202,9 @@ export class Categories extends Component {
         return undefined;
     }
 
+    addToDeck() {
+        this.state.questions.push("hi");
+    }
     render() {
         let isEnabled = (this.state.questions.length !== 0);
         return (
@@ -204,7 +213,7 @@ export class Categories extends Component {
                 <Row>
                     <Col>
                         <div className="cata" onClick={this.setQuestionDeck} id="travel">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                            <img className="cataimg" onClick={this.state.custom ? this.setQuestionDeck : this.addToDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
                         </div>
                         <h3>Travel</h3>
                     </Col>
