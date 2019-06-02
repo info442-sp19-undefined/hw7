@@ -233,7 +233,7 @@ export class Categories extends Component {
                     break;
                 }
             }
-        }
+        }  
     }
 
     render() {
@@ -334,14 +334,13 @@ class ModalQuestions extends React.Component {
     }
 
     render() {
-        if(this.props.questionList.length !== 0) {
+        if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
             const entries = this.props.questionList;
             let displayQuestion = entries[this.state.questionNumber];
             let displayQuestionModal = displayQuestion[0];
-            let values = Object.values(this.props.questionList);
-            let displayButton = values[this.state.questionNumber][1];
-            let displayButton1 = displayButton[this.state.questionNumber];
-            let displayButton2 = displayButton[this.state.questionNumber + 1];
+            let displayButton = entries[this.state.questionNumber][1];
+            let displayButton1 = displayButton[0];
+            let displayButton2 = displayButton[1];
             return (
                 <div>
                   <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
