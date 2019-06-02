@@ -81,6 +81,7 @@ export class GameManager extends Component {
             [e.target.name]: e.target.checked
         });
     }
+    
     render() {
         let isEnabled = (this.state.fname !== "");
         let button = null;
