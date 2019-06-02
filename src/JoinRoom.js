@@ -30,6 +30,7 @@ class JoinRoom extends Component {
   handleChange = e => {
     if (this.isValid(e.target.value, e.target.name)) {
       document.getElementById('fname').style.borderColor = "white";
+      document.getElementById('error').style.visibility = "hidden";
       this.setState({
         [e.target.name]: e.target.value
       }); 

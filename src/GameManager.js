@@ -16,6 +16,8 @@ import {
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
 const questionFile = require("./questions.json");
+const MAX_QUESTIONS = 15;
+const MIN_QUESTIONS = 1;
 export class GameManager extends Component {
     constructor(props) {
         super(props);
@@ -55,17 +57,24 @@ export class GameManager extends Component {
           return true;
         } else if (field === 'roomName') {
             return true;
-        }
+        } 
         return false;
     }
     
     handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
+            // Remove Error message
             document.getElementById('fname').style.borderColor = "white";
+            document.getElementById('error').style.visibility = "hidden";
+
             let str = e.target.value.replace(/ /g, '_');
             this.setState({
                 [e.target.name]: str
+            });
+        } else if(e.target.name === 'numQuestions') {
+            this.setState({
+                [e.target.name]: e.target.value
             });
         } else {
             this.setState({ fname: "" });
@@ -141,8 +150,8 @@ export class GameManager extends Component {
                         <Input
                             placeholder={this.state.numQuestions}
                             name="numQuestions"
-                            min={1}
-                            max={15}
+                            min={MIN_QUESTIONS}
+                            max={MAX_QUESTIONS}
                             type="number"
                             step="1"
                             defaultValue={5}
@@ -171,6 +180,7 @@ export class Categories extends Component {
             custom: false
         }
         this.setQuestionDeck = this.setQuestionDeck.bind(this);
+        this.handleRandomDeck = this.handleRandomDeck.bind(this);
         this.parentState = this.props.location.state;
     }
 
@@ -184,7 +194,7 @@ export class Categories extends Component {
     setQuestionDeck = (e) => {
         let category = e.target.id;
         if (category !== 'random' || category !== 'customized') {
-            let deck = this.getQuestions(category);
+            let deck = Object.entries(this.getQuestions(category));
             if (deck !== undefined) {
                 this.setState({
                     questions: deck
@@ -206,9 +216,34 @@ export class Categories extends Component {
         return undefined;
     }
 
-    addToDeck() {
-        this.state.questions.push("hi");
+    handleRandomDeck() {
+        let max = parseInt(this.parentState.numQuestions);
+        let randomIndex = Math.floor(Math.random() * MAX_QUESTIONS);
+        let deck = [];
+
+        if( max <= 7 ) {
+            for(let category of questionFile) {
+                let currentPos = 0;
+                let questionDeck = Object.entries(category.questions);
+                for(let questionSet of questionDeck) {
+                    if(currentPos === randomIndex) {
+                        deck.push(questionSet);
+                        break;
+                    }
+                    currentPos++;
+                };
+
+                // Check deck has correct number of questions and prevent from adding more
+                if(deck.length === max) {
+                    this.setState({
+                        questions: deck
+                    });
+                    break;
+                }
+            }
+        }
     }
+
     render() {
         let isEnabled = (this.state.questions.length !== 0);
         return (
@@ -262,8 +297,8 @@ export class Categories extends Component {
                         <h3>Animals</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="random">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/random.png")} id="random" alt="random" />
+                        <div className="cata" onClick={this.handleRandomDeck} id="random">
+                            <img className="cataimg" onClick={this.handleRandomDeck} src={require("./icons/random.png")} id="random" alt="random" />
                         </div>
                         <h3>Random</h3>
                     </Col>
@@ -280,6 +315,7 @@ export class Categories extends Component {
         );
     }
 }
+
 class ModalQuestions extends React.Component {
     constructor(props) {
       super(props);
@@ -310,11 +346,11 @@ class ModalQuestions extends React.Component {
 
     render() {
         if(this.props.questionList.length !== 0) {
-            const entries = Object.entries(this.props.questionList);
+            const entries = this.props.questionList;
             let displayQuestion = entries[this.state.questionNumber];
             let displayQuestionModal = displayQuestion[this.state.questionNumber];
             let values = Object.values(this.props.questionList);
-            let displayButton = values[this.state.questionNumber];
+            let displayButton = values[this.state.questionNumber][1];
             let displayButton1 = displayButton[this.state.questionNumber];
             let displayButton2 = displayButton[this.state.questionNumber + 1];
             return (
