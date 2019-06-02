@@ -284,10 +284,14 @@ class ModalQuestions extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        modal: false
+        modal: false,
+        questionNumber: 0
       };
       this.toggle = this.toggle.bind(this);
     }
+
+    // this.props.max is the max number of questions
+    // this.props.questionList is the list of questions to display
   
     toggle() {
       this.setState(prevState => ({
@@ -295,15 +299,23 @@ class ModalQuestions extends React.Component {
       }));
     }
 
+    nextQuestion() {
+        console.log("did the question number increase?");
+        console.log(this.state.questionNumber);
+        let num = this.state.questionNumber;
+        this.setState({ questionNumber: num + 1});
+        console.log(this.state.questionNumber);
+    }
+
     render() {
         if(this.props.questionList.length !== 0) {
             const entries = Object.entries(this.props.questionList);
-            let displayQuestion = entries[0];
-            let displayQuestionModal = displayQuestion[0];
+            let displayQuestion = entries[this.state.questionNumber];
+            let displayQuestionModal = displayQuestion[this.state.questionNumber];
             let values = Object.values(this.props.questionList);
-            let displayButton = values[0];
-            let displayButton1 = displayButton[0];
-            let displayButton2 = displayButton[1];
+            let displayButton = values[this.state.questionNumber];
+            let displayButton1 = displayButton[this.state.questionNumber];
+            let displayButton2 = displayButton[this.state.questionNumber + 1];
             return (
                 <div>
                   <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
@@ -312,11 +324,12 @@ class ModalQuestions extends React.Component {
                     <ModalFooter>
                       <Button color="primary" onClick={this.toggle}>{displayButton1}</Button>{' '}
                       <Button color="primary" onClick={this.toggle}>{displayButton2}</Button>{' '}
+                      <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
                       <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                   </Modal>
                 </div>
-              );
+            );
         }
         return(
             <div>
@@ -326,4 +339,4 @@ class ModalQuestions extends React.Component {
             </div>
         )
     }
-}
+  }
