@@ -113,12 +113,12 @@ export class GameManager extends Component {
 
         return (
             <div>
+                <div id="error"
+                    className="alert alert-danger"
+                    role="alert"
+                    style={{ visibility: "hidden" }}>
+                </div>
                 <Form id="newRoom-form">
-                    <div id="error"
-                        className="alert alert-danger"
-                        role="alert"
-                        style={{ visibility: "hidden" }}>    
-                    </div>
                     <h1 className="header">Settings</h1>
                     <Label style={{marginTop: "40px"}}> Organizer Name </Label>
                     <Input 

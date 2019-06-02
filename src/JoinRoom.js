@@ -62,7 +62,7 @@ class JoinRoom extends Component {
           }
         });
       } else {
-        alert("Oh no! Seems that room doesn't exist!");
+        document.getElementById('error').innerHTML = "Oh no! Seems that room doesn't exist!";
         document.getElementById('join-form').reset();
       }
     })
@@ -94,12 +94,12 @@ class JoinRoom extends Component {
     
     return (
       <div>
-        <Form id="join-form">
-          <div id="error"
+        <div id="error"
             className="alert alert-danger"
             role="alert"
             style={{ visibility: "hidden" }}>
-          </div>
+        </div>
+        <Form id="join-form">
           <h1 className="header"> Create Profile </h1>
           <Label>Name</Label>
           <Input
