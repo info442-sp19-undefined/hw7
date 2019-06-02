@@ -29,12 +29,16 @@ class JoinRoom extends Component {
 
   handleChange = e => {
     if (this.isValid(e.target.value, e.target.name)) {
+      document.getElementById('fname').style.borderColor = "white";
       this.setState({
         [e.target.name]: e.target.value
       }); 
     } else {
-      alert("You can't use symbols in your name!")
-      document.getElementById('fname').value = "";
+      e.target.value = "";
+      this.setState({ fname: "" });
+      document.getElementById('error').innerHTML = "Please enter a correct name without symbols.";
+      document.getElementById('error').style.visibility = "visible";
+      document.getElementById('fname').style.borderColor = "red";
     }
   }
 
@@ -65,7 +69,6 @@ class JoinRoom extends Component {
   }
 
   onClick = e => {
-
     this.setState({
       icon: e.target.name
     });
@@ -92,6 +95,11 @@ class JoinRoom extends Component {
     return (
       <div>
         <Form id="join-form">
+          <div id="error"
+            className="alert alert-danger"
+            role="alert"
+            style={{ visibility: "hidden" }}>
+          </div>
           <h1 className="header"> Create Profile </h1>
           <Label>Name</Label>
           <Input
