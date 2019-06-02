@@ -81,7 +81,7 @@ export class GameManager extends Component {
             [e.target.name]: e.target.checked
         });
     }
-    
+
     render() {
         let isEnabled = (this.state.fname !== "");
         let button = null;
@@ -288,6 +288,7 @@ class ModalQuestions extends React.Component {
         questionNumber: 0
       };
       this.toggle = this.toggle.bind(this);
+      this.nextQuestion = this.nextQuestion.bind(this);
     }
 
     // this.props.max is the max number of questions
