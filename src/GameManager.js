@@ -9,7 +9,10 @@ import {
     Button,
     Col,
     Row,
-    Form
+    Form,
+    Modal,
+    ModalHeader,
+    ModalFooter
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
 const questionFile = require("./questions.json");
@@ -132,8 +135,8 @@ export class GameManager extends Component {
                         id="roomName" 
                         style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
-                    <Label style={{marginTop: "20px"}}>Number of Icebreaker Questions</Label>
-                    <InputGroup>  
+                    <Label style={{ marginTop: "20px" }}>Number of Icebreaker Questions</Label>
+                    <InputGroup>
                         <Input
                             placeholder={this.state.numQuestions}
                             name="numQuestions"
@@ -213,7 +216,7 @@ export class Categories extends Component {
                 <Row>
                     <Col>
                         <div className="cata" onClick={this.setQuestionDeck} id="travel">
-                            <img className="cataimg" onClick={this.state.custom ? this.setQuestionDeck : this.addToDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
                         </div>
                         <h3>Travel</h3>
                     </Col>
@@ -270,8 +273,56 @@ export class Categories extends Component {
                         <h3>Custom</h3>
                     </Col>
                 </Row>
+                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
                 <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
             </div>
         );
+    }
+}
+class ModalQuestions extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        modal: false
+      };
+      this.toggle = this.toggle.bind(this);
+    }
+  
+    toggle() {
+      this.setState(prevState => ({
+        modal: !prevState.modal
+      }));
+    }
+
+    render() {
+        if(this.props.questionList.length !== 0) {
+            const entries = Object.entries(this.props.questionList);
+            let displayQuestion = entries[0];
+            let displayQuestionModal = displayQuestion[0];
+            let values = Object.values(this.props.questionList);
+            let displayButton = values[0];
+            let displayButton1 = displayButton[0];
+            let displayButton2 = displayButton[1];
+            return (
+                <div>
+                  <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+                  <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
+                    <ModalFooter>
+                      <Button color="primary" onClick={this.toggle}>{displayButton1}</Button>{' '}
+                      <Button color="primary" onClick={this.toggle}>{displayButton2}</Button>{' '}
+                      <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                  </Modal>
+                </div>
+              );
+        }
+        return(
+            <div>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <p>Organizer has not posted question yet</p>
+                </Modal>
+            </div>
+        )
     }
 }
