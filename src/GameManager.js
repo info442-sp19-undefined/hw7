@@ -9,17 +9,18 @@ import {
     Button,
     Col,
     Row,
-    Form
+    Form,
+    Modal,
+    ModalHeader,
+    ModalFooter
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
-import { Modal, ModalHeader, ModalFooter } from 'reactstrap';
-const uniqid = require("uniqid");
 const questionFile = require("./questions.json");
-export default class GameManager extends Component {
+export class GameManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fname: "",
+            fname: "First Name",
             uid: "",
             roomName: "",
             numQuestions: 5,
@@ -32,8 +33,7 @@ export default class GameManager extends Component {
     }
 
     componentDidMount() {
-        let uid = uniqid();
-        this.setState({ uid: uid, roomName: "Room-" + uid });
+        this.setState({ uid: this.props.data.uid, roomName: "Room-" + this.props.data.uid });
     }
 
     handleCreateRoom() {
@@ -50,24 +50,29 @@ export default class GameManager extends Component {
         this.setState({ created: true });
     }
 
-    isValid(val, name) {
-        if (name === "numQuestions") {
-            return val <= 15 && val > 0
-        } else if (name === "timer") {
-            return val <= 60 && val > 0;
+    isValid(str, field) {
+        if ( field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
+          return true;
+        } else if (field === 'roomName') {
+            return true;
         }
-        return true;
+        return false;
     }
-
+    
     handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
+            document.getElementById('fname').style.borderColor = "white";
+            let str = e.target.value.replace(/ /g, '_');
             this.setState({
-                [e.target.name]: e.target.value
+                [e.target.name]: str
             });
         } else {
-            // Resets the input field if the input is over the specified limits
+            this.setState({ fname: "" });
             e.target.value = "";
+            document.getElementById('error').innerHTML = "Please enter a correct name without symbols.";
+            document.getElementById('error').style.visibility = "visible";
+            document.getElementById('fname').style.borderColor = "red";
         }
     }
 
@@ -80,10 +85,7 @@ export default class GameManager extends Component {
         let isEnabled = (this.state.fname !== "");
         let button = null;
         if (this.state.created) {
-            return <Redirect to={{
-                pathname: "/" + this.state.roomName + "/Categories/",
-                state: { maxQuestions: this.state.numQuestions }
-            }} />
+            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state: this.state}} />;
         } else {
             button = (
                 <Button
@@ -107,45 +109,50 @@ export default class GameManager extends Component {
                 </ Button>
             )
         }
+
         return (
             <div>
                 <Form id="newRoom-form">
+                    <div id="error"
+                        className="alert alert-danger"
+                        role="alert"
+                        style={{ visibility: "hidden" }}>    
+                    </div>
                     <h1 className="header">Settings</h1>
-                    <Label style={{ marginTop: "40px" }}> Organizer Name </Label>
-                    <Input
-                        placeholder="First Name"
-                        name="fname"
-                        onChange={this.handleChange}
-                    id="fname"
-                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }}
+                    <Label style={{marginTop: "40px"}}> Organizer Name </Label>
+                    <Input 
+                        placeholder={this.state.fname} 
+                        name="fname" 
+                        onChange={this.handleChange} 
+                        id="fname" 
+                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
-                    <Label style={{ marginTop: "20px" }}>Custom Room Name</Label>
-                    <Input
-                        placeholder={this.state.roomName}
-                        name="roomName"
-                        onChange={this.handleChange}
-                        id="roomName"
-                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }}
+                    <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
+                    <Input   
+                        placeholder={this.state.roomName} 
+                        name="roomName" 
+                        onChange={this.handleChange} 
+                        id="roomName" 
+                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     <Label style={{ marginTop: "20px" }}>Number of Icebreaker Questions</Label>
                     <InputGroup>
                         <Input
-                            placeholder="Maximum is 15"
+                            placeholder={this.state.numQuestions}
                             name="numQuestions"
-                            min={0}
+                            min={1}
                             max={15}
                             type="number"
                             step="1"
                             defaultValue={5}
                             onChange={this.handleChange}
-                        // style={{width: "20px"}}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
-                    </InputGroup>
-                    <Label check style={{ marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600" }}>
-                        <input type="check box"
-                            name="toggleAnalysis"
-                            onClick={this.onClick}
+                     </InputGroup>
+                    <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
+                        <input type="checkbox" 
+                            name="toggleAnalysis" 
+                            onClick={this.onClick} 
                         /> Show Analysis
                     </Label>
                     {button}
@@ -157,11 +164,13 @@ export default class GameManager extends Component {
 
 export class Categories extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            questions: []
+            questions: [],
+            custom: false
         }
         this.setQuestionDeck = this.setQuestionDeck.bind(this);
+        this.parentState = this.props.location.state;
     }
 
     componentDidMount() {
@@ -172,13 +181,18 @@ export class Categories extends Component {
     }
 
     setQuestionDeck = (e) => {
-        let deck = this.getQuestions(e.target.name);
-        if (deck !== undefined) {
-            this.setState({
-                questions: deck
-            });
+        let category = e.target.id;
+        if (category !== 'random' || category !== 'customized') {
+            let deck = this.getQuestions(category);
+            if (deck !== undefined) {
+                this.setState({
+                    questions: deck
+                });
+            } else {
+                alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+            }
         } else {
-            alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+            this.setState({ custom: true });
         }
     }
 
@@ -191,6 +205,9 @@ export class Categories extends Component {
         return undefined;
     }
 
+    addToDeck() {
+        this.state.questions.push("hi");
+    }
     render() {
         let isEnabled = (this.state.questions.length !== 0);
         return (
@@ -198,62 +215,70 @@ export class Categories extends Component {
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="travel">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
                         </div>
+                        <h3>Travel</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/food.png")} name="food" alt="food" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="food">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
                         </div>
+                        <h3>Food</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/sports.png")} name="sports" alt="sports" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="sports">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
                         </div>
+                        <h3>Sports</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/music.png")} name="music" alt="music" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="music">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
                         </div>
+                        <h3>Music</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/movie.png")} name="movie" alt="movie" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="movies">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
                         </div>
+                        <h3>Movies</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="books">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
                         </div>
+                        <h3>Books</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/animal.png")} name="animal" alt="animal" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="animals">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
                         </div>
+                        <h3>Animals</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" id="random" src={require("./icons/random.png")} name="random" alt="random" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="random">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/random.png")} id="random" alt="random" />
                         </div>
+                        <h3>Random</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" id="customized" src={require("./icons/customized.png")} name="customized" alt="customized" />
+                        <div className="cata" onClick={this.setQuestionDeck} id="customized">
+                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/customized.png")} id="customized" alt="customized" />
                         </div>
+                        <h3>Custom</h3>
                     </Col>
                 </Row>
-                <ModalQuestions questionList={this.state.questions} max={this.props.location.state.maxQuestions}/>
+                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
                 <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
             </div>
         );
     }
 }
-
 class ModalQuestions extends React.Component {
     constructor(props) {
       super(props);
@@ -300,4 +325,4 @@ class ModalQuestions extends React.Component {
             </div>
         )
     }
-  }
+}

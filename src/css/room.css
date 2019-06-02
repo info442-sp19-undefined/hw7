@@ -16,33 +16,18 @@ div .profileimgs .row{
     width: 100px;
     height: 100px;
     background-color: #226597;
-    /* border-width: 2px; */
     border-color: none;
     border-style: none;
     display: flex;
     align-items: center;
-    justify-content: center;
-    
+    justify-content: center;   
 }
 
 .cataimg {
-    /* vertical-align: middle; */
-    /* display: inline-flex; */
     width: 40px;
     height: auto;
     margin: 0;
     
-}
-
-#customized {
-    position: absolute;
-    top: 2.8rem;
-}
-
-#random {
-    position: absolute;
-    top: 2.2rem;
-    left: 2.7rem;
 }
 
 .row {
@@ -70,12 +55,15 @@ div .profileimgs .row{
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
+.col h3 {
+    padding-top: 2vh;
+    text-align: center;
+}
+
 h1 .header{
     position: absolute;
     top: 80px;
     margin-left: auto;
     margin-right: auto;
     width: 320px;
-
 }
-

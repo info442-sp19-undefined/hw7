@@ -40,6 +40,10 @@ h1 {
   font-weight: 400;
 }
 
+.buttonContainer a:hover {
+  text-decoration: none;
+}
+
 .buttonContainer div {
   padding: 1em 0 1em 0;
 }

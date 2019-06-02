@@ -18,10 +18,24 @@ class JoinRoom extends Component {
     this.handleJoin = this.handleJoin.bind(this);
   }
 
+  isValid(str, field) {
+    if ( field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
+      return true;
+    } else if ( field === 'uid') {
+      return true;
+    }
+    return false;
+  }
+
   handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    if (this.isValid(e.target.value, e.target.name)) {
+      this.setState({
+        [e.target.name]: e.target.value
+      }); 
+    } else {
+      alert("You can't use symbols in your name!")
+      document.getElementById('fname').value = "";
+    }
   }
 
   handleJoin() {
@@ -29,7 +43,7 @@ class JoinRoom extends Component {
     roomRef.orderByChild('uid').equalTo(this.state.uid).limitToFirst(1).once("value", snapshot => {
       if (snapshot.exists()) {
         // Adds player information to correct room in firebase
-        roomRef.child(this.state.uid).child('players').set({
+        roomRef.child(this.state.uid).child('players').push({
           name: this.state.fname,
           icon: this.state.icon
         });
@@ -51,17 +65,19 @@ class JoinRoom extends Component {
   }
 
   onClick = e => {
+
     this.setState({
       icon: e.target.name
     });
   }
+
   render() {
     let isEnabled = this.state.uid !== "" && this.state.fname !== "";
 
     // Render different buttons whether the user has successfully been added to the room or not
     let button = null;
     if (this.state.joined) {
-      return <Redirect push to={"/" + this.state.roomName + "/Categories/"} />;
+      return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state: this.state }} />;
     } else {
       button = (
         <Button onClick={this.handleJoin} disabled={!isEnabled}
@@ -95,7 +111,7 @@ class JoinRoom extends Component {
           />
           <Label style={{marginTop: "2em"}}>Select Profile Image</Label>
           <Row className="profileimgs">
-            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+            <Col style={{width: "60px"}}>
               <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
@@ -106,7 +122,7 @@ class JoinRoom extends Component {
                 />
               </div>
             </Col>
-            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+            <Col style={{ width: "60px"}}>
               <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
@@ -117,7 +133,7 @@ class JoinRoom extends Component {
                 />
               </div>
             </Col>
-            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+            <Col style={{width: "60px"}}>
              <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
@@ -128,7 +144,7 @@ class JoinRoom extends Component {
                />
               </div>
             </Col>
-            <Col style={{paddingRight: "0px", paddingLeft: "0px", width: "60px"}}>
+            <Col style={{width: "60px"}}>
               <div style={{width: "60px"}}>
                 <img
                   className="profileimg"
