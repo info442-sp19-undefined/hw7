@@ -233,7 +233,7 @@ export class Categories extends Component {
                     currentPos++;
                 };
 
-                // Check deck has correct number of questions and prevent from adding more
+                // Check deck has correct number of questions and prevent from adding more questions
                 if(deck.length === max) {
                     this.setState({
                         questions: deck
