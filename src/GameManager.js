@@ -336,22 +336,25 @@ class ModalQuestions extends React.Component {
     }
 
     nextQuestion() {
-        console.log("did the question number increase?");
-        console.log(this.state.questionNumber);
-        let num = this.state.questionNumber;
-        this.setState({ questionNumber: num + 1});
-        console.log(this.state.questionNumber);
+        let num = this.state.questionNumber + 1;
+        this.setState({ questionNumber: num});
     }
 
     render() {
         if(this.props.questionList.length !== 0) {
             const entries = this.props.questionList;
             let displayQuestion = entries[this.state.questionNumber];
-            let displayQuestionModal = displayQuestion[this.state.questionNumber];
+            let displayQuestionModal = displayQuestion[0];
             let values = Object.values(this.props.questionList);
+<<<<<<< HEAD
             let displayButton = values[this.state.questionNumber][1];
             let displayButton1 = displayButton[this.state.questionNumber];
             let displayButton2 = displayButton[this.state.questionNumber + 1];
+=======
+            let displayButton = values[this.state.questionNumber];
+            let displayButton1 = displayButton[0];
+            let displayButton2 = displayButton[1];
+>>>>>>> 5e839f5028de2a0ba137a58c64ad23c8c4cc6a52
             return (
                 <div>
                   <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
