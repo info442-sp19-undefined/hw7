@@ -222,15 +222,8 @@ export class Categories extends Component {
 
         if( max <= 7 ) {
             for(let category of questionFile) {
-                let currentPos = 0;
                 let questionDeck = Object.entries(category.questions);
-                for(let questionSet of questionDeck) {
-                    if(currentPos === randomIndex) {
-                        deck.push(questionSet);
-                        break;
-                    }
-                    currentPos++;
-                };
+                deck.push(questionDeck[randomIndex]);
 
                 // Check deck has correct number of questions and prevent from adding more questions
                 if(deck.length === max) {
