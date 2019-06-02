@@ -108,7 +108,7 @@ class JoinRoom extends Component {
             name="fname"
             onChange={this.handleChange}
             id="fname"
-            style={{width: "300px", borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto"}}
+            style={{ borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto"}}
           />
           <label style={{marginTop: "8%"}}>Room #</label>
           <Input
@@ -116,7 +116,7 @@ class JoinRoom extends Component {
             name="uid"
             onChange={this.handleChange}
             id="uid"
-            style={{width: "300px", borderRadius: "20px", paddingLeft: "24px",  marginLeft: "auto", marginRight: "auto"}}
+            style={{ borderRadius: "20px", paddingLeft: "24px",  marginLeft: "auto", marginRight: "auto"}}
           />
           <Label style={{marginTop: "2em"}}>Select Profile Image</Label>
           <Row className="profileimgs">

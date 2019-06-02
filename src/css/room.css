@@ -5,6 +5,13 @@
     padding-left: 24px;
 }
 
+#error {
+    visibility: hidden;
+    width: 45vh;
+    text-align: center;
+}
+
+
 div .profileimgs .row{
     padding: 0px;
     margin-bottom: 60px;

@@ -124,8 +124,7 @@ export class GameManager extends Component {
             <div>
                 <div id="error"
                     className="alert alert-danger"
-                    role="alert"
-                    style={{ visibility: "hidden" }}>
+                    role="alert">
                 </div>
                 <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
@@ -135,7 +134,7 @@ export class GameManager extends Component {
                         name="fname" 
                         onChange={this.handleChange} 
                         id="fname" 
-                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
+                        style={{ borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
                     <Input   
@@ -143,7 +142,7 @@ export class GameManager extends Component {
                         name="roomName" 
                         onChange={this.handleChange} 
                         id="roomName" 
-                        style={{ width: "300px", borderRadius: "20px", paddingLeft: "24px" }} 
+                        style={{ borderRadius: "20px", paddingLeft: "24px" }} 
                     />
                     <Label style={{ marginTop: "20px" }}>Number of Icebreaker Questions</Label>
                     <InputGroup>
