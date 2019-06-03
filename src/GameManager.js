@@ -322,7 +322,24 @@ export class Categories extends Component {
     }
 }
 
-class ModalQuestions extends React.Component {
+class AddQuestion extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: false
+        };
+    }
+
+    render() {
+        return(
+            <div>
+                Coming soon
+            </div>
+        )
+    }
+}
+
+class ModalQuestions extends Component {
     constructor(props) {
       super(props);
       this.state = {
