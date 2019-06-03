@@ -215,25 +215,39 @@ export class Categories extends Component {
         return undefined;
     }
 
+    getRandomIndex() {
+        return Math.floor(Math.random() * 15);
+    }
+    
+    getRandomTotalQuestions() {
+        return Math.floor(Math.random() * (4 - 1) + 1);
+    }
+
     handleRandomDeck() {
         let max = parseInt(this.parentState.numQuestions);
-        let randomIndex = Math.floor(Math.random() * MAX_QUESTIONS);
         let deck = [];
-
-        if( max <= 7 ) {
-            for(let category of questionFile) {
-                let questionDeck = Object.entries(category.questions);
-                deck.push(questionDeck[randomIndex]);
+        for (let category of questionFile) {
+            let questionDeck = Object.entries(category.questions);
+            let randomTotal = this.getRandomTotalQuestions();
+            let count = 0;
+            while(count <= randomTotal && deck.length !== max) {
+                let index = this.getRandomIndex();
+                if (!deck.includes(questionDeck[index])) {
+                    deck.push(questionDeck[index])
+                } else {
+                    deck.push(questionDeck[index + 1 % 2])
+                }
 
                 // Check deck has correct number of questions and prevent from adding more questions
-                if(deck.length === max) {
+                if (deck.length === max) {
                     this.setState({
                         questions: deck
                     });
                     break;
                 }
+                count++;
             }
-        }  
+        }
     }
 
     render() {
