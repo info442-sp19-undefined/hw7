@@ -74,3 +74,17 @@ h1 .header{
     margin-right: auto;
     width: 320px;
 }
+
+.optionContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.optionContainer input{
+    width: 200px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+}

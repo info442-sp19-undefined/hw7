@@ -10,14 +10,17 @@ import {
     Col,
     Row,
     Form,
+    FormGroup,
     Modal,
     ModalHeader,
-    ModalFooter
+    ModalFooter,
+    ModalBody
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
 const questionFile = require("./questions.json");
 const MAX_QUESTIONS = 15;
 const MIN_QUESTIONS = 1;
+
 export class GameManager extends Component {
     constructor(props) {
         super(props);
@@ -176,10 +179,12 @@ export class Categories extends Component {
         super(props);
         this.state = {
             questions: [],
-            custom: false
+            toggleCustom: false
         }
-        this.setQuestionDeck = this.setQuestionDeck.bind(this);
+        this.handleQuestionDeck = this.handleQuestionDeck.bind(this);
         this.handleRandomDeck = this.handleRandomDeck.bind(this);
+        this.toggleCustom = this.toggleCustom.bind(this);
+        this.setDeck = this.setDeck.bind(this);
         this.parentState = this.props.location.state;
     }
 
@@ -190,14 +195,18 @@ export class Categories extends Component {
         }
     }
 
-    setQuestionDeck = (e) => {
+    setDeck(deck) {
+        this.setState({
+            questions: deck
+        });
+    }
+    handleQuestionDeck = (e) => {
         let category = e.target.id;
         if (category !== 'random' || category !== 'customized') {
             let deck = Object.entries(this.getQuestions(category));
+
             if (deck !== undefined) {
-                this.setState({
-                    questions: deck
-                });
+                this.setDeck(deck);
             } else {
                 alert("An error occured while finding the questions, please try again later or contact the owner of the website");
             }
@@ -217,23 +226,34 @@ export class Categories extends Component {
 
     handleRandomDeck() {
         let max = parseInt(this.parentState.numQuestions);
-        let randomIndex = Math.floor(Math.random() * MAX_QUESTIONS);
         let deck = [];
 
-        if( max <= 7 ) {
-            for(let category of questionFile) {
-                let questionDeck = Object.entries(category.questions);
-                deck.push(questionDeck[randomIndex]);
+        for (let category of questionFile) {
+            let questionDeck = Object.entries(category.questions);
+            let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
+            let count = 0;
+
+            while(count <= randomTotal && deck.length !== max) {
+                let index = Math.floor(Math.random() * 15);
+
+                if (!deck.includes(questionDeck[index])) {
+                    deck.push(questionDeck[index])
+                } else {
+                    deck.push(questionDeck[index + 1 % 2])
+                }
 
                 // Check deck has correct number of questions and prevent from adding more questions
-                if(deck.length === max) {
-                    this.setState({
-                        questions: deck
-                    });
+                if (deck.length === max) {
+                    this.setDeck(deck);
                     break;
                 }
+                count++;
             }
-        }  
+        }
+    }
+
+    toggleCustom() {
+        this.setState({ toggleCustom: !this.state.toggleCustom });
     }
 
     render() {
@@ -243,48 +263,48 @@ export class Categories extends Component {
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="travel">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                        <div className="cata" onClick={this.handleQuestionDeck} id="travel">
+                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
                         </div>
                         <h3>Travel</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="food">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
+                        <div className="cata" onClick={this.handleQuestionDeck} id="food">
+                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
                         </div>
                         <h3>Food</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="sports">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
+                        <div className="cata" onClick={this.handleQuestionDeck} id="sports">
+                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
                         </div>
                         <h3>Sports</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="music">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
+                        <div className="cata" onClick={this.handleQuestionDeck} id="music">
+                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
                         </div>
                         <h3>Music</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="movies">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
+                        <div className="cata" onClick={this.handleQuestionDeck} id="movies">
+                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
                         </div>
                         <h3>Movies</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="books">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
+                        <div className="cata" onClick={this.handleQuestionDeck} id="books">
+                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
                         </div>
                         <h3>Books</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="animals">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
+                        <div className="cata" onClick={this.handleQuestionDeck} id="animals">
+                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
                         </div>
                         <h3>Animals</h3>
                     </Col>
@@ -295,12 +315,13 @@ export class Categories extends Component {
                         <h3>Random</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.setQuestionDeck} id="customized">
-                            <img className="cataimg" onClick={this.setQuestionDeck} src={require("./icons/customized.png")} id="customized" alt="customized" />
+                        <div className="cata" onClick={this.toggleCustom} id="customized">
+                            <img className="cataimg" onClick={this.toggleCustom} src={require("./icons/customized.png")} id="customized" alt="customized" />
                         </div>
                         <h3>Custom</h3>
                     </Col>
                 </Row>
+                <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom}/>
                 <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
                 <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
             </div>
@@ -308,7 +329,57 @@ export class Categories extends Component {
     }
 }
 
-class ModalQuestions extends React.Component {
+class AddQuestion extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            customDeck: []
+        };
+
+    }
+
+    render() {
+        const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
+        return(
+            <div>
+                <Modal isOpen={this.props.open} toggle={this.props.toggle}>
+                    <ModalHeader toggle={this.toggle} close={closeBtn}>Build your own deck of questions!</ModalHeader>
+                    <ModalBody>
+                        <FormGroup>
+                            <Label for="question" sm={2}>Question</Label>
+                            <Col sm={10}>
+                                <Input type="question" name="question" id="question" />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup>
+                            <Row>
+                            <Col md={6}>
+                                <Label for="exampleCity">City</Label>
+                                <Input type="text" name="city" id="exampleCity"/>
+                            </Col>
+                            <Col md={4}>
+                                <Label for="exampleState">State</Label>
+                                <Input type="text" name="state" id="exampleState"/>
+                                </Col>
+                                </Row>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
+                            <Col sm={10}>
+                                <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple />
+                            </Col>
+                            </FormGroup>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.props.fun}>Add to Deck</Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
+        )
+    }
+}
+
+class ModalQuestions extends Component {
     constructor(props) {
       super(props);
       this.state = {
