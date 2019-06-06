@@ -10,7 +10,6 @@ import {
     Col,
     Row,
     Form,
-    FormGroup,
     Modal,
     ModalHeader,
     ModalFooter,
@@ -22,6 +21,7 @@ const MAX_QUESTIONS = 15;
 const MIN_QUESTIONS = 1;
 
 export class GameManager extends Component {
+    z
     constructor(props) {
         super(props);
         this.state = {
@@ -60,10 +60,10 @@ export class GameManager extends Component {
           return true;
         } else if (field === 'roomName') {
             return true;
-        } 
+        }
         return false;
     }
-    
+
     handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
@@ -132,20 +132,20 @@ export class GameManager extends Component {
                 <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
                     <Label style={{marginTop: "40px"}}> Organizer Name </Label>
-                    <Input 
-                        placeholder={this.state.fname} 
-                        name="fname" 
-                        onChange={this.handleChange} 
-                        id="fname" 
-                        style={{ borderRadius: "20px", paddingLeft: "24px" }} 
+                    <Input
+                        placeholder={this.state.fname}
+                        name="fname"
+                        onChange={this.handleChange}
+                        id="fname"
+                        style={{ borderRadius: "20px", paddingLeft: "24px" }}
                     />
                     <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
-                    <Input   
-                        placeholder={this.state.roomName} 
-                        name="roomName" 
-                        onChange={this.handleChange} 
-                        id="roomName" 
-                        style={{ borderRadius: "20px", paddingLeft: "24px" }} 
+                    <Input
+                        placeholder={this.state.roomName}
+                        name="roomName"
+                        onChange={this.handleChange}
+                        id="roomName"
+                        style={{ borderRadius: "20px", paddingLeft: "24px" }}
                     />
                     <Label style={{ marginTop: "20px" }}>Number of Icebreaker Questions</Label>
                     <InputGroup>
@@ -162,9 +162,9 @@ export class GameManager extends Component {
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
                      </InputGroup>
                     <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
-                        <input type="checkbox" 
-                            name="toggleAnalysis" 
-                            onClick={this.onClick} 
+                        <input type="checkbox"
+                            name="toggleAnalysis"
+                            onClick={this.onClick}
                         /> Show Analysis
                     </Label>
                     {button}
@@ -333,42 +333,157 @@ class AddQuestion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            customDeck: []
+            customDeck: [],
+            question: "",
+            answer2: "",
+            answer1: ""
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.isDuplicate = this.isDuplicate.bind(this);
+        this.handleNewQuestions = this.handleNewQuestions.bind(this);
+    }
 
+    handleNewQuestions() {
+        let deck = this.state.customDeck;
+        if(this.isDuplicate()) {
+            // Remove Error message
+            document.getElementById(e.target.name).style.borderColor = "inherit";
+            document.getElementById('error').style.visibility = "hidden";
+
+            deck.push([{ [this.state.question]:  [this.state.answer1,this.state.answer2] }]);
+        } else {
+            this.setState({
+                question: "",
+                answer1: "",
+                answer2: ""
+            });
+            f
+            document.getElementById('error').innerHTML = "This is a duplicate question";
+            document.getElementById('error').style.visibility = "visible";
+            document.getElementById(e.target.name).style.borderColor = "red";
+        }
+
+        this.setState({ customDeck: deck });
+    }
+
+    isValid(str) {
+        if (/^[a-zA-Z0-9? ]+$/.test(str)) {
+          return true;
+        } else if (str === "") {
+            return true;
+        }
+        return false;
+    }
+
+    isDuplicate() {
+        let deck = Object.keys(Object.entries(this.state.customDeck));
+        console.log(deck)
+        for (let key in deck) {
+            console.log(key)
+            console.log(key === this.state.question)
+            if(key === this.state.question) {
+                return false;
+            };
+        }
+
+        return true;
+    }
+
+    handleChange = (e) => {
+        // Check the inputs are valid
+        if (this.isValid(e.target.value)) {
+            // Remove Error message
+            document.getElementById(e.target.name).style.borderColor = "inherit";
+            document.getElementById('error').style.visibility = "hidden";
+
+            this.setState({
+                [e.target.name]: e.target.value
+            });
+        } else {
+            this.setState({ [e.target.name]: "" });
+            e.target.value = "";
+            document.getElementById('error').innerHTML = "Please enter a correct name without symbols.";
+            document.getElementById('error').style.visibility = "visible";
+            document.getElementById(e.target.name).style.borderColor = "red";
+        }
+    }
+
+    renderOptions() {
+        let data = this.state.customDeck;
+        let select = document.getElementById('customQuestion');
+        if(select !== null) {
+            select.innerHTML = "";
+        }
+
+        data.map(obj => {
+            let opt = document.createElement('option');
+            let entry = Object.entries(obj);
+            let key = Object.keys(entry[0][1])
+            let values = Object.values(entry[0][1]);
+            opt.value = key;
+            opt.innerHTML = key + ": " + values;
+            select.appendChild(opt);
+        });
     }
 
     render() {
         const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
+        let isEnabled = (this.state.question !== "" && this.state.answer1 !== "" && this.state.answer2 !== "");
+        let maxReached = (parseInt(this.props.state.numQuestions) === this.state.customDeck.length);
+        this.renderOptions();
+
         return(
             <div>
-                <Modal isOpen={this.props.open} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.toggle} close={closeBtn}>Build your own deck of questions!</ModalHeader>
+                <Modal className="addCustomQuestions" isOpen={this.props.open} toggle={this.props.toggle}>
+                    <ModalHeader toggle={this.toggle} close={closeBtn} >Build your own deck of questions!</ModalHeader>
                     <ModalBody>
-                        <FormGroup>
-                            <Label for="question" sm={2}>Question</Label>
-                            <Col sm={10}>
-                                <Input type="question" name="question" id="question" />
-                            </Col>
-                        </FormGroup>
-                        <FormGroup>
+                        <div className="errorContainer">
+                            <div id="error"
+                                className="alert alert-danger"
+                                role="alert"
+                            >
+                            </div>
+                        </div>
+                        <Form>
                             <Row>
-                            <Col md={6}>
-                                <Label for="exampleCity">City</Label>
-                                <Input type="text" name="city" id="exampleCity"/>
-                            </Col>
-                            <Col md={4}>
-                                <Label for="exampleState">State</Label>
-                                <Input type="text" name="state" id="exampleState"/>
+                                <Col className="addQuestionContainer" sm={6}>
+                                    <Label for="question">Question</Label>
+                                    <Input
+                                        type="question"
+                                        name="question"
+                                        id="question"
+                                        placeholder={this.state.question}
+                                        onChange={this.handleChange}
+                                        disabled={maxReached}
+                                    />
+                                    <Label for="exampleCity">Answer 1</Label>
+                                    <Input type="answer1"
+                                        name="answer1"
+                                        id="answer1"
+                                        onChange={this.handleChange}
+                                        disabled={maxReached}
+                                    />
+                                    <Label for="exampleState">Answer 2</Label>
+                                    <Input type="answer2"
+                                        name="answer2"
+                                        id="answer2"
+                                        onChange={this.handleChange}
+                                        disabled={maxReached}
+                                    />
+                                    <Button color="success" className="add" onClick={this.handleNewQuestions} disabled={!isEnabled || maxReached}>Add Question</Button>
                                 </Col>
-                                </Row>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
-                            <Col sm={10}>
-                                <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple />
-                            </Col>
-                            </FormGroup>
+                                <Col className="questionListContainer" sm={6}>
+                                    <Label for="customQuestion" sm={10} style={{right:"15px", position:"relative"}}>Current List of Questions</Label>
+                                    <img className="delete" alt="delete" src={require("./icons/trash.svg")}/>
+                                    <Input type="select"
+                                        name="Question List"
+                                        id="customQuestion"
+                                        multiple
+                                    >
+                                    </Input>
+                                </Col>
+                            </Row>
+                        </Form>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.props.fun}>Add to Deck</Button>
@@ -392,7 +507,7 @@ class ModalQuestions extends Component {
 
     // this.props.max is the max number of questions
     // this.props.questionList is the list of questions to display
-  
+
     toggle() {
       this.setState(prevState => ({
         modal: !prevState.modal
@@ -435,4 +550,4 @@ class ModalQuestions extends Component {
             </div>
         )
     }
-  }
+}

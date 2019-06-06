@@ -23,6 +23,8 @@ class JoinRoom extends Component {
       return true;
     } else if ( field === 'uid') {
       return true;
+    } else if (str === "") {
+      return true;
     }
     return false;
   }
@@ -97,8 +99,7 @@ class JoinRoom extends Component {
         <div className="errorContainer">
           <div id="error"
             className="alert alert-danger"
-            role="alert"
-            style={{ visibility: "hidden" }}>
+            role="alert">
           </div>
         </div>
         <Form id="join-form">

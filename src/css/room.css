@@ -17,6 +17,7 @@
     margin-right: auto;  
     margin-top: 50px;
 }
+
 #join-form {
     margin-left: 20%;
     margin-right: 20%;
@@ -39,6 +40,13 @@ div .profileimgs .row{
     margin-bottom: 60px;
     margin-top: 20px;
 }
+
+#newRoom-form {
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+}
+
 
 .cata {
     border-radius: 50px;
@@ -89,7 +97,7 @@ div .profileimgs .row{
     text-align: center;
 }
 
-h1 .header{
+h1 .header {
     position: absolute;
     top: 80px;
     margin-left: auto;
@@ -97,18 +105,44 @@ h1 .header{
     width: 320px;
 }
 
-.optionContainer {
-    display: flex;
-    justify-content: space-between;
-}
-
-.optionContainer input{
-    width: 200px;
-}
-
 .modal-footer {
     display: flex;
     justify-content: center;
+}
+
+.delete {
+    left: 20px;
+    width: 36px;
+    position: relative;
+}
+
+.delete:hover {
+   background-color: rgba(146, 224, 198, 0.274);
+   border-radius: 100%;
+   padding: 2px;
+}
+
+.add {
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.addCustomQuestions label {
+    margin-top: 10px;
+}
+
+.addQuestionContainer input {
+    width: 315px;
+}
+
+.questionListContainer {
+    bottom: 10px;
+}
+
+.addQuestionContainer {
+    bottom: 4px;
 }
 
 @media (max-width:480px)  {
@@ -133,4 +167,11 @@ h1 .header{
     .profileimgs .col {
         padding: 1px;
     }
+}
+
+@media (min-width: 576px) { 
+    .modal-dialog {
+        max-width: 850px !important;
+    }
+
 }
