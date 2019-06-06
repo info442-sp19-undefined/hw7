@@ -21,7 +21,6 @@ const MAX_QUESTIONS = 15;
 const MIN_QUESTIONS = 1;
 
 export class GameManager extends Component {
-    z
     constructor(props) {
         super(props);
         this.state = {
@@ -60,6 +59,8 @@ export class GameManager extends Component {
           return true;
         } else if (field === 'roomName') {
             return true;
+        } else if (str === "") {
+            return true;
         }
         return false;
     }
@@ -68,7 +69,7 @@ export class GameManager extends Component {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
             // Remove Error message
-            document.getElementById('fname').style.borderColor = "white";
+            document.getElementById('fname').style.borderColor = "grey";
             document.getElementById('error').style.visibility = "hidden";
 
             let str = e.target.value.replace(/ /g, '_');
@@ -125,9 +126,12 @@ export class GameManager extends Component {
 
         return (
             <div>
-                <div id="error"
-                    className="alert alert-danger"
-                    role="alert">
+                <div className="errorContainer">
+                    <div id="error"
+                        style={{visibility: 'hidden'}}
+                        className="alert alert-danger"
+                        role="alert">
+                    </div>
                 </div>
                 <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
@@ -200,6 +204,7 @@ export class Categories extends Component {
             questions: deck
         });
     }
+
     handleQuestionDeck = (e) => {
         let category = e.target.id;
         if (category !== 'random' || category !== 'customized') {
@@ -347,7 +352,6 @@ class AddQuestion extends Component {
         let deck = this.state.customDeck;
         if(this.isDuplicate()) {
             // Remove Error message
-            document.getElementById(e.target.name).style.borderColor = "inherit";
             document.getElementById('error').style.visibility = "hidden";
 
             deck.push([{ [this.state.question]:  [this.state.answer1,this.state.answer2] }]);
@@ -357,10 +361,8 @@ class AddQuestion extends Component {
                 answer1: "",
                 answer2: ""
             });
-            f
             document.getElementById('error').innerHTML = "This is a duplicate question";
             document.getElementById('error').style.visibility = "visible";
-            document.getElementById(e.target.name).style.borderColor = "red";
         }
 
         this.setState({ customDeck: deck });
@@ -434,6 +436,13 @@ class AddQuestion extends Component {
 
         return(
             <div>
+                <div className="errorContainer">
+                    <div id="error"
+                        style={{visibility: 'hidden'}}
+                        className="alert alert-danger"
+                        role="alert">
+                    </div>
+                </div>
                 <Modal className="addCustomQuestions" isOpen={this.props.open} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle} close={closeBtn} >Build your own deck of questions!</ModalHeader>
                     <ModalBody>

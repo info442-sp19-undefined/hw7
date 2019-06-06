@@ -98,6 +98,7 @@ class JoinRoom extends Component {
       <div>
         <div className="errorContainer">
           <div id="error"
+            style={{visibility: 'hidden'}}
             className="alert alert-danger"
             role="alert">
           </div>
