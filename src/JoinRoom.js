@@ -11,7 +11,7 @@ class JoinRoom extends Component {
       uid: "",
       icon: "profile1.png",
       roomName: "",
-      joined:false
+      joined: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -19,9 +19,9 @@ class JoinRoom extends Component {
   }
 
   isValid(str, field) {
-    if ( field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
+    if (field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
       return true;
-    } else if ( field === 'uid') {
+    } else if (field === 'uid') {
       return true;
     }
     return false;
@@ -33,7 +33,7 @@ class JoinRoom extends Component {
       document.getElementById('error').style.visibility = "hidden";
       this.setState({
         [e.target.name]: e.target.value
-      }); 
+      });
     } else {
       e.target.value = "";
       this.setState({ fname: "" });
@@ -81,24 +81,26 @@ class JoinRoom extends Component {
     // Render different buttons whether the user has successfully been added to the room or not
     let button = null;
     if (this.state.joined) {
-      return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state: this.state }} />;
+      return <Redirect push to={{ pathname: "/" + this.state.roomName + "/Categories/", state: this.state }} />;
     } else {
       button = (
         <Button onClick={this.handleJoin} disabled={!isEnabled}
-        style={{ fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em", 
-        background: "#226597", color: "white", display: "flex",
-        justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto",  marginTop: "50px"}} >
+          style={{
+            fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em",
+            background: "#226597", color: "white", display: "flex",
+            justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto", marginTop: "50px"
+          }} >
           Add New Player
         </Button>
       );
     }
-    
+
     return (
       <div>
         <div id="error"
-            className="alert alert-danger"
-            role="alert"
-            style={{ visibility: "hidden" }}>
+          className="alert alert-danger"
+          role="alert"
+          style={{ visibility: "hidden" }}>
         </div>
         <Form id="join-form">
           <h1 className="header"> Create Profile </h1>
@@ -108,20 +110,20 @@ class JoinRoom extends Component {
             name="fname"
             onChange={this.handleChange}
             id="fname"
-            style={{ borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto"}}
+            style={{ borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto" }}
           />
-          <label style={{marginTop: "8%"}}>Room #</label>
+          <label style={{ marginTop: "8%" }}>Room #</label>
           <Input
             placeholder="Room Number"
             name="uid"
             onChange={this.handleChange}
             id="uid"
-            style={{ borderRadius: "20px", paddingLeft: "24px",  marginLeft: "auto", marginRight: "auto"}}
+            style={{ borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto" }}
           />
-          <Label style={{marginTop: "2em"}}>Select Profile Image</Label>
+          <Label style={{ marginTop: "2em" }}>Select Profile Image</Label>
           <Row className="profileimgs">
-            <Col style={{width: "60px"}}>
-              <div style={{width: "60px"}}>
+            <Col style={{ width: "60px" }}>
+              <div style={{ width: "60px" }}>
                 <img
                   className="profileimg"
                   name="profile1.png"
@@ -129,10 +131,15 @@ class JoinRoom extends Component {
                   src={require("./icons/profile1.png")}
                   onClick={this.onClick}
                 />
+                {/* <div class="overlay">
+                  <a href="#" class="icon" title="User Profile">
+                    <i class="fa fa-user"></i>
+                  </a>
+                </div> */}
               </div>
             </Col>
-            <Col style={{ width: "60px"}}>
-              <div style={{width: "60px"}}>
+            <Col style={{ width: "60px" }}>
+              <div style={{ width: "60px" }}>
                 <img
                   className="profileimg"
                   name="profile2.png"
@@ -142,19 +149,19 @@ class JoinRoom extends Component {
                 />
               </div>
             </Col>
-            <Col style={{width: "60px"}}>
-             <div style={{width: "60px"}}>
+            <Col style={{ width: "60px" }}>
+              <div style={{ width: "60px" }}>
                 <img
                   className="profileimg"
                   name="profile3.png"
                   alt="polar bear"
                   src={require("./icons/profile3.png")}
                   onClick={this.onClick}
-               />
+                />
               </div>
             </Col>
-            <Col style={{width: "60px"}}>
-              <div style={{width: "60px"}}>
+            <Col style={{ width: "60px" }}>
+              <div style={{ width: "60px" }}>
                 <img
                   className="profileimg"
                   name="profile4.png"
