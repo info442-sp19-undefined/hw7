@@ -237,7 +237,7 @@ export class Categories extends Component {
             let questionDeck = Object.entries(category.questions);
             let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
             let count = 0;
-
+            console.log(questionDeck)
             while(count <= randomTotal && deck.length !== max) {
                 let index = Math.floor(Math.random() * 15);
 
@@ -326,7 +326,7 @@ export class Categories extends Component {
                         <h3>Custom</h3>
                     </Col>
                 </Row>
-                <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom}/>
+                <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState}/>
                 <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
                 <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
             </div>
@@ -350,11 +350,11 @@ class AddQuestion extends Component {
 
     handleNewQuestions() {
         let deck = this.state.customDeck;
-        if(this.isDuplicate()) {
+        let dummy = this.isDuplicate();
+        if(dummy) {
             // Remove Error message
             document.getElementById('error').style.visibility = "hidden";
-
-            deck.push([{ [this.state.question]:  [this.state.answer1,this.state.answer2] }]);
+            deck.push([this.state.question,[this.state.answer1,this.state.answer2]]);
         } else {
             this.setState({
                 question: "",
@@ -378,16 +378,15 @@ class AddQuestion extends Component {
     }
 
     isDuplicate() {
-        let deck = Object.keys(Object.entries(this.state.customDeck));
-        console.log(deck)
-        for (let key in deck) {
-            console.log(key)
-            console.log(key === this.state.question)
-            if(key === this.state.question) {
-                return false;
-            };
-        }
+        let deck = this.state.customDeck;
 
+        if (deck.length !== 0) {
+            for (let obj of deck) {
+                if (obj[0] === this.state.question) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -417,15 +416,14 @@ class AddQuestion extends Component {
             select.innerHTML = "";
         }
 
-        data.map(obj => {
+        for(let obj of data) {
             let opt = document.createElement('option');
-            let entry = Object.entries(obj);
-            let key = Object.keys(entry[0][1])
-            let values = Object.values(entry[0][1]);
+            let key = obj[0];
+            let val = obj[1];
             opt.value = key;
-            opt.innerHTML = key + ": " + values;
+            opt.innerHTML = key + ": " + val;
             select.appendChild(opt);
-        });
+        }
     }
 
     render() {
@@ -436,13 +434,6 @@ class AddQuestion extends Component {
 
         return(
             <div>
-                <div className="errorContainer">
-                    <div id="error"
-                        style={{visibility: 'hidden'}}
-                        className="alert alert-danger"
-                        role="alert">
-                    </div>
-                </div>
                 <Modal className="addCustomQuestions" isOpen={this.props.open} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle} close={closeBtn} >Build your own deck of questions!</ModalHeader>
                     <ModalBody>
@@ -495,7 +486,7 @@ class AddQuestion extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.props.fun}>Add to Deck</Button>
+                        <Button color="primary" onClick={this.props.fun.bind(this, this.state.customDeck)} disabled={!maxReached}>Add to Deck</Button>
                     </ModalFooter>
                 </Modal>
             </div>
