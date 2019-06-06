@@ -1,16 +1,38 @@
 #join-form input {
-    width: 400px;
     font-size: 24px;
     border-radius: 20px;
-    padding-left: 24px;
 }
 
-#error {
+#join-form button {
+    font-size: 24px;
+    border-radius: 20px;
+    width: 250px;
+    height: 2em; 
+    background: #226597;
+    color: white;
+    display: flex;
+    padding: 0px;
+    justify-content: center; 
+    margin-left: auto;
+    margin-right: auto;  
+    margin-top: 50px;
+}
+#join-form {
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+}
+
+.errorContainer #error {
     visibility: hidden;
-    width: 45vh;
+    width: 600px;
     text-align: center;
 }
-
+ 
+.errorContainer {
+    display: flex;
+    justify-content: center;
+}
 
 div .profileimgs .row{
     padding: 0px;
@@ -87,4 +109,28 @@ h1 .header{
 .modal-footer {
     display: flex;
     justify-content: center;
+}
+
+@media (max-width:480px)  {
+    .errorContainer #error {
+        font-size: 14px;
+        width: 300px;
+    }
+    
+    #join-form h1 {
+        font-size: 24px;
+    }
+
+    #join-form input, #join-form label {
+        font-size: 14px;
+    }
+
+    #join-form button {
+        font-size: 14px;
+        width: 150px;
+    }
+
+    .profileimgs .col {
+        padding: 1px;
+    }
 }
