@@ -207,16 +207,21 @@ export class Categories extends Component {
 
     handleQuestionDeck = (e) => {
         let category = e.target.id;
-        if (category !== 'random' || category !== 'customized') {
-            let deck = Object.entries(this.getQuestions(category));
+        let deck = Object.entries(this.getQuestions(category));
 
-            if (deck !== undefined) {
-                this.setDeck(deck);
-            } else {
-                alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+        if (deck !== undefined) {
+            let max = parseInt(this.parentState.numQuestions);
+            let questionDeck = [];
+            for (let obj of deck) {
+                questionDeck.push(obj);
+
+                if (questionDeck.length === max) {
+                    this.setDeck(questionDeck);
+                    break;
+                }
             }
         } else {
-            this.setState({ custom: true });
+                alert("An error occured while finding the questions, please try again later or contact the owner of the website");
         }
     }
 
@@ -237,7 +242,6 @@ export class Categories extends Component {
             let questionDeck = Object.entries(category.questions);
             let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
             let count = 0;
-            console.log(questionDeck)
             while(count <= randomTotal && deck.length !== max) {
                 let index = Math.floor(Math.random() * 15);
 
@@ -361,6 +365,7 @@ class AddQuestion extends Component {
                 answer1: "",
                 answer2: ""
             });
+            document.getElementById('addForm').reset();
             document.getElementById('error').innerHTML = "This is a duplicate question";
             document.getElementById('error').style.visibility = "visible";
         }
@@ -441,10 +446,11 @@ class AddQuestion extends Component {
                             <div id="error"
                                 className="alert alert-danger"
                                 role="alert"
+                                style={{ visibility: 'hidden' }}
                             >
                             </div>
                         </div>
-                        <Form>
+                        <Form id="addForm">
                             <Row>
                                 <Col className="addQuestionContainer" sm={6}>
                                     <Label for="question">Question</Label>
