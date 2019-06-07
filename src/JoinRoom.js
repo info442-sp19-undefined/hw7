@@ -23,6 +23,8 @@ class JoinRoom extends Component {
       return true;
     } else if (field === 'uid') {
       return true;
+    } else if (str === "") {
+      return true;
     }
     return false;
   }
@@ -63,7 +65,9 @@ class JoinRoom extends Component {
           }
         });
       } else {
+        console.log("here")
         document.getElementById('error').innerHTML = "Oh no! Seems that room doesn't exist!";
+        document.getElementById('error').style.visibility = "visible";
         document.getElementById('join-form').reset();
       }
     })
@@ -84,12 +88,7 @@ class JoinRoom extends Component {
       return <Redirect push to={{ pathname: "/" + this.state.roomName + "/Categories/", state: this.state }} />;
     } else {
       button = (
-        <Button onClick={this.handleJoin} disabled={!isEnabled}
-          style={{
-            fontSize: "18px", borderRadius: "20px", width: "200px", height: "2em",
-            background: "#226597", color: "white", display: "flex",
-            justifyContent: "center", padding: "0px", marginLeft: "auto", marginRight: "auto", marginTop: "50px"
-          }} >
+        <Button onClick={this.handleJoin} disabled={!isEnabled}>
           Add New Player
         </Button>
       );
@@ -97,10 +96,12 @@ class JoinRoom extends Component {
 
     return (
       <div>
-        <div id="error"
-          className="alert alert-danger"
-          role="alert"
-          style={{ visibility: "hidden" }}>
+        <div className="errorContainer">
+          <div id="error"
+            style={{visibility: 'hidden'}}
+            className="alert alert-danger"
+            role="alert">
+          </div>
         </div>
         <Form id="join-form">
           <h1 className="header"> Create Profile </h1>
@@ -110,7 +111,7 @@ class JoinRoom extends Component {
             name="fname"
             onChange={this.handleChange}
             id="fname"
-            style={{ borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto" }}
+            style={{ borderRadius: "20px", marginLeft: "auto", marginRight: "auto"}}
           />
           <label style={{ marginTop: "8%" }}>Room #</label>
           <Input
@@ -118,7 +119,7 @@ class JoinRoom extends Component {
             name="uid"
             onChange={this.handleChange}
             id="uid"
-            style={{ borderRadius: "20px", paddingLeft: "24px", marginLeft: "auto", marginRight: "auto" }}
+            style={{ borderRadius: "20px",  marginLeft: "auto", marginRight: "auto"}}
           />
           <Label style={{ marginTop: "2em" }}>Select Profile Image</Label>
           <Row className="profileimgs">
