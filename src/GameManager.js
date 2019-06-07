@@ -31,6 +31,7 @@ export class GameManager extends Component {
             toggleAnalysis: false,
             created: false
         };
+
         this.handleChange = this.handleChange.bind(this);
         this.onClick = this.onClick.bind(this);
         this.handleCreateRoom = this.handleCreateRoom.bind(this);
@@ -185,7 +186,7 @@ export class Categories extends Component {
             questions: [],
             toggleCustom: false
         }
-        this.handleQuestionDeck = this.handleQuestionDeck.bind(this);
+
         this.handleRandomDeck = this.handleRandomDeck.bind(this);
         this.toggleCustom = this.toggleCustom.bind(this);
         this.setDeck = this.setDeck.bind(this);
@@ -221,7 +222,7 @@ export class Categories extends Component {
                 }
             }
         } else {
-                alert("An error occured while finding the questions, please try again later or contact the owner of the website");
+            alert("An error occured while finding the questions, please try again later or contact the owner of the website");
         }
     }
 
@@ -345,17 +346,19 @@ class AddQuestion extends Component {
             customDeck: [],
             question: "",
             answer2: "",
-            answer1: ""
+            answer1: "",
+            selected: ""
         };
+        
+        this.removeQuestion = this.removeQuestion.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.isDuplicate = this.isDuplicate.bind(this);
         this.handleNewQuestions = this.handleNewQuestions.bind(this);
+        this.handleSelected = this.handleSelected.bind(this);
     }
 
     handleNewQuestions() {
         let deck = this.state.customDeck;
-        let dummy = this.isDuplicate();
-        if(dummy) {
+        if(this.isDuplicate()) {
             // Remove Error message
             document.getElementById('error').style.visibility = "hidden";
             deck.push([this.state.question,[this.state.answer1,this.state.answer2]]);
@@ -370,7 +373,13 @@ class AddQuestion extends Component {
             document.getElementById('error').style.visibility = "visible";
         }
 
-        this.setState({ customDeck: deck });
+        this.setState({
+            customDeck: deck,
+            question: "",
+            answer1: "",
+            answer2: ""
+        });
+        document.getElementById('addForm').reset();
     }
 
     isValid(str) {
@@ -403,7 +412,7 @@ class AddQuestion extends Component {
             document.getElementById('error').style.visibility = "hidden";
 
             this.setState({
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value.trim()
             });
         } else {
             this.setState({ [e.target.name]: "" });
@@ -412,6 +421,12 @@ class AddQuestion extends Component {
             document.getElementById('error').style.visibility = "visible";
             document.getElementById(e.target.name).style.borderColor = "red";
         }
+    }
+
+    handleSelected = (e) => {
+        this.setState({
+            selected: e.target.value
+        });
     }
 
     renderOptions() {
@@ -426,11 +441,22 @@ class AddQuestion extends Component {
             let key = obj[0];
             let val = obj[1];
             opt.value = key;
+            opt.selected = this.state.selected === opt.value;
             opt.innerHTML = key + ": " + val;
             select.appendChild(opt);
         }
     }
 
+    removeQuestion() {
+        let deck = this.state.customDeck;
+        for (let entry of deck) {
+            if (entry[0] === this.state.selected) {
+                deck.splice(entry[0], 1);
+                console.log(deck)
+           }
+        }
+        this.renderOptions();
+    }
     render() {
         const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
         let isEnabled = (this.state.question !== "" && this.state.answer1 !== "" && this.state.answer2 !== "");
@@ -479,12 +505,13 @@ class AddQuestion extends Component {
                                     <Button color="success" className="add" onClick={this.handleNewQuestions} disabled={!isEnabled || maxReached}>Add Question</Button>
                                 </Col>
                                 <Col className="questionListContainer" sm={6}>
-                                    <Label for="customQuestion" sm={10} style={{right:"15px", position:"relative"}}>Current List of Questions</Label>
-                                    <img className="delete" alt="delete" src={require("./icons/trash.svg")}/>
+                                    <Label for="customQuestion" sm={10} style={{right:"40px", position:"relative"}}>Current List of Questions</Label>
+                                    <img className="delete" alt="delete" onClick={this.removeQuestion} src={require("./icons/trash.svg")}/>
                                     <Input type="select"
                                         name="Question List"
                                         id="customQuestion"
                                         multiple
+                                        onChange={this.handleSelected}
                                     >
                                     </Input>
                                 </Col>

@@ -151,7 +151,8 @@ h1 .header {
 }
 
 .delete {
-    left: 20px;
+    bottom: 5px;
+    left: 35px;
     width: 36px;
     position: relative;
 }
@@ -174,15 +175,24 @@ h1 .header {
 }
 
 .addQuestionContainer input {
-    width: 315px;
+    width: 310px;
 }
 
 .questionListContainer {
-    bottom: 10px;
+    bottom: 11px;
+}
+
+.questionListContainer #customQuestion {
+    width: 360px;
+    height: 260px;
+    position: relative;
+    right: 27px;
 }
 
 .addQuestionContainer {
-    bottom: 4px;
+    position: relative;
+    right: 20px;
+    bottom: 3px;
 }
 
 @media (max-width:480px)  {
@@ -211,7 +221,7 @@ h1 .header {
 
 @media (min-width: 576px) { 
     .modal-dialog {
-        max-width: 850px !important;
+        max-width: 750px !important;
     }
 
 }
