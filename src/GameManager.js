@@ -16,7 +16,6 @@ import {
     ModalBody
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
-
 const questionFile = require("./questions.json");
 const MAX_QUESTIONS = 15;
 const MIN_QUESTIONS = 1;
@@ -51,6 +50,9 @@ export class GameManager extends Component {
             settings: {
                 Number_Questions: this.state.numQuestions,
                 showAnalysis: this.state.toggleAnalysis
+            },
+            analysis: {
+                placeholder: "Placeholder"
             }
         });
         this.setState({ created: true });
@@ -66,7 +68,7 @@ export class GameManager extends Component {
         }
         return false;
     }
-
+    
     handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
@@ -248,6 +250,7 @@ export class Categories extends Component {
             let questionDeck = Object.entries(category.questions);
             let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
             let count = 0;
+
             while(count <= randomTotal && deck.length !== max) {
                 let index = Math.floor(Math.random() * 15);
 
@@ -578,15 +581,18 @@ class ModalQuestions extends Component {
       super(props);
       this.state = {
         modal: false,
-        questionNumber: 0
+        questionNumber: 0,
+        answer1Count: 0,
+        answer2Count: 0
       };
       this.toggle = this.toggle.bind(this);
       this.nextQuestion = this.nextQuestion.bind(this);
+      this.handleAnswers = this.handleAnswers.bind(this);
+      this.incrementCount = this.incrementCount.bind(this);
     }
 
     // this.props.max is the max number of questions
     // this.props.questionList is the list of questions to display
-
     toggle() {
       this.setState(prevState => ({
         modal: !prevState.modal
@@ -598,22 +604,69 @@ class ModalQuestions extends Component {
         this.setState({ questionNumber: num});
     }
 
+    handleAnswers(question, answer1, answer2, gotClicked) {
+        console.log("in handle answers");
+        console.log("what is the question", question);
+        console.log("what is the first answer", answer1);
+        console.log("what is the second answer", answer2);
+        console.log("who got clicked on?", gotClicked);
+        this.incrementCount(gotClicked);
+        let roomRef = firebase.database().ref("Rooms").child(this.props.uid);
+        roomRef.set({
+            analysis: {
+                questionAsked: question,
+                answerOne: answer1,
+                answerTwo: answer2,
+                answerOneCount: this.state.answer1Count,
+                answerTwoCount: this.state.answer2Count
+            }
+        });
+    }
+
+    incrementCount(target) {
+        console.log("current counter");
+        console.log(this.state.answer1Count);
+        console.log("current counter 2");
+        console.log(this.state.answer2Count);
+        console.log("target", target);
+        if(target === 1) {
+            this.setState(prevState=>({
+                answer1Count: prevState.answer1Count++
+            }));
+        } 
+        this.setState(prevState=>({
+            answer2Count: prevState.answer2Count++
+        }));
+    }
+
     render() {
         if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
-            const entries = this.props.questionList;
+            let entries = Object.entries(this.props.questionList[0][1]);
+            console.log("the entries");
+            console.log(entries);
+            console.log("what is questionNumber", this.state.questionNumber)
             let displayQuestion = entries[this.state.questionNumber];
+            console.log("what is displayQuestion");
+            console.log(displayQuestion);
+            console.log("testing with entries", entries[0]);
             let displayQuestionModal = displayQuestion[0];
             let displayButton = entries[this.state.questionNumber][1];
             let displayButton1 = displayButton[0];
             let displayButton2 = displayButton[1];
+            console.log("question");
+            console.log(displayQuestionModal);
+            console.log("button1");
+            console.log(displayButton1);
+            console.log("button2");
+            console.log(displayButton2);
             return (
                 <div>
                   <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
                   <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
                     <ModalFooter>
-                      <Button color="primary" onClick={this.toggle}>{displayButton1}</Button>{' '}
-                      <Button color="primary" onClick={this.toggle}>{displayButton2}</Button>{' '}
+                      <Button color="primary" onClick={this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
+                      <Button color="primary" onClick={this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
                       <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
                       <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
@@ -629,4 +682,4 @@ class ModalQuestions extends Component {
             </div>
         )
     }
-}
+  }

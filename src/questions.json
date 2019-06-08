@@ -1,92 +1,31 @@
 [
     {
-        "category": "travel",
-        "questions": {
-            "Do you prefer to trave alone or in a group?": [
-                "Solo",
-                "Group"
-            ],
-            "Do you send post cards?": [
-                "Yes",
-                "No"
-            ],
-            "Window or aisle seat": [
-                "Window",
-                "Aisle"
-            ],
-            "Have you traveled abroad?": [
-                "Yes",
-                "No"
-            ],
-            "Have you ever had any bad travel experiences?": [
-                "Yes",
-                "No"
-            ],
-            "Airbnb or hotels": [
-                "Airbnb",
-                "Hotels"
-            ],
-            "How often have you gone camping?": [
-                "Less than 5 times",
-                "More than 5 times"
-            ],
-            "Have you ever been on a cruise?": [
-                "Yes",
-                "No"
-            ],
-            "Could you live in another country for the rest of your life?": [
-                "Yes",
-                "No"
-            ],
-            "Have you ever been on an airplane?": [
-                "Yes",
-                "No"
-            ],
-            "Have you ever gotten lost while travelling?": [
-                "Yes",
-                "No"
-            ],
-            "Do you prefer active or relaxing holidays?": [
-                "Active",
-                "Relaxing"
-            ],
-            "Do you travel with a lot of baggage or do you like to travel light": [
-                "Baggage",
-                "Light"
-            ],
-            "Do you prefer hot countries or cool countries when you go on a holiday?": [
-                "Hot",
-                "Cool"
-            ],
-            "Has the airline ever lost your luggage?": [
-                "Yes",
-                "No"
-            ],
-            "How many languages can you speak fluently?": [
-                "One",
-                "More than one"
-            ],
-            "Have you ever been skydiving?": [
-                "Yes",
-                "No"
-            ],
-            "Have you ever been scuba diving?": [
-                "Yes",
-                "No"
-            ],
-            "Have you ever been skiing?": [
-                "Yes",
-                "No"
-            ],
-            "Have you ever been mountain climbing?": [
-                "Yes",
-                "No"
-            ],
-            "Are you a spontaneous traveller or a planner?": [
-                "Spontaneous",
-                "Planner"
-            ]
-        }
+        "category":"travel",
+        "questions": [
+            {
+                "Do you prefer to trave alone or in a group?": ["Solo", "Group"],
+                "Do you send post cards?": ["Yes", "No"],
+                "Window or aisle seat": ["Window", "Aisle"],
+                "Have you traveled abroad?": ["Yes", "No"],
+                "Have you ever had any bad travel experiences?": ["Yes", "No"],
+                "Airbnb or hotels": ["Airbnb", "Hotels"],
+                "How often have you gone camping?": ["Less than 5 times", "More than 5 times"],
+                "Have you ever been on a cruise?": ["Yes", "No"],
+                "Could you live in another country for the rest of your life?": ["Yes", "No"],
+                "Have you ever been on an airplane?": ["Yes", "No"],
+                "Have you ever gotten lost while travelling?": ["Yes", "No"],
+                "Do you prefer active or relaxing holidays?": ["Active", "Relaxing"],
+                "Do you travel with a lot of baggage or do you like to travel light": ["Baggage", "Light"],
+                "Do you prefer hot countries or cool countries when you go on a holiday?": ["Hot", "Cool"],
+                "Has the airline ever lost your luggage?": ["Yes", "No"],
+                "How many languages can you speak fluently?": ["One", "More than one"],
+                "Have you ever been skydiving?": ["Yes", "No"],
+                "Have you ever been scuba diving?": ["Yes", "No"],
+                "Have you ever been skiing?": ["Yes", "No"],
+                "Have you ever been mountain climbing?": ["Yes", "No"],
+                "Are you a spontaneous traveller or a planner?": ["Spontaneous", "Planner"]
+            }
+        ]
     },
     {
         "category": "food",
