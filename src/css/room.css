@@ -3,6 +3,10 @@
     border-radius: 20px;
 }
 
+#category #selected {
+    box-shadow: 2px 2px 2px 2px grey;
+    border-radius: 70px;
+}
 #join-form button {
     font-size: 24px;
     border-radius: 20px;
@@ -68,6 +72,10 @@ div .profileimgs .row{
     height: auto;
     margin: 0;
     
+}
+
+.goToRoom {
+
 }
 
 .row {

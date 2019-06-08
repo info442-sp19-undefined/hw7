@@ -186,7 +186,8 @@ export class Categories extends Component {
         this.state = {
             questions: [],
             toggleCustom: false,
-            go:false
+            go:false,
+            selected: ""
         }
 
         this.handleRandomDeck = this.handleRandomDeck.bind(this);
@@ -203,9 +204,10 @@ export class Categories extends Component {
         }
     }
 
-    setDeck(deck) {
+    setDeck(deck, category) {
         this.setState({
-            questions: deck
+            questions: deck,
+            selected: category
         });
     }
 
@@ -220,7 +222,7 @@ export class Categories extends Component {
                 questionDeck.push(obj);
 
                 if (questionDeck.length === max) {
-                    this.setDeck(questionDeck);
+                    this.setDeck(questionDeck, category);
                     break;
                 }
             }
@@ -242,6 +244,7 @@ export class Categories extends Component {
         let max = parseInt(this.parentState.numQuestions);
         let deck = [];
 
+        document.getElementById('message').innerHTML = "You chose the Random category!";
         for (let category of questionFile) {
             let questionDeck = Object.entries(category.questions);
             let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
@@ -257,7 +260,7 @@ export class Categories extends Component {
 
                 // Check deck has correct number of questions and prevent from adding more questions
                 if (deck.length === max) {
-                    this.setDeck(deck);
+                    this.setDeck(deck, "random");
                     break;
                 }
                 count++;
@@ -280,7 +283,7 @@ export class Categories extends Component {
             return <Redirect push to={{pathname: "/" + this.state.roomName + "/Room/", uid: this.parentState.uid, deck:this.state.questions}} />;
         } else {
             goButton = (
-                <Button disabled={isEnabled} onClick={this.redirect}>
+                <Button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
                     Go to Room
                 </Button>
             );
@@ -291,60 +294,78 @@ export class Categories extends Component {
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="travel">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                        <div id={this.state.selected === "travel" ? "selected": "travel"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="travel">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                            </div>
                         </div>
                         <h3>Travel</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="food">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
+                        <div id={this.state.selected === "food" ? "selected": "food"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="food">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
+                            </div>
                         </div>
                         <h3>Food</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="sports">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
+                        <div id={this.state.selected === "sports" ? "selected" : "sports"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="sports">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
+                            </div>
                         </div>
                         <h3>Sports</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="music">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
+                        <div id={this.state.selected === "music" ? "selected" : "music"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="music">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
+                            </div>
                         </div>
                         <h3>Music</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="movies">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
+                        <div id={this.state.selected === "movies" ? "selected" : "movies"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="movies">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
+                            </div>
                         </div>
                         <h3>Movies</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="books">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
+                        <div id={this.state.selected === "books" ? "selected" : "books"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="books">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
+                            </div>
                         </div>
                         <h3>Books</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="animals">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
+                        <div id={this.state.selected === "animals" ? "selected" : "animals"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="animals">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
+                            </div>
                         </div>
                         <h3>Animals</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleRandomDeck} id="random">
-                            <img className="cataimg" onClick={this.handleRandomDeck} src={require("./icons/random.png")} id="random" alt="random" />
+                        <div id={this.state.selected === "random" ? "selected" : "random"}>
+                            <div className="cata" onClick={this.handleRandomDeck} id="random">
+                                <img className="cataimg" onClick={this.handleRandomDeck} src={require("./icons/random.png")} id="random" alt="random" />
+                            </div>
                         </div>
                         <h3>Random</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.toggleCustom} id="customized">
-                            <img className="cataimg" onClick={this.toggleCustom} src={require("./icons/customized.png")} id="customized" alt="customized" />
+                        <div id={this.state.selected === "customized" ? "selected" : "customized"}>
+                            <div className="cata" onClick={this.toggleCustom} id="customized">
+                                <img className="cataimg" onClick={this.toggleCustom} src={require("./icons/customized.png")} id="customized" alt="customized" />
+                            </div>
                         </div>
                         <h3>Custom</h3>
                     </Col>
@@ -480,7 +501,7 @@ class AddQuestion extends Component {
     }
 
     setDeck() {
-        this.props.fun(this.state.customDeck);
+        this.props.fun(this.state.customDeck, "customized");
         this.props.toggle();
         this.setState({
             customDeck: []
