@@ -400,7 +400,7 @@ class AddQuestion extends Component {
         if(this.isDuplicate()) {
             // Remove Error message
             document.getElementById('error').style.visibility = "hidden";
-            deck.push([this.state.question,[this.state.answer1,this.state.answer2]]);
+            deck.push([this.state.question, [this.state.answer1, this.state.answer2]]);
             document.getElementById("message").innerHTML = "You have " + (parseInt(this.props.state.numQuestions) - this.state.customDeck.length) + " questions to make!";
         } else {
             this.setState({
