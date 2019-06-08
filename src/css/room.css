@@ -4,9 +4,10 @@
 }
 
 #category #selected {
-    box-shadow: 2px 2px 2px 2px grey;
+    box-shadow: 1px 1px 10px 10px rgba(247, 247, 247, 0.918);
     border-radius: 70px;
 }
+
 #join-form button {
     font-size: 24px;
     border-radius: 20px;
@@ -75,7 +76,14 @@ div .profileimgs .row{
 }
 
 .goToRoom {
-
+    position: relative;
+    left: 5em;
+    font-size: 24px !important;
+    padding: 5px;
+    width: 200px;
+    color: white;
+    border-radius: 50px;
+    background-color: #226597;
 }
 
 .row {
@@ -123,26 +131,12 @@ div .profileimgs .row{
 	}
 }
 
-
-
-/* .profileimg:hover, .profileimg:target {
-    filter: grey;
-    -webkit-filter: grayscale(80%);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-} */
-
 .profileimg:hover {
     cursor: pointer;
     animation-name: bounce;
     -moz-animation-name: bounce;
     
 }
-
-/* .profileimg:target {
-    filter: grey;
-    -webkit-filter: grayscale(80%);
-} */
-
 
 .col h3 {
     padding-top: 2vh;

@@ -244,7 +244,6 @@ export class Categories extends Component {
         let max = parseInt(this.parentState.numQuestions);
         let deck = [];
 
-        document.getElementById('message').innerHTML = "You chose the Random category!";
         for (let category of questionFile) {
             let questionDeck = Object.entries(category.questions);
             let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
@@ -283,9 +282,9 @@ export class Categories extends Component {
             return <Redirect push to={{pathname: "/" + this.state.roomName + "/Room/", uid: this.parentState.uid, deck:this.state.questions}} />;
         } else {
             goButton = (
-                <Button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
+                <button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
                     Go to Room
-                </Button>
+                </button>
             );
         }
 
