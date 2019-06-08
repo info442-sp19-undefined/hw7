@@ -373,7 +373,7 @@ export class Categories extends Component {
                     </Col>
                 </Row>
                 <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState}/>
-                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
+                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} uid={this.parentState.uid}/>
                 {goButton}
             </div>
         );
@@ -587,7 +587,6 @@ class ModalQuestions extends Component {
       };
       this.toggle = this.toggle.bind(this);
       this.nextQuestion = this.nextQuestion.bind(this);
-      this.handleAnswers = this.handleAnswers.bind(this);
       this.incrementCount = this.incrementCount.bind(this);
     }
 
@@ -624,14 +623,10 @@ class ModalQuestions extends Component {
     }
 
     incrementCount(target) {
-        console.log("current counter");
-        console.log(this.state.answer1Count);
-        console.log("current counter 2");
-        console.log(this.state.answer2Count);
-        console.log("target", target);
-        if(target === 1) {
+        if (target === 1) {
+            let prevState = this.state.answer1Count++;
             this.setState(prevState=>({
-                answer1Count: prevState.answer1Count++
+                answer1Count: prevState
             }));
         } 
         this.setState(prevState=>({
@@ -642,23 +637,11 @@ class ModalQuestions extends Component {
     render() {
         if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
             let entries = Object.entries(this.props.questionList[0][1]);
-            console.log("the entries");
-            console.log(entries);
-            console.log("what is questionNumber", this.state.questionNumber)
             let displayQuestion = entries[this.state.questionNumber];
-            console.log("what is displayQuestion");
-            console.log(displayQuestion);
-            console.log("testing with entries", entries[0]);
             let displayQuestionModal = displayQuestion[0];
             let displayButton = entries[this.state.questionNumber][1];
             let displayButton1 = displayButton[0];
             let displayButton2 = displayButton[1];
-            console.log("question");
-            console.log(displayQuestionModal);
-            console.log("button1");
-            console.log(displayButton1);
-            console.log("button2");
-            console.log(displayButton2);
             return (
                 <div>
                   <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
