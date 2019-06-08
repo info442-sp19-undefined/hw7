@@ -16,6 +16,7 @@ import {
     ModalBody
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
+
 const questionFile = require("./questions.json");
 const MAX_QUESTIONS = 15;
 const MIN_QUESTIONS = 1;
@@ -184,11 +185,13 @@ export class Categories extends Component {
         super(props);
         this.state = {
             questions: [],
-            toggleCustom: false
+            toggleCustom: false,
+            go:false
         }
 
         this.handleRandomDeck = this.handleRandomDeck.bind(this);
         this.toggleCustom = this.toggleCustom.bind(this);
+        this.redirect = this.redirect.bind(this);
         this.setDeck = this.setDeck.bind(this);
         this.parentState = this.props.location.state;
     }
@@ -266,8 +269,23 @@ export class Categories extends Component {
         this.setState({ toggleCustom: !this.state.toggleCustom });
     }
 
+    redirect() {
+        this.setState({ go: !this.state.go });
+    }
+
     render() {
-        let isEnabled = (this.state.questions.length !== 0);
+        let isEnabled = (this.state.questions.length === 0);
+        let goButton = null;
+        if (this.state.go) {
+            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Room/", uid: this.parentState.uid, deck:this.state.questions}} />;
+        } else {
+            goButton = (
+                <Button disabled={isEnabled} onClick={this.redirect}>
+                    Go to Room
+                </Button>
+            );
+        }
+
         return (
             <div id="category">
                 <h1>Categories</h1>
@@ -333,7 +351,7 @@ export class Categories extends Component {
                 </Row>
                 <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState}/>
                 <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
-                <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
+                {goButton}
             </div>
         );
     }
@@ -351,6 +369,7 @@ class AddQuestion extends Component {
         };
         
         this.removeQuestion = this.removeQuestion.bind(this);
+        this.setDeck = this.setDeck.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleNewQuestions = this.handleNewQuestions.bind(this);
         this.handleSelected = this.handleSelected.bind(this);
@@ -362,6 +381,7 @@ class AddQuestion extends Component {
             // Remove Error message
             document.getElementById('error').style.visibility = "hidden";
             deck.push([this.state.question,[this.state.answer1,this.state.answer2]]);
+            document.getElementById("message").innerHTML = "You have " + (parseInt(this.props.state.numQuestions) - this.state.customDeck.length) + " questions to make!";
         } else {
             this.setState({
                 question: "",
@@ -380,6 +400,7 @@ class AddQuestion extends Component {
             answer2: ""
         });
         document.getElementById('addForm').reset();
+        this.renderOptions();
     }
 
     isValid(str) {
@@ -452,17 +473,24 @@ class AddQuestion extends Component {
         for (let entry of deck) {
             if (entry[0] === this.state.selected) {
                 deck.splice(entry[0], 1);
-                console.log(deck)
            }
         }
         this.renderOptions();
+        document.getElementById("message").innerHTML = "You have " + (parseInt(this.props.state.numQuestions) - this.state.customDeck.length) + " questions to make!";
     }
+
+    setDeck() {
+        this.props.fun(this.state.customDeck);
+        this.props.toggle();
+        this.setState({
+            customDeck: []
+        });
+    }
+
     render() {
         const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
         let isEnabled = (this.state.question !== "" && this.state.answer1 !== "" && this.state.answer2 !== "");
         let maxReached = (parseInt(this.props.state.numQuestions) === this.state.customDeck.length);
-        this.renderOptions();
-
         return(
             <div>
                 <Modal className="addCustomQuestions" isOpen={this.props.open} toggle={this.props.toggle}>
@@ -476,6 +504,7 @@ class AddQuestion extends Component {
                             >
                             </div>
                         </div>
+                        <h2 id="message">You have {parseInt(this.props.state.numQuestions) - this.state.customDeck.length} questions to make!</h2>
                         <Form id="addForm">
                             <Row>
                                 <Col className="addQuestionContainer" sm={6}>
@@ -486,21 +515,18 @@ class AddQuestion extends Component {
                                         id="question"
                                         placeholder={this.state.question}
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Label for="exampleCity">Answer 1</Label>
                                     <Input type="answer1"
                                         name="answer1"
                                         id="answer1"
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Label for="exampleState">Answer 2</Label>
                                     <Input type="answer2"
                                         name="answer2"
                                         id="answer2"
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Button color="success" className="add" onClick={this.handleNewQuestions} disabled={!isEnabled || maxReached}>Add Question</Button>
                                 </Col>
@@ -519,7 +545,7 @@ class AddQuestion extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.props.fun.bind(this, this.state.customDeck)} disabled={!maxReached}>Add to Deck</Button>
+                        <Button color="primary" onClick={this.setDeck} disabled={!maxReached}>Add to Deck</Button>
                     </ModalFooter>
                 </Modal>
             </div>

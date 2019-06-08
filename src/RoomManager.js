@@ -21,9 +21,11 @@ const questionFile = require("./questions.json");
 
 export class RoomManager extends Component {
     render() {
-        let isEnabled = (this.state.questions.length !== 0);
-        let roomRef = firebase.database().ref('Rooms');
-        
+        return  (
+            <div>
+                coming soon
+            </div>
+        );
     }
 }
 
@@ -32,59 +34,7 @@ export class UserList extends Component {
 
         return(
             <div id="room">
-            <h1>Waiting Room</h1>
-                <Row>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/food.png")} name="food" alt="food" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/sports.png")} name="sports" alt="sports" />
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/music.png")} name="music" alt="music" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/movie.png")} name="movie" alt="movie" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" onClick={this.handleChange} src={require("./icons/book.png")} name="book" alt="book" />
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" src={require("./icons/animal.png")} name="animal" alt="animal" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" id="random" src={require("./icons/random.png")} name="random" alt="random" />
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="cata" onClick={this.setQuestionDeck}>
-                            <img className="cataimg" id="customized" src={require("./icons/customized.png")} name="customized" alt="customized" />
-                        </div>
-                    </Col>
-                </Row>
-                <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
+                <h1>Waiting Room</h1>
             </div>
 
         );
@@ -102,12 +52,14 @@ export class UserInfo extends Component {
         //Return a React element (JSX) that is how the component will appear
         return (
             <div>
+            <div>
                 <h1>{name}</h1>
                 <p>Hello, my name is {name} and I am a {descriptor}</p>
             </div>
             <div className="cata" onClick={this.setQuestionDeck}>
                             <img className="cataimg" src={require("./icons/travel.png")} name="travel" alt="travel" />
                         </div>
+            </div>
         );        
     }
 }
