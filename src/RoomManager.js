@@ -20,10 +20,14 @@ const uniqid = require("uniqid");
 const questionFile = require("./questions.json");
 
 export class RoomManager extends Component {
+    handleCancel() {
+        let uid = this.props.location.uid;
+        console.log(uid)
+    }
     render() {
         return  (
             <div>
-                coming soon
+                <button onClick={this.handleCancel} />
             </div>
         );
     }

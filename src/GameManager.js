@@ -279,7 +279,7 @@ export class Categories extends Component {
         let isEnabled = (this.state.questions.length === 0);
         let goButton = null;
         if (this.state.go) {
-            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Room/", uid: this.parentState.uid, deck:this.state.questions}} />;
+            return <Redirect push to={{pathname: "/" + this.parentState.roomName + "/Room/", uid: this.parentState.uid, deck:this.state.questions}} />;
         } else {
             goButton = (
                 <button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
