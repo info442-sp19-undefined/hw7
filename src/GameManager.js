@@ -16,6 +16,7 @@ import {
     ModalBody
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
+import Chart from './Analysis';
 const questionFile = require("./questions.json");
 const MAX_QUESTIONS = 15;
 const MIN_QUESTIONS = 1;
@@ -613,6 +614,10 @@ class ModalQuestions extends Component {
             answerOneCount: this.state.answer1Count,
             answerTwoCount: this.state.answer2Count
         });
+        this.setState({
+            answerOneCount:0,
+            answerTwoCount:0
+        })
     }
 
     incrementCount(target) {
@@ -655,6 +660,7 @@ class ModalQuestions extends Component {
             <div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <p>Organizer has not posted question yet</p>
+                    <Chart uid={this.props.uid}/>
                 </Modal>
             </div>
         )
