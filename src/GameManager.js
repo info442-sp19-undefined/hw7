@@ -603,44 +603,34 @@ class ModalQuestions extends Component {
         this.setState({ questionNumber: num});
     }
 
-    handleAnswers(question, answer1, answer2, gotClicked) {
-        console.log("in handle answers");
-        console.log("what is the question", question);
-        console.log("what is the first answer", answer1);
-        console.log("what is the second answer", answer2);
-        console.log("who got clicked on?", gotClicked);
+    handleAnswers(question, answer1, answer2, gotClicked) {;
         this.incrementCount(gotClicked);
-        let roomRef = firebase.database().ref("Rooms").child(this.props.uid);
-        roomRef.set({
-            analysis: {
-                questionAsked: question,
+        let roomRef = firebase.database().ref("Rooms")
+        roomRef.child(this.state.uid).child(question).push({
                 answerOne: answer1,
                 answerTwo: answer2,
                 answerOneCount: this.state.answer1Count,
                 answerTwoCount: this.state.answer2Count
-            }
-        });
+          });
     }
 
     incrementCount(target) {
         if (target === 1) {
-            let prevState = this.state.answer1Count++;
-            this.setState(prevState=>({
-                answer1Count: prevState
-            }));
+            let newNum = this.state.answer1Count + 1;
+            this.setState({
+                answer1Count: newNum
+            });
         } 
-        this.setState(prevState=>({
-            answer2Count: prevState.answer2Count++
-        }));
+        let newNum = this.state.answer2Count + 1;
+        this.setState({
+            answer2Count: newNum
+        });
     }
 
     render() {
         if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
             let entries = this.props.questionList;
-            console.log("what are the entries");
-            console.log(entries);
             let displayQuestion = entries[this.state.questionNumber];
-            console.log("what is displayQuestion", displayQuestion);
             let displayQuestionModal = displayQuestion[0];
             let displayButton = displayQuestion[1];
             let displayButton1 = displayButton[0];
