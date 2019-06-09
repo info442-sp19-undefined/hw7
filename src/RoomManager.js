@@ -13,17 +13,24 @@ import {
     Row,
     Form
 } from "reactstrap";
-import {
-    Redirect
-} from 'react-router-dom';
-const uniqid = require("uniqid");
-const questionFile = require("./questions.json");
 
 export class RoomManager extends Component {
-    handleCancel() {
-        let uid = this.props.location.uid;
-        console.log(uid)
+    constructor(props){
+        super(props);
+        this.state = {
+            show: false
+        }
+        this.parentState = this.props.location.state;
+        this.handleCancel = this.handleCancel.bind(this);
     }
+
+    handleCancel() {
+        let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
+        roomRef.set({
+            game_active: false
+        });
+    }
+
     render() {
         return  (
             <div>
@@ -46,7 +53,6 @@ export class UserList extends Component {
 }
 
 export class UserInfo extends Component {
-    let 
 
     render() {
         //This is an everyday function; you can include any code you want here
