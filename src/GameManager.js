@@ -10,10 +10,6 @@ import {
     Col,
     Row,
     Form,
-<<<<<<< HEAD
-    FormGroup,
-=======
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
     Modal,
     ModalHeader,
     ModalFooter,
@@ -67,13 +63,9 @@ export class GameManager extends Component {
           return true;
         } else if (field === 'roomName') {
             return true;
-<<<<<<< HEAD
-        } 
-=======
         } else if (str === "") {
             return true;
         }
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
         return false;
     }
     
@@ -81,11 +73,7 @@ export class GameManager extends Component {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
             // Remove Error message
-<<<<<<< HEAD
-            document.getElementById('fname').style.borderColor = "white";
-=======
             document.getElementById('fname').style.borderColor = "grey";
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
             document.getElementById('error').style.visibility = "hidden";
 
             let str = e.target.value.replace(/ /g, '_');
@@ -142,38 +130,16 @@ export class GameManager extends Component {
 
         return (
             <div>
-<<<<<<< HEAD
-                <div id="error"
-                    className="alert alert-danger"
-                    role="alert">
-=======
                 <div className="errorContainer">
                     <div id="error"
                         style={{visibility: 'hidden'}}
                         className="alert alert-danger"
                         role="alert">
                     </div>
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
                 </div>
                 <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
                     <Label style={{marginTop: "40px"}}> Organizer Name </Label>
-<<<<<<< HEAD
-                    <Input 
-                        placeholder={this.state.fname} 
-                        name="fname" 
-                        onChange={this.handleChange} 
-                        id="fname" 
-                        style={{ borderRadius: "20px", paddingLeft: "24px" }} 
-                    />
-                    <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
-                    <Input   
-                        placeholder={this.state.roomName} 
-                        name="roomName" 
-                        onChange={this.handleChange} 
-                        id="roomName" 
-                        style={{ borderRadius: "20px", paddingLeft: "24px" }} 
-=======
                     <Input
                         placeholder={this.state.fname}
                         name="fname"
@@ -188,7 +154,6 @@ export class GameManager extends Component {
                         onChange={this.handleChange}
                         id="roomName"
                         style={{ borderRadius: "20px", paddingLeft: "24px" }}
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
                     />
                     <Label style={{ marginTop: "20px" }}>Number of Icebreaker Questions</Label>
                     <InputGroup>
@@ -205,15 +170,9 @@ export class GameManager extends Component {
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
                      </InputGroup>
                     <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
-<<<<<<< HEAD
-                        <input type="checkbox" 
-                            name="toggleAnalysis" 
-                            onClick={this.onClick} 
-=======
                         <input type="checkbox"
                             name="toggleAnalysis"
                             onClick={this.onClick}
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
                         /> Show Analysis
                     </Label>
                     {button}
@@ -228,12 +187,14 @@ export class Categories extends Component {
         super(props);
         this.state = {
             questions: [],
-            toggleCustom: false
-<<<<<<< HEAD
+            toggleCustom: false,
+            go:false,
+            selected: ""
         }
-        this.handleQuestionDeck = this.handleQuestionDeck.bind(this);
+
         this.handleRandomDeck = this.handleRandomDeck.bind(this);
         this.toggleCustom = this.toggleCustom.bind(this);
+        this.redirect = this.redirect.bind(this);
         this.setDeck = this.setDeck.bind(this);
         this.parentState = this.props.location.state;
     }
@@ -245,42 +206,12 @@ export class Categories extends Component {
         }
     }
 
-=======
-        }
-
-        this.handleRandomDeck = this.handleRandomDeck.bind(this);
-        this.toggleCustom = this.toggleCustom.bind(this);
-        this.setDeck = this.setDeck.bind(this);
-        this.parentState = this.props.location.state;
-    }
-
-    componentDidMount() {
-        // Check file whether file is empty
-        if (questionFile.length === 0) {
-            alert("An error occured while finding the questions, please try again later or contact the owner of the website");
-        }
-    }
-
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
-    setDeck(deck) {
+    setDeck(deck, category) {
         this.setState({
-            questions: deck
+            questions: deck,
+            selected: category
         });
     }
-<<<<<<< HEAD
-    handleQuestionDeck = (e) => {
-        let category = e.target.id;
-        if (category !== 'random' || category !== 'customized') {
-            let deck = Object.entries(this.getQuestions(category));
-
-            if (deck !== undefined) {
-                this.setDeck(deck);
-            } else {
-                alert("An error occured while finding the questions, please try again later or contact the owner of the website");
-            }
-        } else {
-            this.setState({ custom: true });
-=======
 
     handleQuestionDeck = (e) => {
         let category = e.target.id;
@@ -293,13 +224,12 @@ export class Categories extends Component {
                 questionDeck.push(obj);
 
                 if (questionDeck.length === max) {
-                    this.setDeck(questionDeck);
+                    this.setDeck(questionDeck, category);
                     break;
                 }
             }
         } else {
             alert("An error occured while finding the questions, please try again later or contact the owner of the website");
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
         }
     }
 
@@ -320,10 +250,7 @@ export class Categories extends Component {
             let questionDeck = Object.entries(category.questions);
             let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
             let count = 0;
-<<<<<<< HEAD
 
-=======
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
             while(count <= randomTotal && deck.length !== max) {
                 let index = Math.floor(Math.random() * 15);
 
@@ -335,7 +262,7 @@ export class Categories extends Component {
 
                 // Check deck has correct number of questions and prevent from adding more questions
                 if (deck.length === max) {
-                    this.setDeck(deck);
+                    this.setDeck(deck, "random");
                     break;
                 }
                 count++;
@@ -347,84 +274,107 @@ export class Categories extends Component {
         this.setState({ toggleCustom: !this.state.toggleCustom });
     }
 
+    redirect() {
+        this.setState({ go: !this.state.go });
+    }
+
     render() {
-        let isEnabled = (this.state.questions.length !== 0);
-<<<<<<< HEAD
-        console.log("in the bigger function");
-        console.log(this.state.questions);
-=======
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
+        let isEnabled = (this.state.questions.length === 0);
+        let goButton = null;
+        if (this.state.go) {
+            return <Redirect push to={{pathname: "/" + this.parentState.roomName + "/Room/", uid: this.parentState.uid, deck:this.state.questions}} />;
+        } else {
+            goButton = (
+                <button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
+                    Go to Room
+                </button>
+            );
+        }
+
         return (
             <div id="category">
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="travel">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                        <div id={this.state.selected === "travel" ? "selected": "travel"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="travel">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                            </div>
                         </div>
                         <h3>Travel</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="food">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
+                        <div id={this.state.selected === "food" ? "selected": "food"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="food">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
+                            </div>
                         </div>
                         <h3>Food</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="sports">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
+                        <div id={this.state.selected === "sports" ? "selected" : "sports"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="sports">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
+                            </div>
                         </div>
                         <h3>Sports</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="music">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
+                        <div id={this.state.selected === "music" ? "selected" : "music"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="music">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
+                            </div>
                         </div>
                         <h3>Music</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="movies">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
+                        <div id={this.state.selected === "movies" ? "selected" : "movies"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="movies">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
+                            </div>
                         </div>
                         <h3>Movies</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="books">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
+                        <div id={this.state.selected === "books" ? "selected" : "books"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="books">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
+                            </div>
                         </div>
                         <h3>Books</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="animals">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
+                        <div id={this.state.selected === "animals" ? "selected" : "animals"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="animals">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
+                            </div>
                         </div>
                         <h3>Animals</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleRandomDeck} id="random">
-                            <img className="cataimg" onClick={this.handleRandomDeck} src={require("./icons/random.png")} id="random" alt="random" />
+                        <div id={this.state.selected === "random" ? "selected" : "random"}>
+                            <div className="cata" onClick={this.handleRandomDeck} id="random">
+                                <img className="cataimg" onClick={this.handleRandomDeck} src={require("./icons/random.png")} id="random" alt="random" />
+                            </div>
                         </div>
                         <h3>Random</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.toggleCustom} id="customized">
-                            <img className="cataimg" onClick={this.toggleCustom} src={require("./icons/customized.png")} id="customized" alt="customized" />
+                        <div id={this.state.selected === "customized" ? "selected" : "customized"}>
+                            <div className="cata" onClick={this.toggleCustom} id="customized">
+                                <img className="cataimg" onClick={this.toggleCustom} src={require("./icons/customized.png")} id="customized" alt="customized" />
+                            </div>
                         </div>
                         <h3>Custom</h3>
                     </Col>
                 </Row>
-<<<<<<< HEAD
-                <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom}/>
-                <ModalQuestions questionList={this.state.questions[0]} max={this.parentState.numQuestions} uid={this.props.location.state.uid}/>
-=======
                 <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState}/>
-                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
-                <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
+                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} uid={this.parentState.uid}/>
+                {goButton}
             </div>
         );
     }
@@ -434,47 +384,6 @@ class AddQuestion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-<<<<<<< HEAD
-            customDeck: []
-        };
-
-    }
-
-    render() {
-        const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
-        return(
-            <div>
-                <Modal isOpen={this.props.open} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.toggle} close={closeBtn}>Build your own deck of questions!</ModalHeader>
-                    <ModalBody>
-                        <FormGroup>
-                            <Label for="question" sm={2}>Question</Label>
-                            <Col sm={10}>
-                                <Input type="question" name="question" id="question" />
-                            </Col>
-                        </FormGroup>
-                        <FormGroup>
-                            <Row>
-                            <Col md={6}>
-                                <Label for="exampleCity">City</Label>
-                                <Input type="text" name="city" id="exampleCity"/>
-                            </Col>
-                            <Col md={4}>
-                                <Label for="exampleState">State</Label>
-                                <Input type="text" name="state" id="exampleState"/>
-                                </Col>
-                                </Row>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
-                            <Col sm={10}>
-                                <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple />
-                            </Col>
-                            </FormGroup>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.props.fun}>Add to Deck</Button>
-=======
             customDeck: [],
             question: "",
             answer2: "",
@@ -483,6 +392,7 @@ class AddQuestion extends Component {
         };
         
         this.removeQuestion = this.removeQuestion.bind(this);
+        this.setDeck = this.setDeck.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleNewQuestions = this.handleNewQuestions.bind(this);
         this.handleSelected = this.handleSelected.bind(this);
@@ -493,7 +403,8 @@ class AddQuestion extends Component {
         if(this.isDuplicate()) {
             // Remove Error message
             document.getElementById('error').style.visibility = "hidden";
-            deck.push([this.state.question,[this.state.answer1,this.state.answer2]]);
+            deck.push([this.state.question, [this.state.answer1, this.state.answer2]]);
+            document.getElementById("message").innerHTML = "You have " + (parseInt(this.props.state.numQuestions) - this.state.customDeck.length) + " questions to make!";
         } else {
             this.setState({
                 question: "",
@@ -512,6 +423,7 @@ class AddQuestion extends Component {
             answer2: ""
         });
         document.getElementById('addForm').reset();
+        this.renderOptions();
     }
 
     isValid(str) {
@@ -584,17 +496,24 @@ class AddQuestion extends Component {
         for (let entry of deck) {
             if (entry[0] === this.state.selected) {
                 deck.splice(entry[0], 1);
-                console.log(deck)
            }
         }
         this.renderOptions();
+        document.getElementById("message").innerHTML = "You have " + (parseInt(this.props.state.numQuestions) - this.state.customDeck.length) + " questions to make!";
     }
+
+    setDeck() {
+        this.props.fun(this.state.customDeck, "customized");
+        this.props.toggle();
+        this.setState({
+            customDeck: []
+        });
+    }
+
     render() {
         const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
         let isEnabled = (this.state.question !== "" && this.state.answer1 !== "" && this.state.answer2 !== "");
         let maxReached = (parseInt(this.props.state.numQuestions) === this.state.customDeck.length);
-        this.renderOptions();
-
         return(
             <div>
                 <Modal className="addCustomQuestions" isOpen={this.props.open} toggle={this.props.toggle}>
@@ -608,6 +527,7 @@ class AddQuestion extends Component {
                             >
                             </div>
                         </div>
+                        <h2 id="message">You have {parseInt(this.props.state.numQuestions) - this.state.customDeck.length} questions to make!</h2>
                         <Form id="addForm">
                             <Row>
                                 <Col className="addQuestionContainer" sm={6}>
@@ -618,21 +538,18 @@ class AddQuestion extends Component {
                                         id="question"
                                         placeholder={this.state.question}
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Label for="exampleCity">Answer 1</Label>
                                     <Input type="answer1"
                                         name="answer1"
                                         id="answer1"
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Label for="exampleState">Answer 2</Label>
                                     <Input type="answer2"
                                         name="answer2"
                                         id="answer2"
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Button color="success" className="add" onClick={this.handleNewQuestions} disabled={!isEnabled || maxReached}>Add Question</Button>
                                 </Col>
@@ -651,8 +568,7 @@ class AddQuestion extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.props.fun.bind(this, this.state.customDeck)} disabled={!maxReached}>Add to Deck</Button>
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
+                        <Button color="primary" onClick={this.setDeck} disabled={!maxReached}>Add to Deck</Button>
                     </ModalFooter>
                 </Modal>
             </div>
@@ -665,30 +581,17 @@ class ModalQuestions extends Component {
       super(props);
       this.state = {
         modal: false,
-<<<<<<< HEAD
         questionNumber: 0,
         answer1Count: 0,
         answer2Count: 0
       };
       this.toggle = this.toggle.bind(this);
       this.nextQuestion = this.nextQuestion.bind(this);
-      this.handleAnswers = this.handleAnswers.bind(this);
       this.incrementCount = this.incrementCount.bind(this);
-=======
-        questionNumber: 0
-      };
-      this.toggle = this.toggle.bind(this);
-      this.nextQuestion = this.nextQuestion.bind(this);
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
     }
 
     // this.props.max is the max number of questions
     // this.props.questionList is the list of questions to display
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
     toggle() {
       this.setState(prevState => ({
         modal: !prevState.modal
@@ -700,7 +603,6 @@ class ModalQuestions extends Component {
         this.setState({ questionNumber: num});
     }
 
-<<<<<<< HEAD
     handleAnswers(question, answer1, answer2, gotClicked) {
         console.log("in handle answers");
         console.log("what is the question", question);
@@ -721,14 +623,10 @@ class ModalQuestions extends Component {
     }
 
     incrementCount(target) {
-        console.log("current counter");
-        console.log(this.state.answer1Count);
-        console.log("current counter 2");
-        console.log(this.state.answer2Count);
-        console.log("target", target);
-        if(target == 1) {
+        if (target === 1) {
+            let prevState = this.state.answer1Count++;
             this.setState(prevState=>({
-                answer1Count: prevState.answer1Count++
+                answer1Count: prevState
             }));
         } 
         this.setState(prevState=>({
@@ -737,49 +635,22 @@ class ModalQuestions extends Component {
     }
 
     render() {
-        console.log("in the modal now");
-        console.log(this.props.questionList);
-        if(this.props.questionList !== undefined && this.state.questionNumber < this.props.questionList.length) {
-            let entries = this.props.questionList[1];
-            console.log("the entries");
-            console.log(entries);
-            console.log("what is questionNumber", this.state.questionNumber)
-            let displayQuestion = entries[this.state.questionNumber];
-            console.log("what is displayQuestion");
-            console.log(displayQuestion);
-            console.log("testing with entries", entries[0]);
-=======
-    render() {
         if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
-            const entries = this.props.questionList;
+            let entries = this.props.questionList;
+            console.log("what are the entries");
+            console.log(entries);
             let displayQuestion = entries[this.state.questionNumber];
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
-            let displayQuestionModal = displayQuestion[0];
-            let displayButton = entries[this.state.questionNumber][1];
+            let displayButton = entries[1];
             let displayButton1 = displayButton[0];
             let displayButton2 = displayButton[1];
-<<<<<<< HEAD
-            console.log("question");
-            console.log(displayQuestionModal);
-            console.log("button1");
-            console.log(displayButton1);
-            console.log("button2");
-            console.log(displayButton2);
-=======
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
             return (
                 <div>
                   <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
                   <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>{displayQuestion}</ModalHeader>
                     <ModalFooter>
-<<<<<<< HEAD
-                      <Button color="primary" onClick={this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
-                      <Button color="primary" onClick={this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
-=======
-                      <Button color="primary" onClick={this.toggle}>{displayButton1}</Button>{' '}
-                      <Button color="primary" onClick={this.toggle}>{displayButton2}</Button>{' '}
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
+                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestion, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
+                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestion, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
                       <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
                       <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
@@ -795,8 +666,4 @@ class ModalQuestions extends Component {
             </div>
         )
     }
-<<<<<<< HEAD
-  }
-=======
 }
->>>>>>> eaaa9494d77d6068068aca2509d194b35541b0a3
