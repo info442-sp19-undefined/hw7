@@ -637,6 +637,7 @@ class ModalQuestions extends Component {
     render() {
         if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
             let entries = this.props.questionList[0];
+            console.log(entries)
             let displayQuestion = entries[this.state.questionNumber];
             let displayButton = entries[1];
             let displayButton1 = displayButton[0];
