@@ -636,20 +636,19 @@ class ModalQuestions extends Component {
 
     render() {
         if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
-            let entries = Object.entries(this.props.questionList[0][1]);
+            let entries = this.props.questionList[0];
             let displayQuestion = entries[this.state.questionNumber];
-            let displayQuestionModal = displayQuestion[0];
-            let displayButton = entries[this.state.questionNumber][1];
+            let displayButton = entries[1];
             let displayButton1 = displayButton[0];
             let displayButton2 = displayButton[1];
             return (
                 <div>
                   <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
                   <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>{displayQuestion}</ModalHeader>
                     <ModalFooter>
-                      <Button color="primary" onClick={this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
-                      <Button color="primary" onClick={this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
+                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestion, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
+                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestion, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
                       <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
                       <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
@@ -665,4 +664,4 @@ class ModalQuestions extends Component {
             </div>
         )
     }
-  }
+}
