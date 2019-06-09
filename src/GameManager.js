@@ -286,6 +286,16 @@ export class Categories extends Component {
 
     render() {
         let isEnabled = (this.state.questions.length !== 0);
+        let goButton = null;
+        if (this.state.go) {
+            return <Redirect push to={{pathname: "/" + this.parentState.roomName + "/Room/", uid: this.parentState.uid, deck: this.state.questions}} />;
+        } else {
+            goButton = (
+                <Button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
+                    Go To Room
+                </Button>
+            )
+        }
         return (
             <div id="category">
                 <h1>Categories</h1>
@@ -352,7 +362,7 @@ export class Categories extends Component {
                 <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState}/>
                 <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
                 
-                <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
+                <Button href="/Room" disabled={isEnabled}>{goButton}</Button>
             </div>
         );
     }
