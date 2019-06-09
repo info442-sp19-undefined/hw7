@@ -29,7 +29,8 @@ export class GameManager extends Component {
             roomName: "",
             numQuestions: 5,
             toggleAnalysis: false,
-            created: false
+            created: false,
+            readyToStart: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -90,6 +91,21 @@ export class GameManager extends Component {
         }
     }
 
+    handleStart() {
+        let roomRef = firebase.database().ref('Rooms');
+        roomRef.orderByChild('uid').equalTo(this.state.uid).limitToFirst(1).once("value", snapshot => {
+            if (snapshot.child('players').numChildren() >= 1) {
+                this.setState({
+                    readyToStart: true
+                });
+            } else {
+                console.log("less than one player")
+                document.getElementById('error').innerHTML = "Can't start the game when you only have 1 player!";
+                document.getElementById('error').style.visibility = "visible";
+            }
+        })
+    }
+
     onClick = (e) => {
         this.setState({
             [e.target.name]: e.target.checked
@@ -99,7 +115,9 @@ export class GameManager extends Component {
     render() {
         let isEnabled = (this.state.fname !== "");
         let button = null;
-        if (this.state.created) {
+        if (this.state.readyToStart) {
+            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Room", state: this.state}} />;
+        } else if (this.state.created) {
             return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state: this.state}} />;
         } else {
             button = (
@@ -333,6 +351,7 @@ export class Categories extends Component {
                 </Row>
                 <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState}/>
                 <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
+                
                 <Button href="/Room" disabled={isEnabled}>Go to Room</Button>
             </div>
         );
