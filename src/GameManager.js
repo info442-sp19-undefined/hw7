@@ -29,7 +29,8 @@ export class GameManager extends Component {
             roomName: "",
             numQuestions: 5,
             toggleAnalysis: false,
-            created: false
+            created: false,
+            readyToStart: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -92,7 +93,7 @@ export class GameManager extends Component {
             document.getElementById('fname').style.borderColor = "red";
         }
     }
-
+    
     onClick = (e) => {
         this.setState({
             [e.target.name]: e.target.checked
@@ -290,7 +291,6 @@ export class Categories extends Component {
                 </button>
             );
         }
-
         return (
             <div id="category">
                 <h1>Categories</h1>
