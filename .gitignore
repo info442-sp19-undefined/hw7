@@ -1,6 +1,5 @@
 # api keys
 .env
 .DS_Store
-node_module/
-node_module
+node_modules/
 package-lock.json

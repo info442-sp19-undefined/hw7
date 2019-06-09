@@ -51,6 +51,9 @@ export class GameManager extends Component {
             settings: {
                 Number_Questions: this.state.numQuestions,
                 showAnalysis: this.state.toggleAnalysis
+            },
+            analysis: {
+                placeholder: "Placeholder"
             }
         });
         this.setState({ created: true });
@@ -66,7 +69,7 @@ export class GameManager extends Component {
         }
         return false;
     }
-
+    
     handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
@@ -90,22 +93,7 @@ export class GameManager extends Component {
             document.getElementById('fname').style.borderColor = "red";
         }
     }
-
-    handleStart() {
-        let roomRef = firebase.database().ref('Rooms');
-        roomRef.orderByChild('uid').equalTo(this.state.uid).limitToFirst(1).once("value", snapshot => {
-            if (snapshot.child('players').numChildren() >= 1) {
-                this.setState({
-                    readyToStart: true
-                });
-            } else {
-                console.log("less than one player")
-                document.getElementById('error').innerHTML = "Can't start the game when you only have 1 player!";
-                document.getElementById('error').style.visibility = "visible";
-            }
-        })
-    }
-
+    
     onClick = (e) => {
         this.setState({
             [e.target.name]: e.target.checked
@@ -115,9 +103,7 @@ export class GameManager extends Component {
     render() {
         let isEnabled = (this.state.fname !== "");
         let button = null;
-        if (this.state.readyToStart) {
-            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Room", state: this.state}} />;
-        } else if (this.state.created) {
+        if (this.state.created) {
             return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state: this.state}} />;
         } else {
             button = (
@@ -202,11 +188,14 @@ export class Categories extends Component {
         super(props);
         this.state = {
             questions: [],
-            toggleCustom: false
+            toggleCustom: false,
+            go:false,
+            selected: ""
         }
 
         this.handleRandomDeck = this.handleRandomDeck.bind(this);
         this.toggleCustom = this.toggleCustom.bind(this);
+        this.redirect = this.redirect.bind(this);
         this.setDeck = this.setDeck.bind(this);
         this.parentState = this.props.location.state;
     }
@@ -218,9 +207,10 @@ export class Categories extends Component {
         }
     }
 
-    setDeck(deck) {
+    setDeck(deck, category) {
         this.setState({
-            questions: deck
+            questions: deck,
+            selected: category
         });
     }
 
@@ -235,7 +225,7 @@ export class Categories extends Component {
                 questionDeck.push(obj);
 
                 if (questionDeck.length === max) {
-                    this.setDeck(questionDeck);
+                    this.setDeck(questionDeck, category);
                     break;
                 }
             }
@@ -261,6 +251,7 @@ export class Categories extends Component {
             let questionDeck = Object.entries(category.questions);
             let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
             let count = 0;
+
             while(count <= randomTotal && deck.length !== max) {
                 let index = Math.floor(Math.random() * 15);
 
@@ -272,7 +263,7 @@ export class Categories extends Component {
 
                 // Check deck has correct number of questions and prevent from adding more questions
                 if (deck.length === max) {
-                    this.setDeck(deck);
+                    this.setDeck(deck, "random");
                     break;
                 }
                 count++;
@@ -284,85 +275,106 @@ export class Categories extends Component {
         this.setState({ toggleCustom: !this.state.toggleCustom });
     }
 
+    redirect() {
+        this.setState({ go: !this.state.go });
+    }
+
     render() {
-        let isEnabled = (this.state.questions.length !== 0);
+        let isEnabled = (this.state.questions.length === 0);
         let goButton = null;
         if (this.state.go) {
-            return <Redirect push to={{pathname: "/" + this.parentState.roomName + "/Room/", uid: this.parentState.uid, deck: this.state.questions}} />;
+            return <Redirect push to={{pathname: "/" + this.parentState.roomName + "/Room/", state:{questions:this.state.questions, uid:this.parentState.uid, fname: this.parentState.fname, userType:"organizer"}}} />;
         } else {
             goButton = (
-                <Button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
-                    Go To Room
-                </Button>
-            )
+                <button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
+                    Go to Room
+                </button>
+            );
         }
         return (
             <div id="category">
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="travel">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                        <div id={this.state.selected === "travel" ? "selected": "travel"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="travel">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
+                            </div>
                         </div>
                         <h3>Travel</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="food">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
+                        <div id={this.state.selected === "food" ? "selected": "food"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="food">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
+                            </div>
                         </div>
                         <h3>Food</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="sports">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
+                        <div id={this.state.selected === "sports" ? "selected" : "sports"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="sports">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/sports.png")} id="sports" alt="sports" />
+                            </div>
                         </div>
                         <h3>Sports</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="music">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
+                        <div id={this.state.selected === "music" ? "selected" : "music"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="music">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/music.png")} id="music" alt="music" />
+                            </div>
                         </div>
                         <h3>Music</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="movies">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
+                        <div id={this.state.selected === "movies" ? "selected" : "movies"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="movies">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/movie.png")} id="movies" alt="movie" />
+                            </div>
                         </div>
                         <h3>Movies</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="books">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
+                        <div id={this.state.selected === "books" ? "selected" : "books"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="books">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/book.png")} id="books" alt="book" />
+                            </div>
                         </div>
                         <h3>Books</h3>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div className="cata" onClick={this.handleQuestionDeck} id="animals">
-                            <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
+                        <div id={this.state.selected === "animals" ? "selected" : "animals"}>
+                            <div className="cata" onClick={this.handleQuestionDeck} id="animals">
+                                <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/animal.png")} id="animals" alt="animal" />
+                            </div>
                         </div>
                         <h3>Animals</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.handleRandomDeck} id="random">
-                            <img className="cataimg" onClick={this.handleRandomDeck} src={require("./icons/random.png")} id="random" alt="random" />
+                        <div id={this.state.selected === "random" ? "selected" : "random"}>
+                            <div className="cata" onClick={this.handleRandomDeck} id="random">
+                                <img className="cataimg" onClick={this.handleRandomDeck} src={require("./icons/random.png")} id="random" alt="random" />
+                            </div>
                         </div>
                         <h3>Random</h3>
                     </Col>
                     <Col>
-                        <div className="cata" onClick={this.toggleCustom} id="customized">
-                            <img className="cataimg" onClick={this.toggleCustom} src={require("./icons/customized.png")} id="customized" alt="customized" />
+                        <div id={this.state.selected === "customized" ? "selected" : "customized"}>
+                            <div className="cata" onClick={this.toggleCustom} id="customized">
+                                <img className="cataimg" onClick={this.toggleCustom} src={require("./icons/customized.png")} id="customized" alt="customized" />
+                            </div>
                         </div>
                         <h3>Custom</h3>
                     </Col>
                 </Row>
                 <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState}/>
-                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} />
-                
-                <Button href="/Room" disabled={isEnabled}>{goButton}</Button>
+                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} uid={this.parentState.uid}/>
+                {goButton}
             </div>
         );
     }
@@ -380,6 +392,7 @@ class AddQuestion extends Component {
         };
         
         this.removeQuestion = this.removeQuestion.bind(this);
+        this.setDeck = this.setDeck.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleNewQuestions = this.handleNewQuestions.bind(this);
         this.handleSelected = this.handleSelected.bind(this);
@@ -390,7 +403,8 @@ class AddQuestion extends Component {
         if(this.isDuplicate()) {
             // Remove Error message
             document.getElementById('error').style.visibility = "hidden";
-            deck.push([this.state.question,[this.state.answer1,this.state.answer2]]);
+            deck.push([this.state.question, [this.state.answer1, this.state.answer2]]);
+            document.getElementById("message").innerHTML = "You have " + (parseInt(this.props.state.numQuestions) - this.state.customDeck.length) + " questions to make!";
         } else {
             this.setState({
                 question: "",
@@ -409,6 +423,7 @@ class AddQuestion extends Component {
             answer2: ""
         });
         document.getElementById('addForm').reset();
+        this.renderOptions();
     }
 
     isValid(str) {
@@ -481,17 +496,24 @@ class AddQuestion extends Component {
         for (let entry of deck) {
             if (entry[0] === this.state.selected) {
                 deck.splice(entry[0], 1);
-                console.log(deck)
            }
         }
         this.renderOptions();
+        document.getElementById("message").innerHTML = "You have " + (parseInt(this.props.state.numQuestions) - this.state.customDeck.length) + " questions to make!";
     }
+
+    setDeck() {
+        this.props.fun(this.state.customDeck, "customized");
+        this.props.toggle();
+        this.setState({
+            customDeck: []
+        });
+    }
+
     render() {
         const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
         let isEnabled = (this.state.question !== "" && this.state.answer1 !== "" && this.state.answer2 !== "");
         let maxReached = (parseInt(this.props.state.numQuestions) === this.state.customDeck.length);
-        this.renderOptions();
-
         return(
             <div>
                 <Modal className="addCustomQuestions" isOpen={this.props.open} toggle={this.props.toggle}>
@@ -505,6 +527,7 @@ class AddQuestion extends Component {
                             >
                             </div>
                         </div>
+                        <h2 id="message">You have {parseInt(this.props.state.numQuestions) - this.state.customDeck.length} questions to make!</h2>
                         <Form id="addForm">
                             <Row>
                                 <Col className="addQuestionContainer" sm={6}>
@@ -515,21 +538,18 @@ class AddQuestion extends Component {
                                         id="question"
                                         placeholder={this.state.question}
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Label for="exampleCity">Answer 1</Label>
                                     <Input type="answer1"
                                         name="answer1"
                                         id="answer1"
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Label for="exampleState">Answer 2</Label>
                                     <Input type="answer2"
                                         name="answer2"
                                         id="answer2"
                                         onChange={this.handleChange}
-                                        disabled={maxReached}
                                     />
                                     <Button color="success" className="add" onClick={this.handleNewQuestions} disabled={!isEnabled || maxReached}>Add Question</Button>
                                 </Col>
@@ -548,7 +568,7 @@ class AddQuestion extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.props.fun.bind(this, this.state.customDeck)} disabled={!maxReached}>Add to Deck</Button>
+                        <Button color="primary" onClick={this.setDeck} disabled={!maxReached}>Add to Deck</Button>
                     </ModalFooter>
                 </Modal>
             </div>
@@ -561,15 +581,17 @@ class ModalQuestions extends Component {
       super(props);
       this.state = {
         modal: false,
-        questionNumber: 0
+        questionNumber: 0,
+        answer1Count: 0,
+        answer2Count: 0
       };
       this.toggle = this.toggle.bind(this);
       this.nextQuestion = this.nextQuestion.bind(this);
+      this.incrementCount = this.incrementCount.bind(this);
     }
 
     // this.props.max is the max number of questions
     // this.props.questionList is the list of questions to display
-
     toggle() {
       this.setState(prevState => ({
         modal: !prevState.modal
@@ -581,12 +603,38 @@ class ModalQuestions extends Component {
         this.setState({ questionNumber: num});
     }
 
+    handleAnswers(question, answer1, answer2, gotClicked) {
+        this.incrementCount(gotClicked);
+        let roomRef = firebase.database().ref("Rooms").child(this.props.uid);
+        roomRef.set({
+            analysis: {
+                questionAsked: question,
+                answerOne: answer1,
+                answerTwo: answer2,
+                answerOneCount: this.state.answer1Count,
+                answerTwoCount: this.state.answer2Count
+            }
+        });
+    }
+
+    incrementCount(target) {
+        if (target === 1) {
+            this.setState(prevState=>({
+                answer1Count: prevState.answer1Count + 1
+            }));
+        } else {
+            this.setState(prevState=>({
+                answer2Count: prevState.answer2Count + 1
+            }));
+        }
+    }
+
     render() {
         if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
-            const entries = this.props.questionList;
+            let entries = this.props.questionList;
             let displayQuestion = entries[this.state.questionNumber];
             let displayQuestionModal = displayQuestion[0];
-            let displayButton = entries[this.state.questionNumber][1];
+            let displayButton = displayQuestion[1];
             let displayButton1 = displayButton[0];
             let displayButton2 = displayButton[1];
             return (
@@ -595,8 +643,8 @@ class ModalQuestions extends Component {
                   <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
                     <ModalFooter>
-                      <Button color="primary" onClick={this.toggle}>{displayButton1}</Button>{' '}
-                      <Button color="primary" onClick={this.toggle}>{displayButton2}</Button>{' '}
+                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
+                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
                       <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
                       <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase/app";
 import "./css/room.css";
-import { Form, Input, Label, Button, Row, Col } from "reactstrap";
-import { Redirect } from 'react-router-dom';
+import { Button} from "reactstrap";
 
 export class WaitingRoom extends Component {
   constructor(props) {
@@ -11,13 +10,21 @@ export class WaitingRoom extends Component {
       readyToStart: false
     };
 
-    this.onClick = this.onClick.bind(this);
+    this.parentState = this.props.location.state;
     this.handleStart = this.handleStart.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+  }
+
+  handleCancel() {
+        let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
+        roomRef.set({
+            game_active: false
+        });
   }
 
   handleStart() {
     let roomRef = firebase.database().ref('Rooms');
-    roomRef.orderByChild('uid').equalTo(this.state.uid).limitToFirst(1).once("value", snapshot => {
+    roomRef.orderByChild('uid').equalTo(this.parentState.uid).limitToFirst(1).once("value", snapshot => {
       if (snapshot.child('players').numChildren() >= 1) {
         this.setState({
             readyToStart: true
@@ -32,19 +39,21 @@ export class WaitingRoom extends Component {
 
   render() {
     let isEnabled = this.state.uid !== "" && this.state.fname !== "";
-
-    // Render different buttons whether the user has successfully been added to the room or not
-    let button = null;
-    if (this.state.readyToStart) {
-      return <Redirect push to={{ pathname: "/" + this.state.roomName + "/Categories/", state: this.state }} />;
-    } else {
-      button = (
+    return(
+      <div>
+        <div className="errorContainer">
+              <div id="error"
+                className="alert alert-danger"
+                  role="alert"
+                  style={{ visibility: 'hidden' }}
+              >
+            </div>
+        </div>
         <Button onClick={this.handleStart} disabled={!isEnabled}>
-          Start Game
+            Start Game
         </Button>
-      );
-    }
-
+      </div>
+    )
     
   }
 }

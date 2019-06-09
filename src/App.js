@@ -3,6 +3,8 @@ import './css/App.css';
 import { GameManager, Categories } from './GameManager';
 import JoinRoom from './JoinRoom';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import {WaitingRoom} from './WaitingRoom';
+
 const uniqid = require('uniqid');
 // To do later: loading spin
 class App extends Component {
@@ -46,6 +48,7 @@ class App extends Component {
                     <Route  path="/NewRoom" render={() => <GameManager data={this.state} />} />
                     <Route path="/JoinRoom" component={JoinRoom}/>
                     <Route path="/:name/Categories/" component={Categories}/>
+                    <Route path="/:name/Room/" component={WaitingRoom}/>
                     <Redirect to='/' />
                 </Switch>
             </header>
