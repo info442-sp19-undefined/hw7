@@ -59,8 +59,8 @@ export class GameManager extends Component {
     }
 
     isValid(str, field) {
-        if ( field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
-          return true;
+        if (field === 'fname' && /^[a-zA-Z ]+$/.test(str)) {
+            return true;
         } else if (field === 'roomName') {
             return true;
         } else if (str === "") {
@@ -68,7 +68,7 @@ export class GameManager extends Component {
         }
         return false;
     }
-    
+
     handleChange = (e) => {
         // Check the inputs are valid
         if (this.isValid(e.target.value, e.target.name)) {
@@ -80,7 +80,7 @@ export class GameManager extends Component {
             this.setState({
                 [e.target.name]: str
             });
-        } else if(e.target.name === 'numQuestions') {
+        } else if (e.target.name === 'numQuestions') {
             this.setState({
                 [e.target.name]: e.target.value
             });
@@ -103,7 +103,7 @@ export class GameManager extends Component {
         let isEnabled = (this.state.fname !== "");
         let button = null;
         if (this.state.created) {
-            return <Redirect push to={{pathname: "/" + this.state.roomName + "/Categories/", state: this.state}} />;
+            return <Redirect push to={{ pathname: "/" + this.state.roomName + "/Categories/", state: this.state }} />;
         } else {
             button = (
                 <Button
@@ -132,14 +132,14 @@ export class GameManager extends Component {
             <div>
                 <div className="errorContainer">
                     <div id="error"
-                        style={{visibility: 'hidden'}}
+                        style={{ visibility: 'hidden' }}
                         className="alert alert-danger"
                         role="alert">
                     </div>
                 </div>
                 <Form id="newRoom-form">
                     <h1 className="header">Settings</h1>
-                    <Label style={{marginTop: "40px"}}> Organizer Name </Label>
+                    <Label style={{ marginTop: "40px" }}> Organizer Name </Label>
                     <Input
                         placeholder={this.state.fname}
                         name="fname"
@@ -147,7 +147,7 @@ export class GameManager extends Component {
                         id="fname"
                         style={{ borderRadius: "20px", paddingLeft: "24px" }}
                     />
-                    <Label style={{marginTop: "20px"}}>Custom Room Name</Label>
+                    <Label style={{ marginTop: "20px" }}>Custom Room Name</Label>
                     <Input
                         placeholder={this.state.roomName}
                         name="roomName"
@@ -168,8 +168,8 @@ export class GameManager extends Component {
                             onChange={this.handleChange}
                         />
                         <InputGroupAddon addonType="append">Questions</InputGroupAddon>
-                     </InputGroup>
-                    <Label check style={{marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600"}}>
+                    </InputGroup>
+                    <Label check style={{ marginTop: "30px", marginLeft: "40px", fontSize: "16px", color: "#226597", fontWeight: "600" }}>
                         <input type="checkbox"
                             name="toggleAnalysis"
                             onClick={this.onClick}
@@ -188,7 +188,7 @@ export class Categories extends Component {
         this.state = {
             questions: [],
             toggleCustom: false,
-            go:false,
+            go: false,
             selected: ""
         }
 
@@ -251,7 +251,7 @@ export class Categories extends Component {
             let randomTotal = Math.floor(Math.random() * (4 - 1) + 1);
             let count = 0;
 
-            while(count <= randomTotal && deck.length !== max) {
+            while (count <= randomTotal && deck.length !== max) {
                 let index = Math.floor(Math.random() * 15);
 
                 if (!deck.includes(questionDeck[index])) {
@@ -282,7 +282,7 @@ export class Categories extends Component {
         let isEnabled = (this.state.questions.length === 0);
         let goButton = null;
         if (this.state.go) {
-            return <Redirect push to={{pathname: "/" + this.parentState.roomName + "/Room/", uid: this.parentState.uid, deck:this.state.questions}} />;
+            return <Redirect push to={{ pathname: "/" + this.parentState.roomName + "/Room/", uid: this.parentState.uid, deck: this.state.questions }} />;
         } else {
             goButton = (
                 <button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
@@ -296,7 +296,7 @@ export class Categories extends Component {
                 <h1>Categories</h1>
                 <Row>
                     <Col>
-                        <div id={this.state.selected === "travel" ? "selected": "travel"}>
+                        <div id={this.state.selected === "travel" ? "selected" : "travel"}>
                             <div className="cata" onClick={this.handleQuestionDeck} id="travel">
                                 <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/travel.png")} id="travel" alt="travel" />
                             </div>
@@ -304,7 +304,7 @@ export class Categories extends Component {
                         <h3>Travel</h3>
                     </Col>
                     <Col>
-                        <div id={this.state.selected === "food" ? "selected": "food"}>
+                        <div id={this.state.selected === "food" ? "selected" : "food"}>
                             <div className="cata" onClick={this.handleQuestionDeck} id="food">
                                 <img className="cataimg" onClick={this.handleQuestionDeck} src={require("./icons/food.png")} id="food" alt="food" />
                             </div>
@@ -372,8 +372,8 @@ export class Categories extends Component {
                         <h3>Custom</h3>
                     </Col>
                 </Row>
-                <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState}/>
-                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} uid={this.parentState.uid}/>
+                <AddQuestion fun={this.setDeck} open={this.state.toggleCustom} toggle={this.toggleCustom} state={this.parentState} />
+                <ModalQuestions questionList={this.state.questions} max={this.parentState.numQuestions} uid={this.parentState.uid} />
                 {goButton}
             </div>
         );
@@ -390,7 +390,7 @@ class AddQuestion extends Component {
             answer1: "",
             selected: ""
         };
-        
+
         this.removeQuestion = this.removeQuestion.bind(this);
         this.setDeck = this.setDeck.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -400,7 +400,7 @@ class AddQuestion extends Component {
 
     handleNewQuestions() {
         let deck = this.state.customDeck;
-        if(this.isDuplicate()) {
+        if (this.isDuplicate()) {
             // Remove Error message
             document.getElementById('error').style.visibility = "hidden";
             deck.push([this.state.question, [this.state.answer1, this.state.answer2]]);
@@ -428,7 +428,7 @@ class AddQuestion extends Component {
 
     isValid(str) {
         if (/^[a-zA-Z0-9? ]+$/.test(str)) {
-          return true;
+            return true;
         } else if (str === "") {
             return true;
         }
@@ -476,11 +476,11 @@ class AddQuestion extends Component {
     renderOptions() {
         let data = this.state.customDeck;
         let select = document.getElementById('customQuestion');
-        if(select !== null) {
+        if (select !== null) {
             select.innerHTML = "";
         }
 
-        for(let obj of data) {
+        for (let obj of data) {
             let opt = document.createElement('option');
             let key = obj[0];
             let val = obj[1];
@@ -496,7 +496,7 @@ class AddQuestion extends Component {
         for (let entry of deck) {
             if (entry[0] === this.state.selected) {
                 deck.splice(entry[0], 1);
-           }
+            }
         }
         this.renderOptions();
         document.getElementById("message").innerHTML = "You have " + (parseInt(this.props.state.numQuestions) - this.state.customDeck.length) + " questions to make!";
@@ -514,7 +514,7 @@ class AddQuestion extends Component {
         const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
         let isEnabled = (this.state.question !== "" && this.state.answer1 !== "" && this.state.answer2 !== "");
         let maxReached = (parseInt(this.props.state.numQuestions) === this.state.customDeck.length);
-        return(
+        return (
             <div>
                 <Modal className="addCustomQuestions" isOpen={this.props.open} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle} close={closeBtn} >Build your own deck of questions!</ModalHeader>
@@ -554,8 +554,8 @@ class AddQuestion extends Component {
                                     <Button color="success" className="add" onClick={this.handleNewQuestions} disabled={!isEnabled || maxReached}>Add Question</Button>
                                 </Col>
                                 <Col className="questionListContainer" sm={6}>
-                                    <Label for="customQuestion" sm={10} style={{right:"40px", position:"relative"}}>Current List of Questions</Label>
-                                    <img className="delete" alt="delete" onClick={this.removeQuestion} src={require("./icons/trash.svg")}/>
+                                    <Label for="customQuestion" sm={10} style={{ right: "40px", position: "relative" }}>Current List of Questions</Label>
+                                    <img className="delete" alt="delete" onClick={this.removeQuestion} src={require("./icons/trash.svg")} />
                                     <Input type="select"
                                         name="Question List"
                                         id="customQuestion"
@@ -578,40 +578,41 @@ class AddQuestion extends Component {
 
 class ModalQuestions extends Component {
     constructor(props) {
-      super(props);
-      this.state = {
-        modal: false,
-        questionNumber: 0,
-        answer1Count: 0,
-        answer2Count: 0
-      };
-      this.toggle = this.toggle.bind(this);
-      this.nextQuestion = this.nextQuestion.bind(this);
-      this.incrementCount = this.incrementCount.bind(this);
+        super(props);
+        this.state = {
+            modal: false,
+            questionNumber: 0,
+            answer1Count: 0,
+            answer2Count: 0
+        };
+        this.toggle = this.toggle.bind(this);
+        this.nextQuestion = this.nextQuestion.bind(this);
+        this.incrementCount = this.incrementCount.bind(this);
     }
 
     // this.props.max is the max number of questions
     // this.props.questionList is the list of questions to display
     toggle() {
-      this.setState(prevState => ({
-        modal: !prevState.modal
-      }));
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
     }
 
     nextQuestion() {
         let num = this.state.questionNumber + 1;
-        this.setState({ questionNumber: num});
+        this.setState({ questionNumber: num });
     }
 
-    handleAnswers(question, answer1, answer2, gotClicked) {;
+    handleAnswers(question, answer1, answer2, gotClicked) {
         this.incrementCount(gotClicked);
-        let roomRef = firebase.database().ref("Rooms")
-        roomRef.child(this.state.uid).child(question).push({
-                answerOne: answer1,
-                answerTwo: answer2,
-                answerOneCount: this.state.answer1Count,
-                answerTwoCount: this.state.answer2Count
-          });
+        let roomRef = firebase.database().ref("Rooms").child(this.props.uid);
+        roomRef.child("analysis").push({
+            questionAsked: question,
+            answerOne: answer1,
+            answerTwo: answer2,
+            answerOneCount: this.state.answer1Count,
+            answerTwoCount: this.state.answer2Count
+        });
     }
 
     incrementCount(target) {
@@ -620,7 +621,7 @@ class ModalQuestions extends Component {
             this.setState({
                 answer1Count: newNum
             });
-        } 
+        }
         let newNum = this.state.answer2Count + 1;
         this.setState({
             answer2Count: newNum
@@ -628,7 +629,7 @@ class ModalQuestions extends Component {
     }
 
     render() {
-        if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
+        if (this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
             let entries = this.props.questionList;
             let displayQuestion = entries[this.state.questionNumber];
             let displayQuestionModal = displayQuestion[0];
@@ -637,20 +638,20 @@ class ModalQuestions extends Component {
             let displayButton2 = displayButton[1];
             return (
                 <div>
-                  <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-                  <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
-                    <ModalFooter>
-                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
-                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
-                      <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
-                      <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                    </ModalFooter>
-                  </Modal>
+                    <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                        <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
+                        <ModalFooter>
+                            <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
+                            <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
+                            <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
+                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
                 </div>
             );
         }
-        return(
+        return (
             <div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <p>Organizer has not posted question yet</p>
