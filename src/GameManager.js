@@ -282,7 +282,7 @@ export class Categories extends Component {
         let isEnabled = (this.state.questions.length === 0);
         let goButton = null;
         if (this.state.go) {
-            return <Redirect push to={{pathname: "/" + this.parentState.roomName + "/Room/", uid: this.parentState.uid, deck:this.state.questions}} />;
+            return <Redirect push to={{pathname: "/" + this.parentState.roomName + "/Room/", state:{questions:this.state.questions, uid:this.parentState.uid, fname: this.parentState.fname, userType:"organizer"}}} />;
         } else {
             goButton = (
                 <button className="goToRoom" disabled={isEnabled} onClick={this.redirect}>
@@ -604,11 +604,6 @@ class ModalQuestions extends Component {
     }
 
     handleAnswers(question, answer1, answer2, gotClicked) {
-        console.log("in handle answers");
-        console.log("what is the question", question);
-        console.log("what is the first answer", answer1);
-        console.log("what is the second answer", answer2);
-        console.log("who got clicked on?", gotClicked);
         this.incrementCount(gotClicked);
         let roomRef = firebase.database().ref("Rooms").child(this.props.uid);
         roomRef.set({
@@ -624,32 +619,32 @@ class ModalQuestions extends Component {
 
     incrementCount(target) {
         if (target === 1) {
-            let prevState = this.state.answer1Count++;
             this.setState(prevState=>({
-                answer1Count: prevState
+                answer1Count: prevState.answer1Count + 1
             }));
-        } 
-        this.setState(prevState=>({
-            answer2Count: prevState.answer2Count++
-        }));
+        } else {
+            this.setState(prevState=>({
+                answer2Count: prevState.answer2Count + 1
+            }));
+        }
     }
 
     render() {
         if(this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
-            let entries = this.props.questionList[0];
-            console.log(entries)
+            let entries = this.props.questionList;
             let displayQuestion = entries[this.state.questionNumber];
-            let displayButton = entries[1];
+            let displayQuestionModal = displayQuestion[0];
+            let displayButton = displayQuestion[1];
             let displayButton1 = displayButton[0];
             let displayButton2 = displayButton[1];
             return (
                 <div>
                   <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
                   <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>{displayQuestion}</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
                     <ModalFooter>
-                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestion, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
-                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestion, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
+                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
+                      <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
                       <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
                       <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>

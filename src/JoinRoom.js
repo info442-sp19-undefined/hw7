@@ -85,7 +85,7 @@ class JoinRoom extends Component {
     // Render different buttons whether the user has successfully been added to the room or not
     let button = null;
     if (this.state.joined) {
-      return <Redirect push to={{ pathname: "/" + this.state.roomName + "/Categories/", state: this.state }} />;
+      return <Redirect push to={{ pathname: "/" + this.state.roomName + "/Room/", state: {userType:"player", fname: this.state.fname, uid: this.state.uid, icon: this.state.icon}}} />;
     } else {
       button = (
         <Button onClick={this.handleJoin} disabled={!isEnabled}>
