@@ -55,7 +55,8 @@ export class GameManager extends Component {
             },
             analysis: {
                 placeholder: "Placeholder"
-            }
+            },
+            readyToStart: false
         });
         this.setState({ created: true });
     }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase/app";
 import "./css/room.css";
-import { Button, Label, Col, Row} from "reactstrap";
+import { Button, Label, Col, Row, Modal, ModalHeader, ModalFooter} from "reactstrap";
 import { BeatLoader } from 'react-spinners';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { relative } from "path";
@@ -142,7 +142,6 @@ export class WaitingRoom extends Component {
               style={{ visibility: 'hidden' }}
             >
             </div>
-<<<<<<< HEAD
           </div>
           <Button onClick={this.handleStart} disabled={!isEnabled}>
             Start Game
@@ -197,12 +196,6 @@ export class WaitingRoom extends Component {
         <div id="playersContainer">
         </div>
         {screen}
-=======
-        </div>
-        <Button onClick={this.handleStart} disabled={!isEnabled}>
-          <ModalQuestions questionList={this.parentState.questions} max={this.parentState.numQuestions} uid={this.parentState.uid} />
-        </Button>
->>>>>>> 0be974cfd3834de804aa8da2adaa046933e4292e
       </div>
     )
     
