@@ -610,7 +610,6 @@ class ModalQuestions extends Component {
         console.log("im inside handle answers");
         //this.incrementCount(gotClicked);
         let roomRef = firebase.database().ref("Rooms").child(this.props.uid).child("analysis");
-        let title = "";
         roomRef.once("value").then(function(snapshot){
             let key = snapshot.val();
             console.log("key");
@@ -625,10 +624,8 @@ class ModalQuestions extends Component {
             console.log(question);
             while(n < randomKeys.length) {
                 if(key[randomKeys[n]]["questionAsked"] === question) {
-                    console.log("is it true")
-                    if(gotClicked === 1) {
-                        break;
-                    }
+                    console.log("is it true");
+                    break;
                 } else {
                     n = n + 1;
                 }
@@ -638,14 +635,16 @@ class ModalQuestions extends Component {
             
             if(gotClicked === 1) {
                 let number = key[randomKeys[n]]["answerOneCount"] + 1;
-                questionRef.set({
+                questionRef.update({
                     answerOneCount: number
+
                 })
-            } 
-            let number = key[randomKeys[n]]["answerTwoCount"] + 1;
-            questionRef.set({
-                answerTwoCount: number
-            })
+            } else {
+                let number = key[randomKeys[n]]["answerTwoCount"] + 1;
+                questionRef.update({
+                    answerTwoCount: number
+                })
+            }
         })
         
         
