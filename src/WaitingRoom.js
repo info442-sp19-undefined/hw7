@@ -26,17 +26,24 @@ export class WaitingRoom extends Component {
     this.handleStart = this.handleStart.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.renderPlayers = this.renderPlayers.bind(this);
+    this.checkReady = this.checkPlayers(this);
   }
-
-  componentDidMount() {
+  componentWillMount() {
     let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
     this.checkPlayers(roomRef);
     this.renderPlayers();
   }
-  
-  // For loader
-  componentWillUpdate() {
+
+  componentDidMount() {
     let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
+
+    this.checkPlayers(roomRef);
+    this.checkReady(roomRef);
+
+    this.renderPlayers();
+  }
+
+  checkReady(roomRef) {
     roomRef.child("readyToStart").once("value").then(snapshot => {
       if(snapshot.val() !== false) {
         this.setState({
@@ -44,11 +51,8 @@ export class WaitingRoom extends Component {
         });
       }
     });
-
-    this.checkPlayers(roomRef);
-    this.renderPlayers();
   }
-
+  
   checkPlayers(roomRef) {
     roomRef.child("players").once("value").then(snapshot => {
       if (snapshot.exists()) {

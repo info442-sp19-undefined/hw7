@@ -200,7 +200,7 @@ export class Categories extends Component {
         this.setDeck = this.setDeck.bind(this);
         this.parentState = this.props.location.state;
     }
-
+    
     componentDidMount() {
         // Check file whether file is empty
         if (questionFile.length === 0) {
