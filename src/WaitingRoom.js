@@ -136,8 +136,6 @@ export class WaitingRoom extends Component {
     } else {
       screen = (
         <div>
-         <div id="playersContainer">
-          </div>
           <div className='sweet-loading'>
           <BeatLoader
             css={override}
@@ -155,6 +153,10 @@ export class WaitingRoom extends Component {
         <a href={"/Settings"} >
           <img src={require('./icons/setting.svg')} style={{position: relative, left:0, width: "70px"}} alt="setting" />
         </a>
+        <a href="/">
+          <Label>Leave</Label>
+        </a>
+
         <Row style={{width: "640px", margin:"20px"}}>
           <Col>
             <Label>Room ID</Label>
@@ -173,6 +175,8 @@ export class WaitingRoom extends Component {
             {this.state.copied ? <span style={{ color: 'red' }}>Copied.</span> : null}
           </Col>
         </Row> 
+        <div id="playersContainer">
+        </div>
         {screen}
       </div>
     )
