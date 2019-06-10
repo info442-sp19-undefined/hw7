@@ -25,7 +25,7 @@ export class GameManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fname: "First Name",
+            fname: "",
             uid: "",
             roomName: "",
             numQuestions: 5,
@@ -102,7 +102,7 @@ export class GameManager extends Component {
     }
 
     render() {
-        let isEnabled = (this.state.fname !== "");
+        let isEnabled = (this.state.fname === "");
         let button = null;
         if (this.state.created) {
             return <Redirect push to={{ pathname: "/" + this.state.roomName + "/Categories/", state: this.state }} />;
@@ -110,7 +110,7 @@ export class GameManager extends Component {
             button = (
                 <Button
                     onClick={this.handleCreateRoom}
-                    disabled={!isEnabled}
+                    disabled={isEnabled}
                     style={{
                         fontSize: "18px",
                         borderRadius: "20px",

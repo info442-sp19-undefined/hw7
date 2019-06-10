@@ -31,7 +31,7 @@ class App extends Component {
                             </a>
                         </div>
                         <div>
-                            <a href="/NewRoom" >
+                            <a href="/Settings" >
                                 <button style={{ width: "200px" }}> New Room </button>
                             </a>
                         </div>
@@ -45,7 +45,7 @@ class App extends Component {
             <header className="App-header" >
                 <Switch>
                     <Route exact path="/" render={Home} />
-                    <Route  path="/NewRoom" render={() => <GameManager data={this.state} />} />
+                    <Route  path="/Settings" render={() => <GameManager data={this.state} />} />
                     <Route path="/JoinRoom" component={JoinRoom}/>
                     <Route path="/:name/Categories/" component={Categories}/>
                     <Route path="/:name/Room/" component={WaitingRoom}/>
