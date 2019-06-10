@@ -17,6 +17,7 @@ export class WaitingRoom extends Component {
     super(props);
     this.state = {
       readyToStart: false,
+      finished: false,
       players:[]
     };
 
@@ -30,6 +31,7 @@ export class WaitingRoom extends Component {
   componentDidMount() {
     let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
     this.checkPlayers(roomRef);
+    this.renderPlayers();
   }
   
   // For loader
@@ -44,6 +46,7 @@ export class WaitingRoom extends Component {
     });
 
     this.checkPlayers(roomRef);
+    this.renderPlayers();
   }
 
   checkPlayers(roomRef) {
@@ -106,7 +109,8 @@ export class WaitingRoom extends Component {
   }
 
   render() {
-    let isEnabled = this.state.uid !== "" && this.state.fname !== "";
+    let isEnabled = (this.state.uid !== "" && this.state.fname !== "");
+    let finishedGame = (!this.state.finished);
     let screen = null;
     //this.renderPlayers();
     if (this.parentState.userType === "organizer") {
@@ -122,6 +126,10 @@ export class WaitingRoom extends Component {
           </div>
           <Button onClick={this.handleStart} disabled={!isEnabled}>
             Start Game
+          </Button>
+          /**replace the onClick with analysis */
+          <Button disabled={finishedGame} onClick={this.handleStart}>
+            Analysis
           </Button>
         </div>
       );
@@ -143,7 +151,7 @@ export class WaitingRoom extends Component {
       );
     }
     return(
-<div>
+    <div>
         <a href={"/Settings"} >
           <img src={require('./icons/setting.svg')} style={{position: relative, left:0, width: "70px"}} alt="setting" />
         </a>
@@ -166,7 +174,6 @@ export class WaitingRoom extends Component {
           </Col>
         </Row> 
         {screen}
-        <button onClick={this.renderPlayers} />
       </div>
     )
     
