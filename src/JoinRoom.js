@@ -48,7 +48,7 @@ class JoinRoom extends Component {
   handleJoin() {
     let roomRef = firebase.database().ref('Rooms');
     roomRef.orderByChild('uid').equalTo(this.state.uid).limitToFirst(1).once("value", snapshot => {
-      if (snapshot.exists()) {
+      if (snapshot.exists() && snapshot.child("readyToStart").val() !== true) {
         // Adds player information to correct room in firebase
         roomRef.child(this.state.uid).child('players').push({
           name: this.state.fname,
