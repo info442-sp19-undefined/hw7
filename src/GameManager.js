@@ -291,7 +291,6 @@ export class Categories extends Component {
                 </button>
             );
         }
-
         return (
             <div id="category">
                 <h1>Categories</h1>
@@ -589,6 +588,7 @@ class ModalQuestions extends Component {
         this.toggle = this.toggle.bind(this);
         this.nextQuestion = this.nextQuestion.bind(this);
         this.incrementCount = this.incrementCount.bind(this);
+        this.addToFire = this.addToFire.bind(this);
     }
 
     // this.props.max is the max number of questions
@@ -605,8 +605,49 @@ class ModalQuestions extends Component {
     }
 
     handleAnswers(question, answer1, answer2, gotClicked) {
-        this.incrementCount(gotClicked);
-        let roomRef = firebase.database().ref("Rooms").child(this.props.uid);
+        console.log("im inside handle answers");
+        // this.incrementCount(gotClicked);
+        let roomRef = firebase.database().ref("Rooms").child(this.props.uid).child("analysis");
+        let title = "";
+        roomRef.once("value").then(function(snapshot){
+            let key = snapshot.val();
+            console.log("key");
+            console.log(key);
+            let n = 0;
+            const randomKeys = Object.keys(key);
+            console.log("randomKeys");
+            console.log(randomKeys);
+            console.log("this is the one");
+            console.log(key[randomKeys[n]]);
+            console.log(key[randomKeys[n]]["questionAsked"]);
+            console.log(question);
+            while(n < randomKeys.length) {
+                if(key[randomKeys[n]]["questionAsked"] === question) {
+                    console.log("is it true")
+                    if(gotClicked === 1) {
+                        break;
+                    }
+                } else {
+                    n = n + 1;
+                }
+            }
+            console.log(this.props.uid);
+            let questionRef = firebase.database().ref("Rooms").child(this.props.uid).child("analysis").child(randomKeys[n]);
+            
+            if(gotClicked === 1) {
+                let number = key[randomKeys[n]]["answerOneCount"] + 1;
+                questionRef.set({
+                    answerOneCount: number
+                })
+            } 
+            let number = key[randomKeys[n]]["answerTwoCount"] + 1;
+            questionRef.set({
+                answerTwoCount: number
+            })
+        })
+        
+        
+        /*
         roomRef.child("analysis").push({
             questionAsked: question,
             answerOne: answer1,
@@ -618,6 +659,7 @@ class ModalQuestions extends Component {
             answerOneCount:0,
             answerTwoCount:0
         })
+        */
     }
 
     incrementCount(target) {
@@ -633,8 +675,31 @@ class ModalQuestions extends Component {
         });
     }
 
+    addToFire() {
+        let n = 0;
+        let roomRef = firebase.database().ref("Rooms").child(this.props.uid);
+        while (n < this.props.max) {
+            let entries = this.props.questionList;
+            let displayQuestion = entries[n];
+            let displayQuestionModal = displayQuestion[0];
+            let displayButton = displayQuestion[1];
+            let displayButton1 = displayButton[0];
+            let displayButton2 = displayButton[1];
+            roomRef.child("analysis").push({
+                questionAsked: displayQuestionModal,
+                answerOne: displayButton1,
+                answerTwo: displayButton2,
+                answerOneCount: 0,
+                answerTwoCount: 0
+            });
+            n = n + 1;
+        }
+    }
+
+
     render() {
         if (this.props.questionList.length !== 0 && this.state.questionNumber < this.props.questionList.length) {
+            this.addToFire();
             let entries = this.props.questionList;
             let displayQuestion = entries[this.state.questionNumber];
             let displayQuestionModal = displayQuestion[0];
