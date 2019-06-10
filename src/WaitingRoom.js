@@ -24,13 +24,14 @@ export class WaitingRoom extends Component {
     this.checkPlayers = this.checkPlayers.bind(this);
     this.handleStart = this.handleStart.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.renderPlayers = this.renderPlayers.bind(this);
   }
 
   componentDidMount() {
     let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
     this.checkPlayers(roomRef);
   }
-
+  
   // For loader
   componentWillUpdate() {
     let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
@@ -75,7 +76,6 @@ export class WaitingRoom extends Component {
       if (this.state.players.length >= 1) {
         roomRef.child('readyToStart').set(true);
       } else {
-        console.log("less than one player")
         document.getElementById('error').innerHTML = "Can't start the game when you only have 1 player!";
         document.getElementById('error').style.visibility = "visible";
       }
@@ -83,12 +83,32 @@ export class WaitingRoom extends Component {
   }
   
   renderPlayers() {
+        let allPlayers = document.getElementById('playersContainer');
+        if (allPlayers !== null) {
+            allPlayers.innerHTML = "";
+        }
 
+        for (let obj of this.state.players) {
+            let image = document.createElement('img');
+            let name  = document.createElement('Label');
+            let col = document.createElement("span");
+            col.style.width = "100px";
+            col.style.display = "inline-block";
+            let key = obj.name;
+            let src = require("./icons/" + obj.icon);
+            name.innerHTML = key;
+            image.src = src;
+            image.alt = "player " + key;
+            col.appendChild(image);
+            col.appendChild(name);
+            allPlayers.appendChild(col);
+        }
   }
 
   render() {
     let isEnabled = this.state.uid !== "" && this.state.fname !== "";
     let screen = null;
+    //this.renderPlayers();
     if (this.parentState.userType === "organizer") {
       screen = (
         <div>
@@ -107,7 +127,9 @@ export class WaitingRoom extends Component {
       );
     } else {
       screen = (
-        <div id="playersContainer">
+        <div>
+         <div id="playersContainer">
+          </div>
           <div className='sweet-loading'>
           <BeatLoader
             css={override}
@@ -144,6 +166,7 @@ export class WaitingRoom extends Component {
           </Col>
         </Row> 
         {screen}
+        <button onClick={this.renderPlayers} />
       </div>
     )
     

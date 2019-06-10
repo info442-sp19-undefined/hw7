@@ -65,7 +65,6 @@ class JoinRoom extends Component {
           }
         });
       } else {
-        console.log("here")
         document.getElementById('error').innerHTML = "Oh no! Seems that room doesn't exist!";
         document.getElementById('error').style.visibility = "visible";
         document.getElementById('join-form').reset();
