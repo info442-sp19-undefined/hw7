@@ -22,52 +22,66 @@ export class WaitingRoom extends Component {
     };
 
     this.parentState = this.props.location.state;
-    this.checkPlayers = this.checkPlayers.bind(this);
     this.handleStart = this.handleStart.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.setPlayer = this.setPlayer.bind(this);
+    this.setReady = this.setReady.bind(this);
     this.renderPlayers = this.renderPlayers.bind(this);
-    this.checkReady = this.checkPlayers(this);
   }
+
   componentWillMount() {
-    let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
-    this.checkPlayers(roomRef);
+    this.setPlayer(this.checkPlayers());
     this.renderPlayers();
   }
 
-  componentDidMount() {
-    let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
+  componentWillUpdate() {
+    let ready = this.checkReady();
+    let player = this.checkPlayers();
 
-    this.checkPlayers(roomRef);
-    this.checkReady(roomRef);
-
-    this.renderPlayers();
+    if (ready !== this.state.readyToStart) {
+      this.setReady(ready);
+    } else if (player.length !== this.state.players.length) {
+      this.setPlayer(player);
+      this.renderPlayers();
+    }
   }
 
-  checkReady(roomRef) {
-    roomRef.child("readyToStart").once("value").then(snapshot => {
-      if(snapshot.val() !== false) {
-        this.setState({
-          readyToStart: true
-        });
-      }
+  setPlayer(state) {
+    this.setState({
+      players: state
     });
   }
+
+  setReady(state) {
+    this.setState({
+      readyToStart: state
+    });
+  }
+
+  checkReady() {
+    let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
+    let ready = false;
+    roomRef.child("readyToStart").once("value").then(snapshot => {
+      if(snapshot.val() !== false) {
+        ready = true;
+      }
+    });
+    return ready;
+  }
   
-  checkPlayers(roomRef) {
+  checkPlayers() {
+    let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
+    let players = [];
     roomRef.child("players").once("value").then(snapshot => {
       if (snapshot.exists()) {
         let array = Object.entries(snapshot.val());
-        let players = [];
 
         for (let entry of array) {
           players.push(entry[1]);
         }
-
-        this.setState({
-          players: players
-        });
       }
     });
+    return players;
   }
 
   handleCancel() {
@@ -90,33 +104,34 @@ export class WaitingRoom extends Component {
   }
   
   renderPlayers() {
-        let allPlayers = document.getElementById('playersContainer');
-        if (allPlayers !== null) {
-            allPlayers.innerHTML = "";
-        }
+    let allPlayers = document.getElementById('playersContainer');
+    if (allPlayers !== null) {
+      allPlayers.innerHTML = "";
+    }
+    
+    for (let obj of this.state.players) {
+      let image = document.createElement('img');
+      let name = document.createElement('label');
+      let col = document.createElement("div");
+      col.style.width = '100px';
+      col.style.display = 'flex';
 
-        for (let obj of this.state.players) {
-            let image = document.createElement('img');
-            let name  = document.createElement('Label');
-            let col = document.createElement("span");
-            col.style.width = "100px";
-            col.style.display = "inline-block";
-            let key = obj.name;
-            let src = require("./icons/" + obj.icon);
-            name.innerHTML = key;
-            image.src = src;
-            image.alt = "player " + key;
-            col.appendChild(image);
-            col.appendChild(name);
-            allPlayers.appendChild(col);
-        }
+      let key = obj.name;
+      let src = require('./icons/' + obj.icon);
+      name.innerHTML = key;
+      image.src = src;
+      image.alt = 'player ' + key;
+
+      col.appendChild(image);
+      col.appendChild(name);
+      allPlayers.appendChild(col);
+    }
   }
 
   render() {
     let isEnabled = (this.state.uid !== "" && this.state.fname !== "");
     let finishedGame = (!this.state.finished);
     let screen = null;
-    //this.renderPlayers();
     if (this.parentState.userType === "organizer") {
       screen = (
         <div>
@@ -131,7 +146,6 @@ export class WaitingRoom extends Component {
           <Button onClick={this.handleStart} disabled={!isEnabled}>
             Start Game
           </Button>
-          /**replace the onClick with analysis */
           <Button disabled={finishedGame} onClick={this.handleStart}>
             Analysis
           </Button>
