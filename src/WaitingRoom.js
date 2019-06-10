@@ -7,7 +7,8 @@ export class WaitingRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      readyToStart: false
+      readyToStart: false,
+      players:[]
     };
 
     this.parentState = this.props.location.state;
@@ -15,11 +16,28 @@ export class WaitingRoom extends Component {
     this.handleCancel = this.handleCancel.bind(this);
   }
 
-  handleCancel() {
-        let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
-        roomRef.set({
-            game_active: false
+  componentDidMount() {
+    let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid).child('players');
+    roomRef.once("value").then(snapshot => {
+      if (snapshot.exists()) {
+        let array = Object.entries(snapshot.val());
+        let players = [];
+        for (let entry of array) {
+          players.push(entry[1]);
+        }
+
+        this.setState({
+          players: players
         });
+      }
+    });
+  }
+
+  handleCancel() {
+    let roomRef = firebase.database().ref("Rooms").child(this.parentState.uid);
+    roomRef.set({
+      game_active: false
+    });
   }
 
   handleStart() {
@@ -39,6 +57,11 @@ export class WaitingRoom extends Component {
 
   render() {
     let isEnabled = this.state.uid !== "" && this.state.fname !== "";
+    if(this.props.userType === "organizer") {
+
+    } else {
+
+    }
     return(
       <div>
         <div className="errorContainer">
