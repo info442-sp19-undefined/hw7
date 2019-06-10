@@ -633,7 +633,8 @@ class ModalQuestions extends Component {
                     n = n + 1;
                 }
             }
-            let questionRef = firebase.database().ref("Rooms").child(this.props.uid).child("analysis").child(randomKeys[n]);
+
+            let questionRef = roomRef.child(randomKeys[n]);
             
             if(gotClicked === 1) {
                 let number = key[randomKeys[n]]["answerOneCount"] + 1;
