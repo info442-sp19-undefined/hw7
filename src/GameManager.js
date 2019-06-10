@@ -604,23 +604,14 @@ class ModalQuestions extends Component {
         this.setState({ questionNumber: num });
     }
 
-    handleAnswers(question, answer1, answer2, gotClicked) {
-        console.log("im inside handle answers");
+    handleAnswers(question, gotClicked) {
         // this.incrementCount(gotClicked);
         let roomRef = firebase.database().ref("Rooms").child(this.props.uid).child("analysis");
         let title = "";
         roomRef.once("value").then(function(snapshot){
             let key = snapshot.val();
-            console.log("key");
-            console.log(key);
             let n = 0;
             const randomKeys = Object.keys(key);
-            console.log("randomKeys");
-            console.log(randomKeys);
-            console.log("this is the one");
-            console.log(key[randomKeys[n]]);
-            console.log(key[randomKeys[n]]["questionAsked"]);
-            console.log(question);
             while(n < randomKeys.length) {
                 if(key[randomKeys[n]]["questionAsked"] === question) {
                     console.log("is it true")
@@ -645,21 +636,6 @@ class ModalQuestions extends Component {
                 answerTwoCount: number
             })
         })
-        
-        
-        /*
-        roomRef.child("analysis").push({
-            questionAsked: question,
-            answerOne: answer1,
-            answerTwo: answer2,
-            answerOneCount: this.state.answer1Count,
-            answerTwoCount: this.state.answer2Count
-        });
-        this.setState({
-            answerOneCount:0,
-            answerTwoCount:0
-        })
-        */
     }
 
     incrementCount(target) {
@@ -712,8 +688,8 @@ class ModalQuestions extends Component {
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                         <ModalHeader toggle={this.toggle}>{displayQuestionModal}</ModalHeader>
                         <ModalFooter>
-                            <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 1)}>{displayButton1}</Button>{' '}
-                            <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, displayButton1, displayButton2, 2)}>{displayButton2}</Button>{' '}
+                            <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, 1)}>{displayButton1}</Button>{' '}
+                            <Button color="primary" onClick={() => this.handleAnswers(displayQuestionModal, 2)}>{displayButton2}</Button>{' '}
                             <Button color="primary" onClick={this.nextQuestion}>Next Question</Button>{' '}
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
