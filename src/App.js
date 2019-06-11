@@ -31,7 +31,7 @@ class App extends Component {
                             {/* </a> */}
                            </Link>
                         </div>
-                        <div>
+                        <div>s
                             <Link to="/Settings" >
                                 <button style={{ width: "200px" }}> New Room </button>
                             </Link>
