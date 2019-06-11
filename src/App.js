@@ -26,14 +26,15 @@ class App extends Component {
                     </div>
                     <div className="buttonContainer">
                         <div>
-                            <a href="/JoinRoom">
+                            <Link to="/JoinRoom">
                                 <button style={{width: "200px"}}> Join a Room </button>
-                            </a>
+                            {/* </a> */}
+                           </Link>
                         </div>
                         <div>
-                            <a href="/Settings" >
+                            <Link to="/Settings" >
                                 <button style={{ width: "200px" }}> New Room </button>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
